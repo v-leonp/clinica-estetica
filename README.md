@@ -261,11 +261,11 @@ Flujo: **push a GitHub** → Vercel redeploy automático (si el repo está conec
    - `NEXT_PUBLIC_SITE_URL` → opcional (p. ej. `https://tu-proyecto.vercel.app`)
    - `UPSTASH_REDIS_REST_*` → opcional pero recomendado en producción (rate limit)
 4. **Build**: lo define `vercel.json` → `npm run vercel-build` (migraciones + `next build`).
-   Node **24.x** (`.nvmrc` + `engines` en `package.json`; Vercel ya no admite 20.x).
+   Node **26.x** (`.nvmrc` + `engines` en `package.json`; alinea con Vercel y evita override 20.x).
 5. **Ajustes recomendados en Vercel → Settings**:
    - **Prioritize Production Builds**: activado
    - **Skew Protection**: activar si quieres evitar desajustes frontend/backend entre deploys
-   - **Node.js Version**: **24.x** (o dejar que `package.json` lo imponga en el deploy)
+   - **Node.js Version**: **26.x** (debe coincidir con `package.json`; quita pins viejos en 20.x)
 6. Tras cambiar variables o Storage: **Deployments → Redeploy**.
 
 > Las páginas de marketing están prerenderizadas estáticamente (`force-static`
