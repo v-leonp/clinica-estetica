@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { promos } from "~/data/content";
+import { promos, promosDisclaimer } from "~/data/content";
 
 export default function Promos() {
   return (
@@ -9,10 +9,10 @@ export default function Promos() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <p className="eyebrow">Promociones del mes</p>
-            <h2 className="section-title">Beneficios exclusivos este mes</h2>
+            <h2 className="section-title">Beneficios sujetos a valoración médica</h2>
             <p className="section-sub">
-              Promociones limitadas en nuestros tratamientos más solicitados.
-              Consulta con nuestras asesoras para reservar tu cupo.
+              Ofertas orientativas en esta demo. Sujetas a disponibilidad e indicación
+              profesional. {promosDisclaimer}
             </p>
           </div>
           <Link href="/promociones" className="btn-outline">

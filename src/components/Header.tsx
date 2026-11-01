@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { nav, site, hero } from "~/data/content";
+import { nav, site, cta } from "~/data/content";
+import MegaMenu from "~/components/MegaMenu";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -45,31 +46,41 @@ export default function Header() {
         <nav aria-label="Principal" className="hidden md:block">
           <ul className="flex items-center gap-6 text-sm text-ink-700">
             {nav.map((item) => {
+              if (item.href === "/") return null;
               const active =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname === item.href ||
-                    pathname.startsWith(item.href + "/");
+                pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`transition hover:text-rose-gold ${
-                      active ? "text-rose-gold" : ""
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
+                  {item.href === "/tratamientos" ? (
+                    <span className={active ? "text-rose-gold" : ""}>
+                      <MegaMenu />
+                    </span>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className={`transition hover:text-rose-gold ${
+                        active ? "text-rose-gold" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               );
             })}
           </ul>
         </nav>
 
-        <div className="hidden md:block">
-          <Link href={hero.ctaPrimary.href} className="btn-primary">
-            {hero.ctaPrimary.label}
+        <div className="hidden items-center gap-4 md:flex">
+          <a
+            href={`tel:${site.phoneHref}`}
+            className="text-sm text-ink-700 hover:text-rose-gold"
+          >
+            {site.phoneDisplay}
+          </a>
+          <Link href={cta.primary.href} className="btn-primary">
+            {cta.primary.label}
           </Link>
         </div>
 
@@ -128,8 +139,8 @@ export default function Header() {
               </li>
             ))}
             <li className="pt-2">
-              <Link href={hero.ctaPrimary.href} className="btn-primary w-full">
-                {hero.ctaPrimary.label}
+              <Link href={cta.primary.href} className="btn-primary w-full">
+                {cta.primary.label}
               </Link>
             </li>
           </ul>

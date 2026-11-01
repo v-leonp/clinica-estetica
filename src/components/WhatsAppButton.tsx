@@ -2,7 +2,7 @@ import { site } from '~/data/content';
 
 export default function WhatsAppButton() {
   const text = encodeURIComponent(
-    `Hola ${site.brand}, me gustaría agendar una consulta.`
+    `Hola ${site.brand}, me gustaría solicitar una valoración.`,
   );
   return (
     <a
@@ -10,7 +10,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escribirnos por WhatsApp"
-      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-soft transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 focus:ring-offset-cream-50 sm:bottom-7 sm:right-7"
+      className="fixed bottom-5 right-5 z-40 hidden h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-soft transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 focus:ring-offset-cream-50 sm:bottom-7 sm:right-7 md:flex"
     >
       <svg
         viewBox="0 0 32 32"

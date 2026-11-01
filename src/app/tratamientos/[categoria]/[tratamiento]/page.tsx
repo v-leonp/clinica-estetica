@@ -5,13 +5,15 @@ import { notFound } from "next/navigation";
 import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
-import FreeConsult from "~/components/FreeConsult";
+import TreatmentLeadCta from "~/components/TreatmentLeadCta";
 import {
   allTreatments,
+  careProcess,
   getTreatment,
   site,
 } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
+import { faqPageJsonLd, medicalProcedureJsonLd } from "~/lib/json-ld";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -36,13 +38,14 @@ export async function generateMetadata({
 
   const { category, treatment } = match;
   const url = `${getSiteUrl()}/tratamientos/${category.slug}/${treatment.slug}`;
+  const seoDescription = `${treatment.short} Valoración médica en Lima, Perú. ${site.brand}.`;
   return {
-    title: treatment.name,
-    description: treatment.short,
+    title: `${treatment.name} en Lima | ${site.brand}`,
+    description: seoDescription,
     alternates: { canonical: url },
     openGraph: {
-      title: `${treatment.name} | ${site.brand}`,
-      description: treatment.short,
+      title: `${treatment.name} en Lima | ${site.brand}`,
+      description: seoDescription,
       url,
     },
   };
@@ -58,21 +61,19 @@ export default async function TreatmentPage({
   if (!match) notFound();
 
   const { category, treatment } = match;
-  const bookHref = `/contacto?tratamiento=${treatment.slug}`;
+  const bookHref = `/reservar?tratamiento=${treatment.slug}`;
   const waText = encodeURIComponent(
     `Hola ${site.brand}, me interesa el tratamiento "${treatment.name}". ¿Me podrían dar más información?`,
   );
   const waHref = `https://wa.me/${site.whatsappNumber}?text=${waText}`;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "MedicalProcedure",
+  const jsonLd = medicalProcedureJsonLd({
     name: treatment.name,
     description: treatment.short,
     url: `${getSiteUrl()}/tratamientos/${category.slug}/${treatment.slug}`,
-    procedureType: "https://schema.org/NonInvasiveProcedure",
     bodyLocation: category.title,
-  };
+  });
+  const faqLd = faqPageJsonLd(treatment.faq);
 
   return (
     <SiteShell>
@@ -92,7 +93,7 @@ export default async function TreatmentPage({
       >
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <Link href={bookHref} className="btn-primary">
-            Agenda tu consulta
+            Solicitar valoración
           </Link>
           <a
             href={waHref}
@@ -138,8 +139,32 @@ export default async function TreatmentPage({
               ))}
             </ul>
 
+            <h3 className="mt-10 font-serif text-xl text-ink-900">Proceso de atención</h3>
+            <ol className="mt-4 grid gap-3 sm:grid-cols-2">
+              {careProcess.map((step) => (
+                <li
+                  key={step.step}
+                  className="rounded-xl border border-cream-200 bg-cream-50/80 p-4 text-sm text-ink-700"
+                >
+                  <span className="font-serif text-rose-gold">{step.step}</span>
+                  <p className="mt-1 font-medium text-ink-900">{step.title}</p>
+                  <p className="mt-1 leading-relaxed">{step.description}</p>
+                </li>
+              ))}
+            </ol>
+
             <h3 className="mt-10 font-serif text-xl text-ink-900">
-              ¿Para quién es?
+              Qué puede y qué no puede lograr
+            </h3>
+            <p className="mt-3 text-base leading-relaxed text-ink-700">
+              Este tratamiento puede ayudar con los beneficios descritos, siempre sujeto a
+              evaluación médica. No sustituye procedimientos quirúrgicos cuando estos están
+              indicados, ni garantiza un resultado idéntico al de otra persona. Los tiempos de
+              recuperación son orientativos.
+            </p>
+
+            <h3 className="mt-10 font-serif text-xl text-ink-900">
+              ¿Para quién puede ser adecuado?
             </h3>
             <p className="mt-3 text-base leading-relaxed text-ink-700">
               {treatment.whoFor}
@@ -180,7 +205,7 @@ export default async function TreatmentPage({
               </dl>
 
               <Link href={bookHref} className="btn-primary mt-7 w-full">
-                Agenda tu consulta
+                Solicitar valoración
               </Link>
               <a
                 href={waHref}
@@ -229,11 +254,18 @@ export default async function TreatmentPage({
         </div>
       </section>
 
-      <FreeConsult />
+      <TreatmentLeadCta
+        treatmentName={treatment.name}
+        treatmentSlug={treatment.slug}
+      />
 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
     </SiteShell>
   );

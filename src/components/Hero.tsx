@@ -4,31 +4,31 @@ import { hero, trustBadges } from "~/data/content";
 
 export default function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden">
+    <section id="inicio" className="relative min-h-[88vh] overflow-hidden">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-gradient-cream"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-gradient-rose opacity-40 blur-3xl"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(243,220,212,0.55),_transparent_55%)]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-32 top-40 h-[420px] w-[420px] rounded-full bg-rose-blush/60 blur-3xl"
+        className="pointer-events-none absolute -left-32 bottom-0 h-[480px] w-[480px] rounded-full bg-rose-blush/50 blur-3xl"
       />
 
-      <div className="container-x relative pt-14 pb-16 sm:pt-20 md:grid md:grid-cols-12 md:gap-10 md:pt-24 md:pb-24">
+      <div className="container-x relative flex min-h-[88vh] flex-col justify-center py-16 md:grid md:min-h-[88vh] md:grid-cols-12 md:items-center md:gap-12 md:py-24">
         <div className="md:col-span-7">
           <p className="eyebrow">{hero.eyebrow}</p>
-          <h1 className="mt-4 font-serif text-4xl leading-[1.05] text-ink-900 sm:text-5xl md:text-6xl">
+          <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-[1.05] text-ink-900 sm:text-5xl md:text-6xl lg:text-7xl">
             {hero.title}
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-700 sm:text-lg">
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-700 sm:text-lg md:text-xl">
             {hero.subtitle}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link href={hero.ctaPrimary.href} className="btn-primary">
               {hero.ctaPrimary.label}
             </Link>
@@ -38,59 +38,35 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative mt-12 md:col-span-5 md:mt-0">
-          <div className="relative mx-auto aspect-[4/5] max-w-sm overflow-hidden rounded-3xl shadow-soft">
+        <div className="relative mt-14 md:col-span-5 md:mt-0">
+          <div
+            className="relative aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2rem] shadow-soft md:ml-auto"
+            role="img"
+            aria-label="Espacio ilustrativo de clínica estética premium — sustituir por fotografía o vídeo propio"
+          >
             <div className="absolute inset-0 bg-gradient-rose" aria-hidden="true" />
-            <svg
-              viewBox="0 0 400 500"
-              className="absolute inset-0 h-full w-full"
-              aria-hidden="true"
-            >
-              <defs>
-                <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#fff" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#fff" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <circle cx="200" cy="200" r="140" fill="url(#glow)" />
-              <circle
-                cx="200"
-                cy="200"
-                r="90"
-                fill="none"
-                stroke="#fff"
-                strokeOpacity="0.5"
-                strokeWidth="1"
-              />
-              <circle
-                cx="200"
-                cy="200"
-                r="130"
-                fill="none"
-                stroke="#fff"
-                strokeOpacity="0.35"
-                strokeWidth="1"
-              />
-            </svg>
-            <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/85 p-5 backdrop-blur">
-              <p className="eyebrow">Consulta gratuita</p>
-              <p className="mt-1 font-serif text-lg text-ink-900">
-                Evaluación personalizada con nuestras especialistas.
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(31,26,23,0.45),transparent_50%)]" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-cream-50">
+              <p className="text-xs uppercase tracking-[0.2em] text-rose-blush">
+                Lima · Medicina estética
+              </p>
+              <p className="mt-2 font-serif text-2xl leading-snug">
+                Espacios diseñados para tu comodidad y privacidad
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container-x relative pb-16">
+      <div className="container-x relative border-t border-cream-200/80 pb-16 pt-10">
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {trustBadges.map((b) => (
             <li
               key={b.title}
-              className="rounded-2xl border border-cream-200 bg-white/80 p-4 text-center backdrop-blur"
+              className="rounded-2xl border border-cream-200 bg-white/90 p-4 text-center backdrop-blur"
             >
-              <p className="font-serif text-base text-ink-900">{b.title}</p>
-              <p className="mt-1 text-xs text-ink-500">{b.subtitle}</p>
+              <p className="font-serif text-sm text-ink-900 sm:text-base">{b.title}</p>
+              <p className="mt-1 text-[11px] text-ink-500 sm:text-xs">{b.subtitle}</p>
             </li>
           ))}
         </ul>

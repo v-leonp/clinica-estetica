@@ -16,8 +16,8 @@ export default function NotFound() {
             o explorar nuestros tratamientos.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link href="/" className="btn-primary">
-              Volver al inicio
+            <Link href="/reservar" className="btn-primary">
+              Solicitar valoración
             </Link>
             <Link href="/tratamientos" className="btn-outline">
               Ver tratamientos

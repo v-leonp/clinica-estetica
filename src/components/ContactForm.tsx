@@ -143,11 +143,16 @@ export default function ContactForm() {
       <div className="container-x grid gap-10 md:grid-cols-12">
         <div className="md:col-span-5">
           <p className="eyebrow">Contacto</p>
-          <h2 className="section-title">Agenda tu consulta</h2>
+          <h2 className="section-title">Solicitar valoración</h2>
           <p className="section-sub">
-            Déjanos tus datos y una asesora se pondrá en contacto para coordinar
-            una evaluación personalizada. Todos los datos de contacto son de
-            ejemplo.
+            Cuéntanos qué te gustaría consultar. No es un diagnóstico en línea: revisaremos
+            tu mensaje y te propondremos los siguientes pasos.
+          </p>
+
+          <p className="mt-6 text-sm">
+            <Link href="/reservar" className="font-medium text-rose-gold hover:underline">
+              Preferir el flujo guiado de reserva →
+            </Link>
           </p>
 
           <ul className="mt-8 space-y-3 text-sm text-ink-700">
@@ -392,7 +397,7 @@ export default function ContactForm() {
             className="btn-primary mt-6 w-full sm:w-auto"
             disabled={createLead.isPending}
           >
-            {createLead.isPending ? "Enviando..." : "Enviar solicitud"}
+            {createLead.isPending ? "Enviando..." : "Enviar solicitud de valoración"}
           </button>
 
           <p

@@ -9,7 +9,7 @@ export default function Featured() {
       if (!match) return null;
       return {
         href: `/tratamientos/${f.categorySlug}/${f.treatmentSlug}`,
-        bookHref: `/contacto?tratamiento=${f.treatmentSlug}`,
+        bookHref: `/reservar?tratamiento=${f.treatmentSlug}`,
         title: match.treatment.name,
         description: match.treatment.short,
         price: match.treatment.priceFrom,
@@ -30,11 +30,11 @@ export default function Featured() {
       <div className="container-x">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <p className="eyebrow">Más solicitados</p>
-            <h2 className="section-title">Nuestros tratamientos destacados</h2>
+            <p className="eyebrow">Tratamientos estrella</p>
+            <h2 className="section-title">Descubre los más solicitados en Lumina</h2>
             <p className="section-sub">
-              Una selección de los procedimientos preferidos por nuestras
-              pacientes, con resultados visibles y naturales.
+              Selección de procedimientos preferidos por nuestras pacientes, con enfoque en
+              resultados naturales y seguros.
             </p>
           </div>
           <Link href="/tratamientos" className="btn-outline">
@@ -67,7 +67,7 @@ export default function Featured() {
                     Ver más
                   </Link>
                   <Link href={item.bookHref} className="btn-rose">
-                    Agendar
+                    Valoración
                   </Link>
                 </div>
               </article>

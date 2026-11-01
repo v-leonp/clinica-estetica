@@ -28,13 +28,14 @@ export async function generateMetadata({
   const cat = getCategory(categoria);
   if (!cat) return { title: "Tratamiento no encontrado" };
   const url = `${getSiteUrl()}/tratamientos/${cat.slug}`;
+  const seoDescription = `${cat.short} Clínica en Lima, Perú. ${site.brand}.`;
   return {
-    title: cat.title,
-    description: cat.short,
+    title: `${cat.title} en Lima | ${site.brand}`,
+    description: seoDescription,
     alternates: { canonical: url },
     openGraph: {
-      title: `${cat.title} | ${site.brand}`,
-      description: cat.short,
+      title: `${cat.title} en Lima | ${site.brand}`,
+      description: seoDescription,
       url,
     },
   };

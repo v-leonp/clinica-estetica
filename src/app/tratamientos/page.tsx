@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Tratamientos | ${site.brand}`,
     description:
-      "Catálogo completo: limpiezas, tratamientos faciales y corporales, depilación láser y cirugía estética.",
+      "Catálogo completo: medicina estética facial, dermatología estética, faciales, corporales, láser y paquetes en Lima.",
     url: `${getSiteUrl()}/tratamientos`,
   },
 };

@@ -1,6 +1,8 @@
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
 import WhatsAppButton from "~/components/WhatsAppButton";
+import MobileActionBar from "~/components/MobileActionBar";
+import TopContactBar from "~/components/home/TopContactBar";
 
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   return (
@@ -12,13 +14,13 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
         Saltar al contenido
       </a>
 
+      <TopContactBar />
       <Header />
-      {/* Bottom padding leaves room for the fixed WhatsApp button on mobile
-          so it never covers content. On >=sm the button sits in the margin. */}
-      <main id="contenido" className="pb-24 sm:pb-0">
+      <main id="contenido" className="pb-28 md:pb-0">
         {children}
       </main>
       <Footer />
+      <MobileActionBar />
       <WhatsAppButton />
     </>
   );

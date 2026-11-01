@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import { site, nav, footer } from "~/data/content";
+import { site, nav, navSecondary, footer, legalLinks } from "~/data/content";
 
 export default function Footer() {
   return (
     <footer className="bg-ink-900 text-cream-100">
-      <div className="container-x grid gap-10 py-14 md:grid-cols-4">
+      <div className="container-x grid gap-10 py-14 md:grid-cols-5">
         <div className="md:col-span-2">
           <Link
             href="/"
@@ -36,11 +36,28 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/privacidad" className="hover:text-rose-blush">
-                Privacidad
-              </Link>
-            </li>
+            {navSecondary.map((n) => (
+              <li key={n.href}>
+                <Link href={n.href} className="hover:text-rose-blush">
+                  {n.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="text-xs uppercase tracking-wider text-cream-100/60">
+            Legal
+          </p>
+          <ul className="mt-3 space-y-2 text-sm">
+            {legalLinks.map((n) => (
+              <li key={n.href}>
+                <Link href={n.href} className="hover:text-rose-blush">
+                  {n.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 

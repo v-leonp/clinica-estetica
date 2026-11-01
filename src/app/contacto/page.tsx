@@ -33,7 +33,7 @@ export default function ContactoPage() {
       <PageHero
         eyebrow="Contacto"
         title="Agenda tu consulta"
-        subtitle="Una de nuestras asesoras se pondrá en contacto para coordinar tu evaluación personalizada. Todos los datos de contacto que ves son de ejemplo."
+        subtitle="Formulario de contacto alternativo. Para un flujo paso a paso, usa solicitar valoración."
       />
       <Suspense fallback={null}>
         <ContactForm />

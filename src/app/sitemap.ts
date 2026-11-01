@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { allTreatments, categoriesFull } from "~/data/content";
+import { allTreatments, categoriesFull, teamMembers } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -10,12 +10,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/tratamientos",
+    "/equipo",
+    "/reservar",
+    "/preguntas-frecuentes",
     "/promociones",
     "/nosotros",
     "/tecnologia",
     "/sedes",
     "/contacto",
     "/privacidad",
+    "/cookies",
+    "/aviso-legal",
+    "/condiciones-reserva",
   ];
 
   const entries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
@@ -37,6 +43,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const { category, treatment } of allTreatments) {
     entries.push({
       url: `${base}/tratamientos/${category.slug}/${treatment.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    });
+  }
+
+  for (const member of teamMembers) {
+    entries.push({
+      url: `${base}/equipo/${member.slug}`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.6,

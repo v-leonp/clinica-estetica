@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { freeConsult, site } from "~/data/content";
+import { freeConsult, site, cta } from "~/data/content";
 
 export default function FreeConsult() {
   return (
@@ -27,8 +27,8 @@ export default function FreeConsult() {
               {freeConsult.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link href="/contacto" className="btn-primary">
-                Agenda tu consulta
+              <Link href={cta.primary.href} className="btn-primary">
+                {cta.primary.label}
               </Link>
               <a
                 href={`https://wa.me/${site.whatsappNumber}`}
