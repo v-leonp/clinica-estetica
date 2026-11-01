@@ -1,0 +1,37 @@
+// Lumina Estética — Prisma schema.
+//
+// Default provider is SQLite for local development. Set DATABASE_URL to a
+// Postgres connection string (e.g. Neon, Supabase, Vercel Postgres) for
+// production and change `provider = "postgresql"` before running
+// `prisma migrate deploy`.
+//
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+    output   = "../generated/prisma"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+/// Lead captured from the public contact form.
+model Lead {
+    id          String   @id @default(cuid())
+    nombre      String
+    email       String
+    telefono    String
+    tratamiento String
+    mensaje     String
+    sede        String?
+    source      String   @default("contact-form")
+    ip          String?
+    userAgent   String?
+    consentAt   DateTime
+    createdAt   DateTime @default(now())
+
+    @@index([createdAt])
+    @@index([email])
+}

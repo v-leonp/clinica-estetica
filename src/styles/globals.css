@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: var(--font-serif), "Cormorant Garamond", "Playfair Display",
+    Georgia, serif;
+
+  --color-cream-50: #fbf7f3;
+  --color-cream-100: #f5ece2;
+  --color-cream-200: #ecdcc8;
+
+  /* Rose accent — darker than #b76e79 so text/icons meet WCAG AA on the
+     cream backgrounds used across the site. The blush/soft tints are kept
+     for decorative gradients and chip backgrounds only. */
+  --color-rose-gold: #9a4f5b;
+  --color-rose-soft: #d9a7a0;
+  --color-rose-blush: #f3dcd4;
+
+  --color-ink-900: #1f1a17;
+  --color-ink-700: #4a3f38;
+  --color-ink-500: #7a6b60;
+
+  --shadow-soft: 0 10px 40px -15px rgba(31, 26, 23, 0.18);
+
+  --background-image-gradient-rose: linear-gradient(
+    135deg,
+    #f3dcd4 0%,
+    #e9c6b8 50%,
+    #b76e79 100%
+  );
+  --background-image-gradient-cream: linear-gradient(
+    135deg,
+    #fbf7f3 0%,
+    #f5ece2 100%
+  );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fbf7f3;
+  color: #1f1a17;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-ink-900 px-6 py-3 text-sm font-medium text-cream-50 shadow-soft transition hover:bg-rose-gold focus:outline-none focus:ring-2 focus:ring-rose-gold focus:ring-offset-2 focus:ring-offset-cream-50 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-full border border-ink-900/20 bg-transparent px-6 py-3 text-sm font-medium text-ink-900 transition hover:border-rose-gold hover:text-rose-gold focus:outline-none focus:ring-2 focus:ring-rose-gold focus:ring-offset-2 focus:ring-offset-cream-50;
+  }
+
+  .btn-rose {
+    @apply inline-flex items-center justify-center rounded-full bg-rose-gold px-6 py-3 text-sm font-medium text-white shadow-soft transition hover:bg-ink-900 focus:outline-none focus:ring-2 focus:ring-rose-gold focus:ring-offset-2 focus:ring-offset-cream-50;
+  }
+
+  .section {
+    @apply py-16 sm:py-24;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.2em] text-rose-gold;
+  }
+
+  .section-title {
+    @apply mt-3 font-serif text-3xl leading-tight text-ink-900 sm:text-4xl md:text-5xl;
+  }
+
+  .section-sub {
+    @apply mt-4 max-w-2xl text-base leading-relaxed text-ink-700;
+  }
+
+  .card {
+    @apply rounded-2xl border border-cream-200 bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lg;
+  }
+}
