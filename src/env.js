@@ -1,5 +1,8 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
+import { applyDatabaseUrlEnv } from "./lib/resolve-database-url.js";
+
+applyDatabaseUrlEnv();
 
 export const env = createEnv({
   server: {
@@ -34,8 +37,8 @@ export const env = createEnv({
     console.error(error);
     if (process.env.VERCEL) {
       console.error(
-        "\nVercel: define DATABASE_URL en Project → Settings → Environment Variables " +
-          "(Postgres de Neon o Vercel Postgres). Luego redeploy.\n",
+        "\nVercel: conecta Postgres en Storage → Create Database, o define DATABASE_URL " +
+          "en Settings → Environment Variables (Production + Preview). Luego redeploy.\n",
       );
     }
     throw new Error("Invalid environment variables");

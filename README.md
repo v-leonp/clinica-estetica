@@ -245,24 +245,28 @@ automáticamente. En local se usa `http://localhost:3000`. Define
 
 ---
 
-## Deploy a Vercel
+## Deploy a Vercel (GitHub → Vercel)
 
-1. **Importa el repo** en [vercel.com/new](https://vercel.com/new).
-2. **Base de datos**: crea una base Postgres (Neon o Vercel Postgres) y copia
-   la connection string.
-3. **Variables de entorno** en el proyecto Vercel (Production y Preview):
-   - `DATABASE_URL` → Postgres URL
-   - `NEXT_PUBLIC_SITE_URL` → tu dominio final, p. ej.
-     `https://www.lumina-estetica.com` (opcional si usas el dominio por
-     defecto de Vercel; en ese caso se infiere de
-     `VERCEL_PROJECT_PRODUCTION_URL`)
-   - `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` → recomendadas en
-     producción para que el rate limit se comparta entre invocaciones
-4. **Build command**: `prisma migrate deploy && next build`. Esto aplica las
-   migraciones versionadas en `prisma/migrations/` y luego construye el
-   sitio. El `postinstall` ya corre `prisma generate` solo.
-5. **Dominios**: configura `www.tudominio.com` apuntando a Vercel y luego
-   actualiza `NEXT_PUBLIC_SITE_URL`.
+Flujo: **push a GitHub** → Vercel redeploy automático (si el repo está conectado).
+
+1. **GitHub**: el código vive en `v-leonp/clinica-estetica`. Cada `git push origin main`
+   dispara un deploy en Vercel.
+2. **Base de datos (obligatorio)** — elige una:
+   - **Vercel Postgres (recomendado)**: proyecto Vercel → **Storage** → **Create Database**
+     → **Postgres** → conectar al proyecto. No necesitas crear `DATABASE_URL` a mano;
+     el build usa `POSTGRES_URL` / `POSTGRES_URL_NON_POOLING`.
+   - **Neon u otro**: copia la URL y añádela como `DATABASE_URL` en Environment Variables.
+3. **Environment Variables** (Production **y** Preview):
+   - `DATABASE_URL` → solo si no usas Vercel Postgres
+   - `NEXT_PUBLIC_SITE_URL` → opcional (p. ej. `https://tu-proyecto.vercel.app`)
+   - `UPSTASH_REDIS_REST_*` → opcional pero recomendado en producción (rate limit)
+4. **Build**: lo define `vercel.json` → `npm run vercel-build` (migraciones + `next build`).
+   Node **20.x** (`.nvmrc` + `engines` en `package.json`).
+5. **Ajustes recomendados en Vercel → Settings**:
+   - **Prioritize Production Builds**: activado
+   - **Skew Protection**: activar si quieres evitar desajustes frontend/backend entre deploys
+   - **Node.js Version**: **20.x** (no 26.x) para alinear con el repo
+6. Tras cambiar variables o Storage: **Deployments → Redeploy**.
 
 > Las páginas de marketing están prerenderizadas estáticamente (`force-static`
 > + `generateStaticParams`), por lo que se sirven desde el CDN. Sólo las
