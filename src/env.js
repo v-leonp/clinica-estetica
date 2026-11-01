@@ -30,4 +30,14 @@ export const env = createEnv({
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,
+  onValidationError: (error) => {
+    console.error(error);
+    if (process.env.VERCEL) {
+      console.error(
+        "\nVercel: define DATABASE_URL en Project → Settings → Environment Variables " +
+          "(Postgres de Neon o Vercel Postgres). Luego redeploy.\n",
+      );
+    }
+    throw new Error("Invalid environment variables");
+  },
 });
