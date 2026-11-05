@@ -1,4 +1,6 @@
-import { locations } from "~/data/content";
+import Link from "next/link";
+
+import { locations, site } from "~/data/content";
 
 export default function Locations() {
   return (
@@ -6,67 +8,49 @@ export default function Locations() {
       <div className="container-x">
         <div className="max-w-2xl">
           <p className="eyebrow">Sedes</p>
-          <h2 className="section-title">Encuéntranos en Lima</h2>
+          <h2 className="section-title">Dónde atenderemos</h2>
           <p className="section-sub">
-            Visítanos en cualquiera de nuestras sedes. Todos los datos de
-            contacto son de ejemplo.
+            {locations.length === 0
+              ? "Próximamente. La dirección y el horario aún no están confirmados."
+              : "Sedes publicadas por la clínica."}
           </p>
         </div>
 
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
-          {locations.map((l) => (
-            <li key={l.slug}>
-              <article className="card h-full">
-                <div
-                  aria-hidden="true"
-                  className="h-28 w-full rounded-xl bg-gradient-cream"
-                />
-                <h3 className="mt-5 font-serif text-xl text-ink-900">
-                  {l.name}
-                </h3>
-                <p className="mt-2 text-sm text-ink-700">{l.address}</p>
-                <dl className="mt-4 space-y-2 text-sm">
-                  <div className="flex items-start gap-2">
-                    <dt className="w-20 shrink-0 text-ink-500">Teléfono</dt>
-                    <dd>
-                      <a
-                        href={`tel:${l.phoneHref}`}
-                        className="text-ink-900 hover:text-rose-gold"
-                      >
-                        {l.phone}
-                      </a>
-                    </dd>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <dt className="w-20 shrink-0 text-ink-500">WhatsApp</dt>
-                    <dd>
-                      <a
-                        href={`https://wa.me/${l.whatsappHref}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-ink-900 hover:text-rose-gold"
-                      >
-                        {l.whatsapp}
-                      </a>
-                    </dd>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <dt className="w-20 shrink-0 text-ink-500">Horario</dt>
-                    <dd className="text-ink-900">{l.hours}</dd>
-                  </div>
-                </dl>
-                <a
-                  href={l.mapHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-rose-gold hover:text-ink-900"
-                >
-                  Ver en el mapa <span aria-hidden="true">→</span>
-                </a>
-              </article>
-            </li>
-          ))}
-        </ul>
+        {locations.length === 0 ? (
+          <div className="mt-10 max-w-xl rounded-2xl border border-cream-200 bg-white p-6">
+            <p className="text-sm leading-relaxed text-ink-700">
+              La clínica aún no abre en Lima. Cuando haya sede, la publicaremos
+              aquí. Mientras tanto, escríbenos por WhatsApp.
+            </p>
+            <a
+              href={`https://wa.me/${site.whatsappNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary mt-6"
+            >
+              Escríbenos por WhatsApp
+            </a>
+            <p className="mt-3 text-xs text-gold-ink">{site.whatsappNote}</p>
+          </div>
+        ) : (
+          <ul className="mt-12 grid gap-6 md:grid-cols-3">
+            {locations.map((l) => (
+              <li key={l.slug}>
+                <article className="card h-full">
+                  <h3 className="font-serif text-xl text-ink-900">{l.name}</h3>
+                  <p className="mt-2 text-sm text-ink-700">{l.address}</p>
+                  <p className="mt-2 text-sm text-ink-700">{l.hours}</p>
+                  <Link
+                    href="/sedes"
+                    className="mt-5 inline-flex text-sm text-gold-ink hover:underline"
+                  >
+                    Ver sedes
+                  </Link>
+                </article>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );

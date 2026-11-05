@@ -5,18 +5,18 @@ import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
-import { promos, site } from "~/data/content";
+import { catalogDisclaimer, promos, site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Promociones del mes",
-  description: `Promociones vigentes en ${site.brand}: descuentos y paquetes en tratamientos faciales, corporales y depilación láser.`,
+  title: "Promociones",
+  description: `Promoción publicada por ${site.brand}: toxina botulínica facial 2x1 para los primeros 50 clientes, a S/ 1,300.`,
   alternates: { canonical: `${getSiteUrl()}/promociones` },
   openGraph: {
-    title: `Promociones del mes | ${site.brand}`,
-    description: "Descuentos y paquetes exclusivos vigentes este mes.",
+    title: `Promociones | ${site.brand}`,
+    description: "Toxina botulínica facial 2x1 para los primeros 50 clientes.",
     url: `${getSiteUrl()}/promociones`,
   },
 };
@@ -31,42 +31,35 @@ export default function PromocionesPage() {
         ]}
       />
       <PageHero
-        eyebrow="Promociones del mes"
-        title="Beneficios exclusivos vigentes"
-        subtitle="Promociones limitadas en nuestros tratamientos más solicitados. Consulta con nuestras asesoras para reservar tu cupo."
+        eyebrow="Promociones"
+        title="Lo que está publicado"
+        subtitle="No hay paquetes ni descuentos de ejemplo. La única promoción del listado es la toxina botulínica facial."
       />
 
       <section className="section pt-4">
         <div className="container-x">
-          <ul className="grid gap-6 md:grid-cols-3">
+          <ul className="grid gap-6 md:grid-cols-2">
             {promos.map((p) => (
               <li key={p.title}>
                 <article className="relative h-full overflow-hidden rounded-2xl bg-ink-900 p-6 text-cream-50 shadow-soft">
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-rose opacity-40 blur-2xl"
-                  />
-                  <span className="relative inline-flex rounded-full bg-rose-gold/90 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white">
+                  <span className="relative inline-flex rounded-full bg-gold px-3 py-1 text-xs uppercase tracking-wider text-ink-900">
                     {p.tag}
                   </span>
-                  <h2 className="relative mt-4 font-serif text-2xl">
-                    {p.title}
-                  </h2>
+                  <h2 className="relative mt-4 font-serif text-2xl">{p.title}</h2>
+                  {p.priceNow && (
+                    <p className="relative mt-3 font-serif text-3xl text-gold">{p.priceNow}</p>
+                  )}
+                  {p.sessionInfo && (
+                    <p className="relative mt-2 text-xs uppercase tracking-wider text-cream-100/70">
+                      {p.sessionInfo}
+                    </p>
+                  )}
                   <p className="relative mt-3 text-sm leading-relaxed text-cream-100/85">
                     {p.description}
                   </p>
-                  <div className="relative mt-6 flex flex-wrap gap-2">
-                    <Link
-                      href={p.href}
-                      className="btn-outline border-cream-100/40 text-cream-50 hover:border-rose-blush hover:text-rose-blush"
-                    >
+                  <div className="relative mt-6">
+                    <Link href={p.href} className="btn-rose">
                       {p.cta}
-                    </Link>
-                    <Link
-                      href="/contacto"
-                      className="btn-rose"
-                    >
-                      Agendar
                     </Link>
                   </div>
                 </article>
@@ -74,10 +67,10 @@ export default function PromocionesPage() {
             ))}
           </ul>
 
-          <p className="mt-10 max-w-2xl text-sm text-ink-500">
-            * Promociones ilustrativas. Las condiciones específicas, fechas de
-            vigencia y stock se confirman con nuestras asesoras al momento de
-            agendar.
+          <p className="mt-10 max-w-2xl text-sm text-ink-700">{catalogDisclaimer}</p>
+          <p className="mt-3 max-w-2xl text-sm text-ink-700">
+            La política de reembolso del 10% con el que se separan algunas citas
+            aún no está publicada.
           </p>
         </div>
       </section>

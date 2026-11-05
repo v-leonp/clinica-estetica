@@ -25,9 +25,7 @@ export default function PageHero({
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-700 sm:text-lg">
-            {subtitle}
-          </p>
+          <p className="section-sub sm:text-xl">{subtitle}</p>
         )}
         {children}
       </div>

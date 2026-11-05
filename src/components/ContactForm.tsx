@@ -156,36 +156,43 @@ export default function ContactForm() {
           </p>
 
           <ul className="mt-8 space-y-3 text-sm text-ink-700">
-            <li>
-              <span className="text-ink-500">Email: </span>
-              <a href={`mailto:${site.email}`} className="hover:text-rose-gold">
-                {site.email}
-              </a>
-            </li>
-            <li>
-              <span className="text-ink-500">Teléfono: </span>
-              <a
-                href={`tel:${site.phoneHref}`}
-                className="hover:text-rose-gold"
-              >
-                {site.phoneDisplay}
-              </a>
-            </li>
+            {site.email && (
+              <li>
+                <span className="text-ink-500">Email: </span>
+                <a href={`mailto:${site.email}`} className="hover:text-gold-ink">
+                  {site.email}
+                </a>
+              </li>
+            )}
+            {site.phoneDisplay && site.phoneHref && (
+              <li>
+                <span className="text-ink-500">Teléfono: </span>
+                <a href={`tel:${site.phoneHref}`} className="hover:text-gold-ink">
+                  {site.phoneDisplay}
+                </a>
+              </li>
+            )}
             <li>
               <span className="text-ink-500">WhatsApp: </span>
               <a
                 href={`https://wa.me/${site.whatsappNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-rose-gold"
+                className="hover:text-gold-ink"
               >
                 {site.whatsappDisplay}
               </a>
+              <p className="mt-1 text-xs text-gold-ink">{site.whatsappNote}</p>
             </li>
             <li>
               <span className="text-ink-500">Dirección: </span>
-              <span className="text-ink-900">{site.address}</span>
+              <span className="text-ink-900">
+                {site.address ?? "Próximamente. La clínica aún no abre en Lima."}
+              </span>
             </li>
+            {!site.email && !site.phoneDisplay && (
+              <li className="text-ink-500">Teléfono y correo: próximamente.</li>
+            )}
           </ul>
         </div>
 
@@ -318,6 +325,11 @@ export default function ContactForm() {
               >
                 Sede preferida (opcional)
               </label>
+              {locations.length === 0 && (
+                <p className="mb-2 text-xs text-ink-500">
+                  Aún no hay sedes publicadas. Puedes dejar “Sin preferencia”.
+                </p>
+              )}
               <select
                 id="sede"
                 name="sede"

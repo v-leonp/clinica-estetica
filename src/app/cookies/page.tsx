@@ -25,7 +25,7 @@ export default function CookiesPage() {
       <PageHero
         eyebrow="Legal"
         title="Política de cookies"
-        subtitle="Implementación granular de consentimiento pendiente en esta demo."
+        subtitle="El banner para elegir cookies todavía no está publicado."
       />
       <section className="section pt-4">
         <LegalProse>
@@ -35,8 +35,8 @@ export default function CookiesPage() {
             activarán tras tu elección expresa cuando el banner esté implementado.
           </p>
           <p>
-            Puedes retirar tu consentimiento en cualquier momento desde las preferencias
-            de cookies [PENDIENTE DE VALIDACIÓN — integrar CMP].
+            El panel para retirar el consentimiento de cookies todavía no está
+            publicado. Cuando exista, lo enlazaremos desde esta página.
           </p>
         </LegalProse>
       </section>

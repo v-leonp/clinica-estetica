@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
-import Testimonials from "~/components/Testimonials";
+import DoctorPortrait from "~/components/DoctorPortrait";
 import { doctors, site, trustBadges } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
@@ -12,12 +13,11 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Nosotros",
-  description: `Conoce a ${site.brand}: clínica supervisada en Lima con médicos certificados en medicina estética y cirugía plástica. Más de 12 años de experiencia.`,
+  description: `${site.brand}, médico cirujano (CMP 101245). Medicina estética en Lima. La clínica aún no abre.`,
   alternates: { canonical: `${getSiteUrl()}/nosotros` },
   openGraph: {
     title: `Nosotros | ${site.brand}`,
-    description:
-      "Clínica supervisada en Lima con médicos certificados en medicina estética y cirugía plástica.",
+    description: "Dra. Melissa Vigo, médico cirujano. Medicina estética en Lima.",
     url: `${getSiteUrl()}/nosotros`,
   },
 };
@@ -32,31 +32,33 @@ export default function NosotrosPage() {
         ]}
       />
       <PageHero
-        eyebrow="Sobre la clínica"
-        title="Una clínica cálida, segura y con enfoque natural"
-        subtitle={`En ${site.brand} acompañamos a cada paciente con un enfoque integral: evaluación médica, protocolos personalizados y seguimiento cercano. Más de 12 años cuidando la piel y la salud estética de nuestras pacientes.`}
+        eyebrow="La doctora"
+        title="Melissa Vigo"
+        subtitle="Médico cirujano, CMP 101245. Medicina estética. La clínica aún no abre en Lima: la sede, el horario y la biografía extendida se publicarán cuando estén confirmados."
       />
 
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
-            <h2 className="font-serif text-2xl text-ink-900">
-              Nuestra filosofía
-            </h2>
+            <h2 className="font-serif text-2xl text-ink-900">Qué está publicado</h2>
             <p className="mt-3 text-base leading-relaxed text-ink-700">
-              Creemos en resultados naturales. Nuestro equipo diseña planes que
-              realzan la belleza de cada paciente respetando sus rasgos y
-              buscando siempre el equilibrio. Trabajamos con insumos de primera
-              línea y protocolos avalados por la evidencia.
+              En la consulta, la doctora revisa tus necesidades, explica el
+              procedimiento recomendado y confirma si es adecuado para ti. El
+              catálogo reúne los 17 tratamientos del listado, con sus tiempos y
+              precios.
             </p>
             <p className="mt-3 text-base leading-relaxed text-ink-700">
-              Cada paciente es acompañada por una especialista durante toda la
-              experiencia: desde la consulta inicial sin costo, pasando por la
-              evaluación médica, hasta el seguimiento después del tratamiento.
+              No hay otras profesionales en este sitio. Tampoco hay razón social,
+              RUC, teléfono, correo ni redes confirmados.
+            </p>
+            <p className="mt-6">
+              <Link href="/equipo/melissa-vigo" className="text-sm text-gold-ink hover:underline">
+                Ver el perfil →
+              </Link>
             </p>
           </div>
 
-          <ul className="grid grid-cols-1 gap-3 md:col-span-5 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:col-span-5">
             {trustBadges.map((b) => (
               <li
                 key={b.title}
@@ -73,13 +75,10 @@ export default function NosotrosPage() {
       <section className="section bg-cream-100/60">
         <div className="container-x">
           <div className="max-w-2xl">
-            <p className="eyebrow">Nuestro equipo</p>
-            <h2 className="section-title">
-              Médicos certificados y especialistas
-            </h2>
+            <p className="eyebrow">Profesional</p>
+            <h2 className="section-title">Una sola doctora</h2>
             <p className="section-sub">
-              Un equipo multidisciplinario con experiencia en medicina estética,
-              cirugía plástica y dermatología clínica.
+              La biografía extendida se publicará cuando la doctora la confirme.
             </p>
           </div>
 
@@ -87,19 +86,12 @@ export default function NosotrosPage() {
             {doctors.map((d) => (
               <li key={d.name}>
                 <article className="card h-full text-center">
-                  <div
-                    aria-hidden="true"
-                    className="mx-auto h-28 w-28 rounded-full bg-gradient-rose"
-                  />
-                  <h3 className="mt-5 font-serif text-xl text-ink-900">
-                    {d.name}
-                  </h3>
-                  <p className="mt-1 text-xs uppercase tracking-wider text-rose-gold">
+                  <DoctorPortrait />
+                  <h3 className="mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
+                  <p className="mt-1 text-xs uppercase tracking-wider text-gold-ink">
                     {d.role}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-700">
-                    {d.bio}
-                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-700">{d.bio}</p>
                 </article>
               </li>
             ))}
@@ -107,7 +99,6 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      <Testimonials />
       <FreeConsult />
     </SiteShell>
   );

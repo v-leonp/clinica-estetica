@@ -10,8 +10,7 @@ export default function HomePromoOffers() {
           <p className="eyebrow">Oportunidades del mes</p>
           <h2 className="section-title">Tratamientos con condiciones preferenciales</h2>
           <p className="section-sub">
-            Precios orientativos en demo. Todas las opciones requieren valoración médica previa.{" "}
-            {promosDisclaimer}
+            Solo se muestra la promoción que figura en el listado. {promosDisclaimer}
           </p>
         </div>
         <ul className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">

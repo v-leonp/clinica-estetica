@@ -9,6 +9,7 @@ import TreatmentLeadCta from "~/components/TreatmentLeadCta";
 import {
   allTreatments,
   careProcess,
+  catalogDisclaimer,
   getTreatment,
   site,
 } from "~/data/content";
@@ -154,14 +155,16 @@ export default async function TreatmentPage({
             </ol>
 
             <h3 className="mt-10 font-serif text-xl text-ink-900">
-              Qué puede y qué no puede lograr
+              Antes de decidir
             </h3>
             <p className="mt-3 text-base leading-relaxed text-ink-700">
-              Este tratamiento puede ayudar con los beneficios descritos, siempre sujeto a
-              evaluación médica. No sustituye procedimientos quirúrgicos cuando estos están
-              indicados, ni garantiza un resultado idéntico al de otra persona. Los tiempos de
-              recuperación son orientativos.
+              {catalogDisclaimer} La respuesta de cada persona es individual.
             </p>
+            {treatment.offer && (
+              <p className="mt-3 rounded-xl border border-gold/40 bg-cream-50 p-4 text-sm leading-relaxed text-ink-700">
+                {treatment.offer}
+              </p>
+            )}
 
             <h3 className="mt-10 font-serif text-xl text-ink-900">
               ¿Para quién puede ser adecuado?
@@ -198,9 +201,16 @@ export default async function TreatmentPage({
               <p className="eyebrow">Información del tratamiento</p>
               <dl className="mt-5 space-y-5">
                 <InfoRow label="Duración" value={treatment.duration} />
-                <InfoRow label="Sesiones" value={treatment.sessions} />
-                <InfoRow label="Recuperación" value={treatment.recovery} />
+                {treatment.sessions ? (
+                  <InfoRow label="Sesiones" value={treatment.sessions} />
+                ) : null}
+                {treatment.recovery ? (
+                  <InfoRow label="Recuperación" value={treatment.recovery} />
+                ) : null}
                 <InfoRow label="Precio" value={treatment.priceFrom} />
+                {treatment.brands ? (
+                  <InfoRow label="Producto" value={treatment.brands} />
+                ) : null}
                 <InfoRow label="Categoría" value={category.title} />
               </dl>
 
@@ -216,10 +226,7 @@ export default async function TreatmentPage({
                 WhatsApp
               </a>
 
-              <p className="mt-5 text-xs text-ink-500">
-                Los precios son referenciales y pueden variar según evaluación
-                médica.
-              </p>
+              <p className="mt-5 text-xs text-ink-500">{catalogDisclaimer}</p>
             </div>
           </aside>
         </div>

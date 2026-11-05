@@ -1,8 +1,10 @@
-# Lumina Estética
+# Dra. Melissa Vigo – Médico Estético
 
-Sitio web de marketing para una clínica ficticia de medicina estética y
-cirugía plástica en Lima, Perú. Marca, textos y datos de contacto son **de
-ejemplo** (uso demostrativo).
+Sitio de la práctica de medicina estética de la **Dra. Melissa Vigo**,
+médico cirujano (CMP 101245), en Lima, Perú. La clínica **aún no abre**:
+el catálogo y la identidad de marca son reales; sede, horario, razón social,
+RUC y canales oficiales que no están confirmados no se publican como si lo
+estuvieran.
 
 Construido con [create-t3-app](https://create.t3.gg/):
 
@@ -19,9 +21,50 @@ Construido con [create-t3-app](https://create.t3.gg/):
   `generateStaticParams`)
 
 El sitio es mobile-first, con metadatos SEO en español, breadcrumbs,
-`robots.txt` y `sitemap.xml` auto-generados, política de privacidad acorde a
-la Ley 29733 (Perú) y paleta _rose gold_ oscurecida a `#9a4f5b` para pasar
-WCAG AA de contraste.
+`robots.txt` y `sitemap.xml` auto-generados y política de privacidad acorde a
+la Ley 29733 (Perú).
+
+## Marca
+
+| Uso | Valor |
+| --- | --- |
+| Azul marino | `#183553` — texto, fondos oscuros, botones principales |
+| Dorado | `#b49a69` — acento. Sobre blanco el contraste es **2.7:1**: solo fondo, borde o adorno, nunca texto de cuerpo |
+| Dorado de apoyo | `#7f6b49` — texto e iconos sobre blanco o crema (**5.1:1**, WCAG AA) |
+| Dorado sobre marino | `#b49a69` sobre `#183553` pasa AA (**4.6:1**), también el marino sobre el dorado de un botón |
+
+Tipografía:
+
+- **Títulos:** Nexa Bold (`src/fonts/Nexa-Bold.otf`), con `next/font/local`.
+- **Cuerpo:** Nexa Light (`src/fonts/Nexa-Light.otf`).
+- Los archivos no se modifican. La licencia Fontfabric de fuentes gratuitas
+  (PDF junto a los `.otf`) permite `@font-face` comercial.
+- **Subtítulos:** el manual pide Gabriola. Esa licencia no permite uso web y
+  **Gabriola no está en el repositorio**. Se usa **Cormorant Garamond Italic**
+  (OFL, Google Fonts) como cursiva humanista. Para volver a Gabriola hace
+  falta comprar licencia web y cambiar la fuente en `src/app/layout.tsx`.
+
+Logotipo en cabecera y pie (`public/brand/logo-dra-melissa-vigo.png`).
+Isotipo del loto VR como favicon (`public/favicon.svg`) y dentro de la imagen
+Open Graph (`public/og.png`).
+
+## Datos pendientes de la clínica
+
+No inventar estos datos en el sitio. Hoy se ocultan o se dice “Próximamente”
+/ “Escríbenos por WhatsApp”:
+
+- Dirección y sedes
+- Horario
+- Razón social y RUC
+- Teléfono y correo
+- Redes sociales
+- Testimonios con autorización
+- Biografía extendida de la doctora (la fotografía del consultorio ya está publicada)
+- Política de cancelación
+- Reembolso del 10% con el que se separan algunas citas
+- Medios de pago
+- Confirmación del WhatsApp `+51 981 237 361`
+  (`WHATSAPP_PENDIENTE_DE_CONFIRMAR` en `src/data/content.ts`, única copia del número)
 
 > **Accesibilidad:** verificamos ausencia de violaciones de contraste y de
 > ARIA críticos en las páginas principales con axe-core. Siempre revisa con
@@ -136,7 +179,7 @@ npm run dev              # → http://localhost:3000
 | Ruta                                       | Qué muestra                                                        |
 | ------------------------------------------ | ------------------------------------------------------------------ |
 | `/`                                        | Home                                                               |
-| `/tratamientos`                            | Índice de las 6 categorías                                         |
+| `/tratamientos`                            | Índice de las 4 categorías (17 tratamientos)                       |
 | `/tratamientos/[categoria]`                | Listado de los tratamientos de una categoría                       |
 | `/tratamientos/[categoria]/[tratamiento]`  | Detalle de un tratamiento + FAQ                                    |
 | `/promociones`, `/nosotros`, `/tecnologia`, `/sedes`, `/contacto` | Secciones top-level |
@@ -157,6 +200,7 @@ page.tsx define el suyo para que el 404 no herede uno.
 Todo en [`src/data/content.ts`](src/data/content.ts):
 
 - `site`, `nav`, `hero`, `trustBadges`, `freeConsult`
+- `WHATSAPP_PENDIENTE_DE_CONFIRMAR` (único número de WhatsApp)
 - `categoriesFull`, `allTreatments`, `getCategory`, `getTreatment`
 - `featured`, `promos`, `doctors`, `technology`, `testimonials`, `locations`
 - `allowedTratamientos`, `allowedSedes` (usados por los `z.enum` del backend)

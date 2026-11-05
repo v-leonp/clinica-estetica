@@ -1,38 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: var(--font-serif), "Cormorant Garamond", "Playfair Display",
-    Georgia, serif;
+  --font-sans: var(--font-nexa-light), "Nexa Light", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-serif: var(--font-nexa-bold), "Nexa Bold", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-script: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
 
-  --color-cream-50: #fbf7f3;
-  --color-cream-100: #f5ece2;
-  --color-cream-200: #ecdcc8;
+  --color-cream-50: #f7f5f1;
+  --color-cream-100: #efe8dc;
+  --color-cream-200: #e4d8c6;
 
-  /* Rose accent — darker than #b76e79 so text/icons meet WCAG AA on the
-     cream backgrounds used across the site. The blush/soft tints are kept
-     for decorative gradients and chip backgrounds only. */
-  --color-rose-gold: #9a4f5b;
-  --color-rose-soft: #d9a7a0;
-  --color-rose-blush: #f3dcd4;
+  /* Dorado de marca. Sobre blanco queda en 2.7:1: solo fondos, bordes y
+     adorno. El texto dorado sobre claro usa gold-ink (4.5:1 o más).
+     Sobre azul marino el dorado de marca sí pasa AA (4.6:1). */
+  --color-gold: #b49a69;
+  --color-gold-ink: #7f6b49;
+  --color-rose-gold: #7f6b49;
+  --color-rose-soft: #d9c7a6;
+  --color-rose-blush: #f4efe6;
 
-  --color-ink-900: #1f1a17;
-  --color-ink-700: #4a3f38;
-  --color-ink-500: #7a6b60;
+  --color-ink-900: #183553;
+  --color-ink-700: #2c4660;
+  --color-ink-500: #3e5168;
 
-  --shadow-soft: 0 10px 40px -15px rgba(31, 26, 23, 0.18);
+  --shadow-soft: 0 10px 40px -15px rgba(24, 53, 83, 0.2);
 
   --background-image-gradient-rose: linear-gradient(
     135deg,
-    #f3dcd4 0%,
-    #e9c6b8 50%,
-    #b76e79 100%
+    #f7f5f1 0%,
+    #e7dcc4 48%,
+    #b49a69 100%
   );
   --background-image-gradient-cream: linear-gradient(
     135deg,
-    #fbf7f3 0%,
-    #f5ece2 100%
+    #f7f5f1 0%,
+    #efe8dc 100%
   );
 }
 
@@ -41,9 +44,10 @@ html {
 }
 
 body {
-  background: #fbf7f3;
-  color: #1f1a17;
-  font-family: var(--font-sans);
+  background: #f7f5f1;
+  color: #183553;
+  font-family: var(--font-nexa-light), "Nexa Light", sans-serif;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -52,7 +56,8 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-serif);
+  font-family: var(--font-nexa-bold), "Nexa Bold", sans-serif;
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 
@@ -62,15 +67,18 @@ h4 {
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-ink-900 px-6 py-3 text-sm font-medium text-cream-50 shadow-soft transition hover:bg-rose-gold focus:outline-none focus:ring-2 focus:ring-rose-gold focus:ring-offset-2 focus:ring-offset-cream-50 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center rounded-full bg-ink-900 px-6 py-3 text-sm text-cream-50 shadow-soft transition hover:bg-ink-700 focus:outline-none focus:ring-2 focus:ring-gold-ink focus:ring-offset-2 focus:ring-offset-cream-50 disabled:cursor-not-allowed disabled:opacity-60;
+    font-family: var(--font-nexa-bold), sans-serif;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center rounded-full border border-ink-900/20 bg-transparent px-6 py-3 text-sm font-medium text-ink-900 transition hover:border-rose-gold hover:text-rose-gold focus:outline-none focus:ring-2 focus:ring-rose-gold focus:ring-offset-2 focus:ring-offset-cream-50;
+    @apply inline-flex items-center justify-center rounded-full border border-ink-900/20 bg-transparent px-6 py-3 text-sm text-ink-900 transition hover:border-gold-ink hover:text-gold-ink focus:outline-none focus:ring-2 focus:ring-gold-ink focus:ring-offset-2 focus:ring-offset-cream-50;
+    font-family: var(--font-nexa-bold), sans-serif;
   }
 
   .btn-rose {
-    @apply inline-flex items-center justify-center rounded-full bg-rose-gold px-6 py-3 text-sm font-medium text-white shadow-soft transition hover:bg-ink-900 focus:outline-none focus:ring-2 focus:ring-rose-gold focus:ring-offset-2 focus:ring-offset-cream-50;
+    @apply inline-flex items-center justify-center rounded-full bg-gold px-6 py-3 text-sm text-ink-900 shadow-soft transition hover:bg-ink-900 hover:text-cream-50 focus:outline-none focus:ring-2 focus:ring-gold-ink focus:ring-offset-2 focus:ring-offset-cream-50;
+    font-family: var(--font-nexa-bold), sans-serif;
   }
 
   .section {
@@ -78,7 +86,8 @@ h4 {
   }
 
   .eyebrow {
-    @apply text-xs font-medium uppercase tracking-[0.2em] text-rose-gold;
+    @apply text-xs uppercase tracking-[0.2em] text-gold-ink;
+    font-family: var(--font-nexa-bold), sans-serif;
   }
 
   .section-title {
@@ -86,7 +95,10 @@ h4 {
   }
 
   .section-sub {
-    @apply mt-4 max-w-2xl text-base leading-relaxed text-ink-700;
+    @apply mt-4 max-w-2xl text-lg leading-relaxed text-ink-700;
+    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
   }
 
   .card {

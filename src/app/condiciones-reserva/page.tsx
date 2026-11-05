@@ -25,21 +25,21 @@ export default function CondicionesReservaPage() {
       />
       <PageHero
         eyebrow="Legal"
-        title="Condiciones de reserva, cancelación y reprogramación"
-        subtitle="Resumen orientativo. Debe adaptarse a la operación real de la clínica."
+        title="Condiciones de reserva"
+        subtitle="Cancelación, reembolso del 10% y medios de pago todavía no están publicados."
       />
       <section className="section pt-4">
         <LegalProse>
           <p>{bookingCopy.valuationCost}</p>
           <p>{bookingCopy.cancellation}</p>
           <p>
-            La solicitud en línea no garantiza un horario hasta recibir confirmación por
-            parte del equipo. Si no podemos atender tu preferencia, te propondremos
-            alternativas.
+            Los medios de pago aún no están publicados. Enviar el formulario no
+            reserva un horario: la solicitud queda pendiente hasta que te
+            contactemos por WhatsApp.
           </p>
           <p>
-            Llega con 10 minutos de anticipación. Si no te presentas sin aviso, podríamos
-            aplicar políticas de reprogramación [PENDIENTE DE VALIDACIÓN].
+            Si no podemos atender la fecha que prefieres, te propondremos otra.
+            No hay una penalidad publicada por inasistencia.
           </p>
         </LegalProse>
       </section>

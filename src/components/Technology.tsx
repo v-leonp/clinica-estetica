@@ -7,11 +7,11 @@ export default function Technology() {
         <div className="md:col-span-5">
           <p className="eyebrow">Tecnología</p>
           <h2 className="section-title">
-            Equipos de alta gama para resultados eficaces y seguros
+            Lo que nombra el catálogo
           </h2>
           <p className="section-sub">
-            Invertimos continuamente en tecnología aprobada por autoridades
-            internacionales para ofrecerte protocolos de vanguardia.
+            Equipos y técnicas que aparecen en el listado de tratamientos. No hay
+            otras tecnologías publicadas.
           </p>
 
           <div

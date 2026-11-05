@@ -9,31 +9,26 @@ export function medicalClinicJsonLd() {
     name: site.brand,
     description: site.description,
     url: base,
-    telephone: site.phoneHref,
-    email: site.email,
-    priceRange: "$$",
     areaServed: { "@type": "City", name: "Lima", containedInPlace: "PE" },
-    address: locations.map((l) => ({
-      "@type": "PostalAddress",
-      streetAddress: l.address,
-      addressLocality: "Lima",
-      addressCountry: "PE",
-    })),
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
-        opens: "09:00",
-        closes: "20:00",
-      },
-    ],
+    medicalSpecialty: "Medicina estética",
+    employee: {
+      "@type": "Physician",
+      name: "Dra. Melissa Vigo",
+      medicalSpecialty: "Medicina estética",
+      identifier: "CMP 101245",
+    },
+    ...(site.phoneHref ? { telephone: site.phoneHref } : {}),
+    ...(site.email ? { email: site.email } : {}),
+    ...(locations.length
+      ? {
+          address: locations.map((l) => ({
+            "@type": "PostalAddress",
+            streetAddress: l.address,
+            addressLocality: "Lima",
+            addressCountry: "PE",
+          })),
+        }
+      : {}),
   };
 }
 

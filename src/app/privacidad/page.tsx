@@ -46,18 +46,12 @@ export default function PrivacidadPage() {
               1. Titular del tratamiento
             </h2>
             <p className="mt-3">
-              <strong>{site.legal.companyName}</strong> (en adelante,
-              &ldquo;{site.brand}&rdquo;), con RUC {site.legal.ruc} y domicilio
-              en {site.address}. Datos de contacto para asuntos de privacidad:
-              {" "}
-              <a
-                href={`mailto:${site.email}`}
-                className="underline hover:text-rose-gold"
-              >
-                {site.email}
-              </a>
-              . Esta es una página demostrativa; los datos corporativos son de
-              ejemplo.
+              El sitio corresponde a la práctica de la Dra. Melissa Vigo, médico
+              cirujano (CMP 101245), en {site.legal.jurisdiction}. La razón
+              social, el RUC y el domicilio del responsable todavía no están
+              publicados. Para asuntos de privacidad usa el formulario de contacto
+              o WhatsApp ({site.whatsappDisplay}). {site.whatsappNote} El correo
+              de privacidad se publicará cuando exista.
             </p>
           </div>
 
@@ -91,9 +85,8 @@ export default function PrivacidadPage() {
               4. Conservación
             </h2>
             <p className="mt-3">
-              Conservaremos tus datos mientras exista una relación comercial o
-              hasta por un máximo de 24 meses desde la última interacción,
-              salvo que una obligación legal exija un plazo mayor.
+              El plazo de conservación aún no está publicado. Mientras tanto, los
+              datos del formulario se usan para responder tu solicitud.
             </p>
           </div>
 
@@ -103,9 +96,8 @@ export default function PrivacidadPage() {
             </h2>
             <p className="mt-3">
               Tus datos no se ceden a terceros con fines comerciales. Pueden
-              ser accedidos por nuestro equipo médico y administrativo, y por
-              proveedores de infraestructura (hosting y base de datos) bajo
-              acuerdos de confidencialidad y encargo de tratamiento.
+              verlos la Dra. Melissa Vigo y los proveedores de infraestructura
+              (hosting y base de datos) necesarios para operar el sitio.
             </p>
           </div>
 
@@ -114,18 +106,12 @@ export default function PrivacidadPage() {
               6. Tus derechos (ARCO)
             </h2>
             <p className="mt-3">
-              Puedes ejercer en todo momento tus derechos de acceso,
-              rectificación, cancelación y oposición, así como revocar tu
-              consentimiento, escribiendo a{" "}
-              <a
-                href={`mailto:${site.email}`}
-                className="underline hover:text-rose-gold"
-              >
-                {site.email}
-              </a>
-              . También puedes presentar reclamo ante la Autoridad Nacional de
-              Protección de Datos Personales — Ministerio de Justicia y
-              Derechos Humanos.
+              Puedes ejercer tus derechos de acceso, rectificación, cancelación y
+              oposición, y revocar tu consentimiento, desde el formulario de
+              contacto o por WhatsApp. El correo específico para estos trámites
+              aún no está publicado. También puedes presentar un reclamo ante la
+              Autoridad Nacional de Protección de Datos Personales — Ministerio
+              de Justicia y Derechos Humanos.
             </p>
           </div>
 

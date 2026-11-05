@@ -26,22 +26,23 @@ export default function AvisoLegalPage() {
       <PageHero
         eyebrow="Legal"
         title="Aviso legal"
-        subtitle="Texto orientativo para demo. Requiere revisión jurídica antes de producción."
+        subtitle="La razón social y el RUC aún no están publicados."
       />
       <section className="section pt-4">
         <LegalProse>
           <p>
-            Titular del sitio: {site.legal.companyName} — RUC {site.legal.ruc} [PENDIENTE DE
-            VALIDACIÓN]. Domicilio: {site.legal.jurisdiction}.
+            Este sitio corresponde a la práctica de la Dra. Melissa Vigo, médico
+            cirujano (CMP 101245), medicina estética, en {site.legal.jurisdiction}.
+            La razón social, el RUC y el domicilio fiscal se publicarán cuando la
+            clínica los confirme.
           </p>
           <p>
-            El contenido de este sitio tiene fines informativos y comerciales legítimos. No
-            constituye consejo médico ni relación médico-paciente hasta completar una
-            valoración presencial.
+            El contenido tiene fines informativos. No constituye consejo médico ni
+            una relación médico-paciente hasta completar una valoración presencial.
           </p>
           <p>
-            Queda prohibida la reproducción total o parcial de textos e imágenes sin
-            autorización, salvo uso privado no comercial.
+            Queda prohibida la reproducción total o parcial de textos e imágenes
+            sin autorización, salvo uso privado no comercial.
           </p>
         </LegalProse>
       </section>

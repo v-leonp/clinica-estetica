@@ -11,8 +11,7 @@ export default function Promos() {
             <p className="eyebrow">Promociones del mes</p>
             <h2 className="section-title">Beneficios sujetos a valoración médica</h2>
             <p className="section-sub">
-              Ofertas orientativas en esta demo. Sujetas a disponibilidad e indicación
-              profesional. {promosDisclaimer}
+              Solo la promoción publicada en el listado. {promosDisclaimer}
             </p>
           </div>
           <Link href="/promociones" className="btn-outline">
