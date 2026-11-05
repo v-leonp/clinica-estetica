@@ -59,7 +59,7 @@ No inventar estos datos en el sitio. Hoy se ocultan o se dice “Próximamente�
 - Teléfono y correo
 - Redes sociales
 - Testimonios con autorización
-- Fotografía y biografía extendida de la doctora
+- Biografía extendida de la doctora (la fotografía del consultorio ya está publicada)
 - Política de cancelación
 - Reembolso del 10% con el que se separan algunas citas
 - Medios de pago

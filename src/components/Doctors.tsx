@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { cta, teamMembers } from "~/data/content";
-import PortraitPlaceholder from "~/components/PortraitPlaceholder";
+import DoctorPortrait from "~/components/DoctorPortrait";
 
 export default function Doctors() {
   return (
@@ -11,8 +11,7 @@ export default function Doctors() {
           <p className="eyebrow">La profesional</p>
           <h2 className="section-title">Dra. Melissa Vigo</h2>
           <p className="section-sub">
-            Es la única profesional publicada. No hay biografía extendida ni
-            fotografía confirmadas.
+            Es la única profesional publicada. La biografía extendida aún no está confirmada.
           </p>
         </div>
 
@@ -20,7 +19,7 @@ export default function Doctors() {
           {teamMembers.map((d) => (
             <li key={d.slug}>
               <article className="card h-full text-center">
-                <PortraitPlaceholder name={d.name} />
+                <DoctorPortrait />
                 <h3 className="mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
                 <p className="mt-1 text-xs uppercase tracking-wider text-gold-ink">
                   {d.role}

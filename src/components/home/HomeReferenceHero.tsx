@@ -3,6 +3,12 @@ import Link from "next/link";
 
 import { hero, site } from "~/data/content";
 
+/**
+ * 1086 px nativos. 540 px de ancho CSS ×2 = 1080, un ancho que next/image
+ * ya genera, por debajo de la resolución original.
+ */
+const HERO_PHOTO_MAX = 540;
+
 export default function HomeReferenceHero() {
   return (
     <section className="relative overflow-hidden bg-ink-900 text-cream-50">
@@ -14,18 +20,8 @@ export default function HomeReferenceHero() {
         }}
         aria-hidden="true"
       />
-      <div className="container-x relative grid min-h-[78vh] items-center gap-10 py-16 md:grid-cols-2 md:py-24">
+      <div className="container-x relative grid items-center gap-10 py-12 md:min-h-[78vh] md:grid-cols-2 md:py-20">
         <div>
-          <div className="mb-6 flex items-center gap-4 md:hidden">
-            <Image
-              src="/brand/isotipo-vr-loto.png"
-              alt=""
-              width={120}
-              height={98}
-              className="h-16 w-auto"
-            />
-            <p className="font-script text-3xl italic text-cream-50">Médico Estético</p>
-          </div>
           <p className="text-xs uppercase tracking-[0.25em] text-gold">
             {hero.eyebrow}
           </p>
@@ -58,18 +54,20 @@ export default function HomeReferenceHero() {
             . {site.whatsappNote}
           </p>
         </div>
-        <div className="relative mx-auto hidden aspect-[4/5] w-full max-w-md items-center justify-center overflow-hidden rounded-[2rem] border border-gold/30 bg-cream-50 shadow-soft md:flex">
-          <div className="px-8 text-center">
-            <Image
-              src="/brand/isotipo-vr-loto.png"
-              alt=""
-              width={662}
-              height={537}
-              className="mx-auto h-40 w-auto sm:h-52"
-            />
-            <p className="mt-6 font-script text-3xl italic text-ink-900">Médico Estético</p>
-            <p className="mt-2 text-sm text-ink-700">CMP 101245</p>
-          </div>
+        <div
+          className="mx-auto w-full md:justify-self-end"
+          style={{ maxWidth: HERO_PHOTO_MAX }}
+        >
+          <Image
+            src="/fotos/doctora-brazos-cruzados.jpg"
+            alt="Dra. Melissa Vigo, médico estético, con los brazos cruzados frente al letrero de su consultorio."
+            width={1086}
+            height={1448}
+            priority
+            quality={90}
+            sizes={`(max-width: 767px) calc(100vw - 2.5rem), ${HERO_PHOTO_MAX}px`}
+            className="h-auto w-full rounded-[1.75rem] border border-gold/40 object-cover object-top shadow-soft"
+          />
         </div>
       </div>
     </section>

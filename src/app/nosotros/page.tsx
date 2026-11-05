@@ -5,7 +5,7 @@ import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
-import PortraitPlaceholder from "~/components/PortraitPlaceholder";
+import DoctorPortrait from "~/components/DoctorPortrait";
 import { doctors, site, trustBadges } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
@@ -78,8 +78,7 @@ export default function NosotrosPage() {
             <p className="eyebrow">Profesional</p>
             <h2 className="section-title">Una sola doctora</h2>
             <p className="section-sub">
-              El retrato es un marcador neutro. La fotografía se publicará cuando
-              la doctora la entregue.
+              La biografía extendida se publicará cuando la doctora la confirme.
             </p>
           </div>
 
@@ -87,7 +86,7 @@ export default function NosotrosPage() {
             {doctors.map((d) => (
               <li key={d.name}>
                 <article className="card h-full text-center">
-                  <PortraitPlaceholder name={d.name} />
+                  <DoctorPortrait />
                   <h3 className="mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
                   <p className="mt-1 text-xs uppercase tracking-wider text-gold-ink">
                     {d.role}

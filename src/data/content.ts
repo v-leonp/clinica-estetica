@@ -258,7 +258,7 @@ export const teamMembers: TeamMember[] = [
     slug: "melissa-vigo",
     name: "Dra. Melissa Vigo",
     role: "Médico cirujano · Medicina estética",
-    bio: "Médico cirujano, CMP 101245. Medicina estética. La biografía extendida y la fotografía se publicarán cuando la doctora las confirme.",
+    bio: "Médico cirujano, CMP 101245. Medicina estética. La biografía extendida se publicará cuando la doctora la confirme.",
     credentials: ["Médico cirujano", "CMP 101245", "Medicina estética"],
     focus: categoriesFull.map((c) => c.title),
   },

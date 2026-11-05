@@ -7,6 +7,10 @@ import "./src/env.js";
 const config = {
   poweredByHeader: false,
   reactStrictMode: true,
+  images: {
+    // El optimizador elige AVIF si el navegador lo acepta y, si no, WebP.
+    formats: ["image/avif", "image/webp"],
+  },
   async headers() {
     const securityHeaders = [
       { key: "X-Frame-Options", value: "SAMEORIGIN" },

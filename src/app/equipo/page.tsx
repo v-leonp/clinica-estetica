@@ -4,7 +4,7 @@ import Link from "next/link";
 import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
-import PortraitPlaceholder from "~/components/PortraitPlaceholder";
+import DoctorPortrait from "~/components/DoctorPortrait";
 import { cta, site, teamMembers } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
@@ -35,7 +35,7 @@ export default function EquipoPage() {
           {teamMembers.map((m) => (
             <li key={m.slug}>
               <article className="card flex h-full flex-col text-center">
-                <PortraitPlaceholder name={m.name} className="h-32 w-32 text-4xl" />
+                <DoctorPortrait className="h-32 w-32" />
                 <h2 className="mt-5 font-serif text-xl text-ink-900">{m.name}</h2>
                 <p className="mt-1 text-xs uppercase tracking-wider text-gold-ink">
                   {m.role}
