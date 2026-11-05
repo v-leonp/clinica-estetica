@@ -1,4 +1,4 @@
-// Lumina Estética — Prisma schema.
+// Dra. Melissa Vigo — Prisma schema.
 //
 // Default provider is PostgreSQL (Neon, Vercel Postgres, Supabase, etc.).
 // Set DATABASE_URL in Vercel Environment Variables before deploying.

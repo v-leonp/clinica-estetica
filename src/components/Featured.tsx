@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { featured, getTreatment } from "~/data/content";
+import { featured, featuredHeading, getTreatment } from "~/data/content";
 
 export default function Featured() {
   const items = featured
@@ -30,12 +30,9 @@ export default function Featured() {
       <div className="container-x">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <p className="eyebrow">Tratamientos estrella</p>
-            <h2 className="section-title">Descubre los más solicitados en Lumina</h2>
-            <p className="section-sub">
-              Selección de procedimientos preferidos por nuestras pacientes, con enfoque en
-              resultados naturales y seguros.
-            </p>
+            <p className="eyebrow">{featuredHeading.eyebrow}</p>
+            <h2 className="section-title">{featuredHeading.title}</h2>
+            <p className="section-sub">{featuredHeading.subtitle}</p>
           </div>
           <Link href="/tratamientos" className="btn-outline">
             Ver todos

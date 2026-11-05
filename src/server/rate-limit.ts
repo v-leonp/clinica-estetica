@@ -26,7 +26,7 @@ if (env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN) {
   upstash = new Ratelimit({
     redis,
     limiter: Ratelimit.fixedWindow(MAX_REQUESTS, "60 s"),
-    prefix: "lumina:contact",
+    prefix: "site:contact",
     analytics: false,
   });
 }

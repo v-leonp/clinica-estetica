@@ -6,6 +6,7 @@ import SiteShell from "~/components/SiteShell";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import PageHero from "~/components/PageHero";
 import { cta, getTeamMember, site, teamMembers } from "~/data/content";
+import PortraitPlaceholder from "~/components/PortraitPlaceholder";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
@@ -54,7 +55,8 @@ export default async function EquipoMemberPage({
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-2">
           <div>
-            <h2 className="font-serif text-2xl text-ink-900">Formación y registros</h2>
+            <PortraitPlaceholder name={member.name} className="mb-6 h-36 w-36 text-4xl md:mx-0" />
+            <h2 className="font-serif text-2xl text-ink-900">Datos confirmados</h2>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-700">
               {member.credentials.map((c) => (
                 <li key={c}>{c}</li>
@@ -62,7 +64,7 @@ export default async function EquipoMemberPage({
             </ul>
           </div>
           <div>
-            <h2 className="font-serif text-2xl text-ink-900">Áreas de enfoque</h2>
+            <h2 className="font-serif text-2xl text-ink-900">Catálogo publicado</h2>
             <ul className="mt-4 flex flex-wrap gap-2">
               {member.focus.map((f) => (
                 <li
@@ -74,7 +76,7 @@ export default async function EquipoMemberPage({
               ))}
             </ul>
             <Link href={cta.primary.href} className="btn-primary mt-8 inline-flex">
-              Solicitar valoración con el equipo
+              Solicitar valoración
             </Link>
           </div>
         </div>

@@ -95,10 +95,12 @@ export default async function CategoryPage({
                       <dt className="uppercase tracking-wider">Duración</dt>
                       <dd className="text-ink-900">{t.duration}</dd>
                     </div>
-                    <div>
-                      <dt className="uppercase tracking-wider">Sesiones</dt>
-                      <dd className="text-ink-900">{t.sessions}</dd>
-                    </div>
+                    {t.sessions ? (
+                      <div>
+                        <dt className="uppercase tracking-wider">Sesiones</dt>
+                        <dd className="text-ink-900">{t.sessions}</dd>
+                      </div>
+                    ) : null}
                   </dl>
                   <div className="mt-5 flex items-center justify-between text-sm">
                     <span className="font-medium text-ink-900">

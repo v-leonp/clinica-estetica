@@ -8,10 +8,8 @@ import SiteShell from "~/components/SiteShell";
 import HomeReferenceHero from "~/components/home/HomeReferenceHero";
 import PartnerBrandsBar from "~/components/home/PartnerBrandsBar";
 import HomePromoOffers from "~/components/home/HomePromoOffers";
-import HomeGiftBanner from "~/components/home/HomeGiftBanner";
 import HomeValuePillars from "~/components/home/HomeValuePillars";
 import HomeTreatmentStories from "~/components/home/HomeTreatmentStories";
-import HomeReviews from "~/components/home/HomeReviews";
 import HomeContactBlock from "~/components/home/HomeContactBlock";
 import { medicalClinicJsonLd } from "~/lib/json-ld";
 
@@ -26,7 +24,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-/** Home inspirada en arquitectura clínica premium (layout referencia), contenido Lumina. */
 export default function HomePage() {
   const jsonLd = medicalClinicJsonLd();
 
@@ -35,11 +32,9 @@ export default function HomePage() {
       <HomeReferenceHero />
       <PartnerBrandsBar />
       <HomePromoOffers />
-      <HomeGiftBanner />
       <HomeValuePillars />
       <HomeTreatmentStories />
       <Featured />
-      <HomeReviews />
       <Doctors />
       <Technology />
       <Locations />

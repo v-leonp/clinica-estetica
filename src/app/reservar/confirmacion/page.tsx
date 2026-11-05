@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import SiteShell from "~/components/SiteShell";
 import Breadcrumbs from "~/components/Breadcrumbs";
-import { cta, site } from "~/data/content";
+import { BOOKING_STORAGE_KEY, cta, site } from "~/data/content";
 
 type Stored = {
   nombre?: string;
@@ -20,7 +20,7 @@ export default function ReservaConfirmacionPage() {
 
   useEffect(() => {
     try {
-      const raw = sessionStorage.getItem("lumina-booking-confirmed");
+      const raw = sessionStorage.getItem(BOOKING_STORAGE_KEY);
       if (raw) setData(JSON.parse(raw) as Stored);
     } catch {
       setData(null);

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { nav, site, cta } from "~/data/content";
 import MegaMenu from "~/components/MegaMenu";
+import BrandLogo from "~/components/BrandLogo";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -32,15 +33,10 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-cream-200/70 bg-cream-50/85 backdrop-blur">
-      <div className="container-x flex h-16 items-center justify-between md:h-20">
-        <Link
-          href="/"
-          className="font-serif text-xl font-semibold tracking-tight text-ink-900 md:text-2xl"
-          aria-label={`${site.brand} — inicio`}
-        >
-          {site.brand}
-          <span className="ml-1 text-rose-gold">·</span>
+    <header className="sticky top-0 z-40 border-b border-cream-200/70 bg-cream-50/90 backdrop-blur">
+      <div className="container-x flex h-24 items-center justify-between md:h-28">
+        <Link href="/" aria-label={`${site.brandFull} — inicio`}>
+          <BrandLogo />
         </Link>
 
         <nav aria-label="Principal" className="hidden md:block">
@@ -73,12 +69,6 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-4 md:flex">
-          <a
-            href={`tel:${site.phoneHref}`}
-            className="text-sm text-ink-700 hover:text-rose-gold"
-          >
-            {site.phoneDisplay}
-          </a>
           <Link href={cta.primary.href} className="btn-primary">
             {cta.primary.label}
           </Link>

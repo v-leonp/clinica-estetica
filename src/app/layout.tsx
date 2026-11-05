@@ -1,86 +1,104 @@
 import "~/styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import localFont from "next/font/local";
+import { Cormorant_Garamond } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-serif",
+/**
+ * Títulos: Nexa Bold. Cuerpo: Nexa Light. Licencia Fontfabric (free fonts)
+ * que permite @font-face comercial. Los archivos .otf no se modifican.
+ *
+ * El manual pide Gabriola para subtítulos. Esa licencia no permite uso web,
+ * así que no está en el repositorio. Los subtítulos usan Cormorant Garamond
+ * Italic (OFL, Google Fonts), cursiva humanista de trazo caligráfico.
+ * Sustituir por Gabriola si se compra licencia web.
+ */
+const nexaBold = localFont({
+  src: "../fonts/Nexa-Bold.otf",
+  variable: "--font-nexa-bold",
+  weight: "700",
   display: "swap",
 });
 
-const sans = Inter({
+const nexaLight = localFont({
+  src: "../fonts/Nexa-Light.otf",
+  variable: "--font-nexa-light",
+  weight: "300",
+  display: "swap",
+});
+
+const subtitle = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-sans",
+  style: "italic",
+  weight: "500",
+  variable: "--font-cormorant",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: `${site.brand} — ${site.tagline}`,
+    default: `${site.brandFull}`,
     template: `%s | ${site.brand}`,
   },
   description: site.description,
   applicationName: site.brand,
   keywords: [
     "medicina estética Lima",
-    "cirugía plástica Lima",
-    "tratamientos faciales",
-    "depilación láser",
-    "clínica estética Miraflores",
-    "rejuvenecimiento facial",
+    "Dra. Melissa Vigo",
+    "médico estético",
+    "toxina botulínica",
+    "ácido hialurónico",
+    "CMP 101245",
     site.brand,
   ],
-  authors: [{ name: site.brand }],
-  // Note: no `alternates.canonical` here on purpose — a canonical on the
-  // root layout cascades to every page including /_not-found, which Google
-  // treats as duplicate content. Each page sets its own canonical.
+  authors: [{ name: "Dra. Melissa Vigo" }],
   openGraph: {
     type: "website",
     locale: "es_PE",
     siteName: site.brand,
-    title: `${site.brand} — ${site.tagline}`,
+    title: site.brandFull,
     description: site.description,
     images: [
       {
-        url: "/og.svg",
+        url: "/og.png",
         width: 1200,
         height: 630,
-        alt: `${site.brand} — Medicina estética en Lima`,
+        alt: "Isotipo de Dra. Melissa Vigo – Médico Estético",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.brand} — ${site.tagline}`,
+    title: site.brandFull,
     description: site.description,
-    images: ["/og.svg"],
+    images: ["/og.png"],
   },
   robots: { index: true, follow: true },
   icons: [
     { rel: "icon", url: "/favicon.svg", type: "image/svg+xml" },
-    { rel: "apple-touch-icon", url: "/favicon.svg" },
+    { rel: "apple-touch-icon", url: "/apple-touch-icon.png" },
   ],
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fbf7f3",
+  themeColor: "#183553",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-PE" className={`${serif.variable} ${sans.variable}`}>
+    <html
+      lang="es-PE"
+      className={`${nexaBold.variable} ${nexaLight.variable} ${subtitle.variable}`}
+    >
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>

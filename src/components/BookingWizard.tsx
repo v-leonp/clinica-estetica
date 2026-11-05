@@ -8,8 +8,10 @@ import {
   allTreatments,
   allowedSedes,
   allowedTratamientos,
+  BOOKING_STORAGE_KEY,
   bookingCopy,
   categoriesFull,
+  locations,
   site,
 } from "~/data/content";
 import { api } from "~/trpc/react";
@@ -50,7 +52,7 @@ export default function BookingWizard() {
   const createLead = api.contact.createLead.useMutation({
     onSuccess: () => {
       sessionStorage.setItem(
-        "lumina-booking-confirmed",
+        BOOKING_STORAGE_KEY,
         JSON.stringify({ nombre, tratamiento, sede, fecha, hora }),
       );
       router.push("/reservar/confirmacion");
@@ -174,6 +176,12 @@ export default function BookingWizard() {
           {step === 2 && (
             <fieldset>
               <legend className="font-serif text-2xl text-ink-900">Sede preferida</legend>
+              {locations.length === 0 && (
+                <p className="mt-2 text-sm text-ink-700">
+                  Aún no hay sedes publicadas. Continúa sin preferencia; la
+                  dirección se confirmará cuando la clínica la tenga.
+                </p>
+              )}
               <select
                 value={sede}
                 onChange={(e) => setSede(e.target.value)}
@@ -194,7 +202,7 @@ export default function BookingWizard() {
                 Fecha y horario preferidos
               </legend>
               <p className="mt-2 text-sm text-ink-600">
-                Te confirmaremos disponibilidad real por teléfono, email o WhatsApp.
+                Te confirmaremos la disponibilidad por WhatsApp. El teléfono y el correo de la clínica aún no están publicados.
               </p>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 <div>

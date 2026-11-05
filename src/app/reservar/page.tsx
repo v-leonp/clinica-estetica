@@ -12,7 +12,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Solicitar valoración",
-  description: `Coordina una valoración en ${site.brand}. Flujo claro, sin diagnóstico en línea. Lima, Perú.`,
+  description: `Solicita una valoración con ${site.brand}. No es un diagnóstico en línea ni una cita confirmada.`,
   alternates: { canonical: `${getSiteUrl()}/reservar` },
 };
 

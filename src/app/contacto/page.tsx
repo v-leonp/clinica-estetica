@@ -12,11 +12,11 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Contacto",
-  description: `Agenda tu consulta gratuita en ${site.brand}. Déjanos tus datos o escríbenos por WhatsApp — Lima, Perú.`,
+  description: `Escribe a ${site.brand} o deja tus datos. Teléfono, correo y sede aún no están publicados.`,
   alternates: { canonical: `${getSiteUrl()}/contacto` },
   openGraph: {
     title: `Contacto | ${site.brand}`,
-    description: "Agenda tu consulta gratuita en Lima.",
+    description: "Formulario de contacto. La sede aún no está publicada.",
     url: `${getSiteUrl()}/contacto`,
   },
 };
@@ -32,8 +32,8 @@ export default function ContactoPage() {
       />
       <PageHero
         eyebrow="Contacto"
-        title="Agenda tu consulta"
-        subtitle="Formulario de contacto alternativo. Para un flujo paso a paso, usa solicitar valoración."
+        title="Contacto"
+        subtitle="Teléfono, correo y dirección aún no están publicados. Puedes usar el formulario o escribir por WhatsApp."
       />
       <Suspense fallback={null}>
         <ContactForm />

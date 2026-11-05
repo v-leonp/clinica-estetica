@@ -3,13 +3,13 @@ import Link from "next/link";
 import { cta, successCases } from "~/data/content";
 
 export default function SuccessCases() {
+  if (successCases.items.length === 0) return null;
+
   return (
     <section id="resultados" className="section bg-ink-900 text-cream-50">
       <div className="container-x">
         <div className="max-w-2xl">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-rose-blush">
-            Resultados
-          </p>
+          <p className="text-xs uppercase tracking-[0.2em] text-gold">Resultados</p>
           <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">
             {successCases.title}
           </h2>
@@ -21,9 +21,7 @@ export default function SuccessCases() {
           {successCases.items.map((item) => (
             <li key={item.title}>
               <article className="rounded-2xl border border-cream-100/10 bg-cream-50/5 p-6">
-                <p className="text-xs uppercase tracking-wider text-rose-blush">
-                  {item.tag}
-                </p>
+                <p className="text-xs uppercase tracking-wider text-gold">{item.tag}</p>
                 <h3 className="mt-3 font-serif text-xl">{item.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-cream-100/80">
                   {item.description}

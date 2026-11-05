@@ -1,36 +1,58 @@
 // ---------------------------------------------------------------------------
-// Lumina Estética — single source of truth for all editorial content.
-// Marca, teléfonos, direcciones, promociones, tratamientos y testimonios son
-// completamente ficticios con fines demostrativos.
+// Dra. Melissa Vigo — Médico Estético. Fuente editorial del sitio.
+// Solo datos confirmados. Lo que la clínica aún no entrega queda en null,
+// en listas vacías o con un texto de “pendiente”, nunca como dato ficticio.
 // ---------------------------------------------------------------------------
 
-export const site = {
-  brand: "Lumina Estética",
-  tagline: "Medicina estética, dermatología y láser en Lima",
-  description:
-    "Clínica de medicina estética en Lima, Perú. Toxina botulínica, ácido hialurónico, dermatología estética, faciales, corporales, depilación láser y paquetes premium con valoración médica.",
-  // Canonical origin is resolved at runtime from NEXT_PUBLIC_SITE_URL
-  // (with Vercel + localhost fallbacks). See src/lib/site-url.ts.
-  // Company metadata used in /privacidad and legal notices.
-  legal: {
-    companyName: "Lumina Estética S.A.C.",
-    ruc: "20000000000",
-    jurisdiction: "Lima, Perú",
-  },
-  phoneDisplay: "+51 1 555 0123",
-  phoneHref: "+5115550123",
-  whatsappDisplay: "+51 981 237 361",
-  whatsappNumber: "51981237361",
-  email: "hola@lumina-estetica.example",
-  address: "Av. Ejemplo 123, Miraflores, Lima — Perú",
-  socials: {
-    instagram: "https://instagram.com/example-lumina",
-    facebook: "https://facebook.com/example-lumina",
-    tiktok: "https://tiktok.com/@example-lumina",
-  },
+import {
+  categoriesFull,
+  catalogDisclaimer,
+  catalogIntro,
+} from "./treatments-catalog";
+import type { Category, Treatment, FAQ } from "./treatments-catalog";
+
+export type { FAQ, Treatment, Category } from "./treatments-catalog";
+export { categoriesFull, catalogIntro, catalogDisclaimer };
+
+/**
+ * Única fuente del WhatsApp. El número todavía no está confirmado por la
+ * clínica: no lo copies en sedes, componentes ni textos sueltos.
+ */
+export const WHATSAPP_PENDIENTE_DE_CONFIRMAR = {
+  confirmed: false as const,
+  display: "+51 981 237 361",
+  /** Dígitos para wa.me, sin + */
+  number: "51981237361",
+  note: "Número pendiente de confirmar por la clínica.",
 };
 
-// ---- Navigation -----------------------------------------------------------
+/** Clave de sessionStorage del asistente de reserva. Neutral, sin marca. */
+export const BOOKING_STORAGE_KEY = "booking-confirmed";
+
+export const site = {
+  brand: "Dra. Melissa Vigo",
+  brandFull: "Dra. Melissa Vigo – Médico Estético",
+  tagline: "Médico Estético",
+  description:
+    "Medicina estética en Lima, Perú, a cargo de la Dra. Melissa Vigo, médico cirujano (CMP 101245). Catálogo con tiempos y precios. La sede y el horario aún no están publicados.",
+  legal: {
+    companyName: null as string | null,
+    ruc: null as string | null,
+    jurisdiction: "Lima, Perú",
+  },
+  phoneDisplay: null as string | null,
+  phoneHref: null as string | null,
+  whatsappDisplay: WHATSAPP_PENDIENTE_DE_CONFIRMAR.display,
+  whatsappNumber: WHATSAPP_PENDIENTE_DE_CONFIRMAR.number,
+  whatsappNote: WHATSAPP_PENDIENTE_DE_CONFIRMAR.note,
+  email: null as string | null,
+  address: null as string | null,
+  socials: null as {
+    instagram: string;
+    facebook: string;
+    tiktok: string;
+  } | null,
+};
 
 export const nav: Array<{ label: string; href: string }> = [
   { label: "Inicio", href: "/" },
@@ -42,7 +64,6 @@ export const nav: Array<{ label: string; href: string }> = [
   { label: "Contacto", href: "/contacto" },
 ];
 
-/** Enlaces secundarios (footer y utilidades). */
 export const navSecondary: Array<{ label: string; href: string }> = [
   { label: "Equipo médico", href: "/equipo" },
   { label: "Solicitar valoración", href: "/reservar" },
@@ -63,106 +84,54 @@ export const cta = {
   treatments: { label: "Ver tratamientos", href: "/tratamientos" },
 } as const;
 
-// Legacy single-URL export was removed. Use `getSiteUrl()` from
-// src/lib/site-url.ts for anything that needs the canonical origin.
-
-// ---- Hero / shared blocks -------------------------------------------------
-
 export const hero = {
-  eyebrow: "Medicina estética • Lima, Perú",
-  title: "Realza tu belleza natural con ciencia y acompañamiento cercano",
+  eyebrow: "Medicina estética · Lima, Perú",
+  title: "Cuidado estético con criterio médico",
   subtitle:
-    "Medicina estética facial, dermatología, faciales, corporales y láser en Lima. Valoración previa, protocolos claros y seguimiento posterior.",
+    "Dra. Melissa Vigo, médico cirujano (CMP 101245). La clínica aún no abre: puedes revisar el catálogo y escribir por WhatsApp mientras se confirman la sede y el horario.",
   ctaPrimary: cta.primary,
   ctaSecondary: cta.treatments,
 };
 
 export const trustBadges = [
+  { title: "Médico cirujano", subtitle: "CMP 101245" },
+  { title: "Una sola profesional", subtitle: "Melissa Vigo" },
+  { title: "Catálogo publicado", subtitle: "17 tratamientos con tiempo y precio" },
+  { title: "Indicación en consulta", subtitle: "Nada se aplica sin valoración" },
+  { title: "Aún no abre en Lima", subtitle: "Dirección y horario por confirmar" },
   {
-    title: "Equipo médico colegiado",
-    subtitle: "Dermatología, estética y cirugía",
-  },
-  {
-    title: "Primera evaluación sin costo",
-    subtitle: "Diagnóstico y plan a medida",
-  },
-  {
-    title: "Insumos y equipos certificados",
-    subtitle: "Trazabilidad y lote verificable",
-  },
-  {
-    title: "Protocolos basados en evidencia",
-    subtitle: "Revisados cada temporada",
-  },
-  {
-    title: "Más de una década atendiendo en Lima",
-    subtitle: "Pacientes nacionales y del extranjero",
-  },
-  {
-    title: "Seguimiento posterior incluido",
-    subtitle: "Acompañamiento después del alta",
+    title: "Promoción publicada",
+    subtitle: "Toxina botulínica 2x1, primeros 50 clientes",
   },
 ];
 
 export const differentialBenefits = [
   {
-    title: "Valoración antes de vender",
+    title: "Una profesional",
     description:
-      "Priorizamos indicación médica y expectativas realistas sobre promociones impulsivas.",
+      "La atención del catálogo corresponde a la Dra. Melissa Vigo. No hay un equipo adicional publicado.",
   },
   {
-    title: "Equipo multidisciplinar",
+    title: "Listado concreto",
     description:
-      "Dermatología, medicina estética y cirugía coordinadas en un mismo plan cuando corresponde.",
+      "Tiempos y precios salen del documento de la doctora. No hay paquetes ni promociones de ejemplo.",
   },
   {
-    title: "Tecnología trazable",
+    title: "Lo que falta, se dice",
     description:
-      "Equipos de alta gama con protocolos documentados; te explicamos qué se usa y por qué.",
-  },
-  {
-    title: "Experiencia premium",
-    description:
-      "Instalaciones cálidas, tiempos respetados y comunicación clara en cada visita.",
+      "Sede, horario, razón social, RUC, teléfono, correo y redes se publicarán cuando existan.",
   },
 ] as const;
 
 export const successCases = {
-  title: "Casos de éxito responsables",
+  title: "Resultados",
   intro:
-    "En producción, esta sección solo debe publicar casos con consentimiento expreso y contexto clínico. Esta demo usa textos ilustrativos sin imágenes comparativas.",
+    "Aún no hay casos publicados. Esta sección se activará solo con autorización expresa de cada paciente.",
   disclaimer:
-    "Los resultados varían según cada persona. Las imágenes clínicas reales requieren autorización documentada y condiciones de luz/encuadre homogéneas.",
-  items: [
-    {
-      tag: "Facial",
-      title: "Luminosidad y textura",
-      description:
-        "Protocolos combinados de limpieza profunda e hidratación con seguimiento mensual.",
-    },
-    {
-      tag: "Corporal",
-      title: "Contorno y firmeza",
-      description:
-        "Planes graduales con tecnología de apoyo y hábitos en casa; sin promesas absolutas.",
-    },
-    {
-      tag: "Depilación",
-      title: "Láser progresivo",
-      description:
-        "Sesiones programadas según fototipo; educación sobre sol y cuidados entre visitas.",
-    },
-  ],
-} as const;
+    "Los resultados varían según cada persona. No se muestran imágenes comparativas sin consentimiento.",
+  items: [] as Array<{ tag: string; title: string; description: string }>,
+};
 
-// ---- Catalog --------------------------------------------------------------
-export type { FAQ, Treatment, Category } from "./treatments-catalog";
-export { categoriesFull } from "./treatments-catalog";
-import { categoriesFull } from "./treatments-catalog";
-import type { Category, Treatment, FAQ } from "./treatments-catalog";
-
-
-// Index of all treatments as flat records, useful for sitemaps & lookups.
 export const allTreatments = categoriesFull.flatMap((c) =>
   c.treatments.map((t) => ({ category: c, treatment: t })),
 );
@@ -182,7 +151,6 @@ export function getTreatment(
   return { category, treatment };
 }
 
-// Summary list used by the homepage categories grid.
 export const categories = categoriesFull.map((c) => ({
   slug: c.slug,
   title: c.title,
@@ -190,21 +158,24 @@ export const categories = categoriesFull.map((c) => ({
   icon: c.icon,
 }));
 
-// ---- Featured treatments (homepage grid) ---------------------------------
-
 export const featured: Array<{
   categorySlug: string;
   treatmentSlug: string;
 }> = [
-  { categorySlug: "medicina-estetica-facial", treatmentSlug: "toxina-botulinica" },
+  { categorySlug: "medicina-estetica-facial", treatmentSlug: "toxina-botulinica-facial" },
   { categorySlug: "medicina-estetica-facial", treatmentSlug: "acido-hialuronico-labios" },
-  { categorySlug: "medicina-estetica-facial", treatmentSlug: "marcaje-mandibular" },
-  { categorySlug: "medicina-estetica-facial", treatmentSlug: "bioestimulador-colageno" },
-  { categorySlug: "tecnologia-laser", treatmentSlug: "depilacion-nd-yag" },
-  { categorySlug: "paquetes-especiales", treatmentSlug: "paquete-corporal-premium" },
+  { categorySlug: "cuidado-de-la-piel", treatmentSlug: "limpieza-facial-profunda" },
+  { categorySlug: "tratamientos-corporales", treatmentSlug: "enzimas-recombinantes-corporales" },
+  { categorySlug: "laser-y-depilacion", treatmentSlug: "depilacion-ipl-o-diodo" },
+  { categorySlug: "tratamientos-corporales", treatmentSlug: "estrias-dermapen" },
 ];
 
-// ---- Monthly promos ------------------------------------------------------
+export const featuredHeading = {
+  eyebrow: "Catálogo",
+  title: "Tratamientos publicados",
+  subtitle:
+    "Selección del listado de la doctora, con el tiempo y el precio que figuran en el documento.",
+};
 
 export const promos: Array<{
   tag: string;
@@ -217,99 +188,61 @@ export const promos: Array<{
   priceNow?: string;
 }> = [
   {
-    tag: "Facial",
-    title: "Skinbooster + valoración incluida",
-    sessionInfo: "1 sesión · incluye valoración previa",
-    priceBefore: "S/ 320",
-    priceNow: "S/ 249",
+    tag: "Publicada",
+    title: "Toxina botulínica facial 2x1",
+    sessionInfo: "15–20 min · primeros 50 clientes",
+    priceNow: "S/ 1,300",
     description:
-      "Hidratación profunda y luminosidad. Si el tratamiento no está indicado, orientamos alternativas.",
-    cta: "Reservar valoración",
-    href: "/reservar?tratamiento=skinbooster",
-  },
-  {
-    tag: "Armonización",
-    title: "Ácido hialurónico en labios",
-    sessionInfo: "Sesión única · retoque opcional",
-    priceBefore: "S/ 890",
-    priceNow: "S/ 690",
-    description: "Volumen y contorno con criterio natural. Plan definido en consulta.",
+      "El precio de S/ 1,300 ya incluye la promoción 2x1 para los primeros 50 clientes. Separa tu cita con el 10% del procedimiento y obtén la evaluación integral gratuita. No hay otras promociones publicadas.",
     cta: "Ver tratamiento",
-    href: "/tratamientos/medicina-estetica-facial/acido-hialuronico-labios",
-  },
-  {
-    tag: "Láser",
-    title: "Depilación ND:YAG",
-    sessionInfo: "Pack promocional · valoración previa",
-    priceBefore: "S/ 180",
-    priceNow: "S/ 129",
-    description: "Zonas pequeñas o sesión de prueba. Indicación según fototipo en consulta.",
-    cta: "Solicitar cupo",
-    href: "/reservar?tratamiento=depilacion-nd-yag",
-  },
-  {
-    tag: "Combo",
-    title: "Limpieza profunda + alta frecuencia",
-    sessionInfo: "1 sesión combinada",
-    priceBefore: "S/ 260",
-    priceNow: "S/ 199",
-    description: "Ideal para piel congestionada o con tendencia acneica leve.",
-    cta: "Reservar",
-    href: "/reservar?tratamiento=limpieza-facial-profunda",
+    href: "/tratamientos/medicina-estetica-facial/toxina-botulinica-facial",
   },
 ];
 
 export const partnerBrands = [
-  "Equipos de última generación",
-  "Insumos trazables",
-  "Protocolos médicos",
-  "Formación continua",
-  "Seguimiento post-tratamiento",
+  "Reage®",
+  "Abbott",
+  "Neauvia®",
+  "Croma©",
+  "Sciela",
+  "Radiesse®",
+  "Exel",
+  "Dermapen",
+  "Fibroblast",
 ] as const;
 
 export const homePillars = [
   {
-    title: "Belleza con criterio",
+    title: "Criterio en consulta",
     description:
-      "Realzamos tu imagen sin exagerar resultados. Planes personalizados y expectativas claras.",
+      "La doctora revisa tus necesidades, explica el procedimiento y confirma si es adecuado para ti.",
   },
   {
-    title: "Bienestar en consulta",
+    title: "Precios del listado",
     description:
-      "Te explicamos cada paso antes de decidir. Ambiente calmado y tiempos respetados.",
+      "Cada ficha muestra el tiempo y el precio publicados. No hay paquetes ni conteos de sesiones inventados.",
   },
   {
-    title: "Tu mejor versión",
+    title: "Aún no abre",
     description:
-      "Combinamos tecnología y manos expertas para acompañarte con seguridad en Lima.",
+      "La dirección y el horario en Lima se anunciarán cuando la clínica los confirme.",
   },
 ] as const;
 
-export const homeGiftBanner = {
-  title: "Regala cuidado, no impulsos",
-  description:
-    "Tarjetas regalo para valoraciones y tratamientos seleccionados. Perfectas para fechas especiales.",
-  cta: "Consultar tarjetas",
-  href: "/contacto",
-} as const;
-
 export const homeEditorialIntro = {
-  eyebrow: "El tratamiento que buscas",
-  title: "Medicina estética facial, dermatología, láser y corporales en Lima",
+  eyebrow: "El listado",
+  title: "Medicina estética facial, piel, corporal y láser",
   description:
-    "Explora protocolos destacados con lenguaje claro. La indicación final siempre la define tu valoración médica.",
+    "Cuatro grupos para los 17 servicios del documento. La indicación final se confirma en valoración.",
 } as const;
 
-/** Slugs de tratamientos para bloques editoriales en home (patrón clínica premium). */
 export const homeEditorialSlugs: Array<{ categorySlug: string; treatmentSlug: string }> =
   [
-    { categorySlug: "medicina-estetica-facial", treatmentSlug: "toxina-botulinica" },
-    { categorySlug: "medicina-estetica-facial", treatmentSlug: "acido-hialuronico-labios" },
-    { categorySlug: "medicina-estetica-facial", treatmentSlug: "marcaje-mandibular" },
-    { categorySlug: "tecnologia-laser", treatmentSlug: "depilacion-nd-yag" },
+    { categorySlug: "medicina-estetica-facial", treatmentSlug: "toxina-botulinica-facial" },
+    { categorySlug: "medicina-estetica-facial", treatmentSlug: "acido-hialuronico-rinomodelacion-y-menton" },
+    { categorySlug: "cuidado-de-la-piel", treatmentSlug: "peeling-enzimatico" },
+    { categorySlug: "laser-y-depilacion", treatmentSlug: "atenuacion-de-tatuajes-nd-yag" },
   ];
-
-// ---- Doctors / Team ------------------------------------------------------
 
 export type TeamMember = {
   slug: string;
@@ -322,41 +255,15 @@ export type TeamMember = {
 
 export const teamMembers: TeamMember[] = [
   {
-    slug: "valentina-rivera",
-    name: "Dra. Valentina Rivera",
-    role: "Directora médica • Medicina estética",
-    bio: "Enfocada en tratamientos faciales y corporales no invasivos con resultados naturales. Acompaña cada plan con seguimiento y educación sobre cuidados en casa.",
-    credentials: [
-      "CMP colegiatura ficticia N.º 000000 [PENDIENTE DE VALIDACIÓN]",
-      "Formación en medicina estética — Lima y Buenos Aires [PENDIENTE DE VALIDACIÓN]",
-    ],
-    focus: ["Rejuvenecimiento facial", "Bioestimulación", "Protocolos combinados"],
-  },
-  {
-    slug: "mateo-salcedo",
-    name: "Dr. Mateo Salcedo",
-    role: "Cirujano plástico",
-    bio: "Prioriza seguridad, indicación correcta y expectativas realistas en procedimientos quirúrgicos y revisiones estéticas.",
-    credentials: [
-      "CMP colegiatura ficticia N.º 000000 [PENDIENTE DE VALIDACIÓN]",
-      "Membresía en sociedad científica [PENDIENTE DE VALIDACIÓN]",
-    ],
-    focus: ["Cirugía estética facial", "Contorno corporal", "Revisión de resultados"],
-  },
-  {
-    slug: "camila-nunez",
-    name: "Dra. Camila Núñez",
-    role: "Dermatología estética",
-    bio: "Trabaja piel sensible, acné adulto y manchas con enfoque gradual, evitando promesas absolutas y combinando tecnología con hábitos.",
-    credentials: [
-      "CMP colegiatura ficticia N.º 000000 [PENDIENTE DE VALIDACIÓN]",
-      "Diplomado en dermatología estética [PENDIENTE DE VALIDACIÓN]",
-    ],
-    focus: ["Manchas y textura", "Acné y rosácea leve", "Peelings médicos"],
+    slug: "melissa-vigo",
+    name: "Dra. Melissa Vigo",
+    role: "Médico cirujano · Medicina estética",
+    bio: "Médico cirujano, CMP 101245. Medicina estética. La biografía extendida y la fotografía se publicarán cuando la doctora las confirme.",
+    credentials: ["Médico cirujano", "CMP 101245", "Medicina estética"],
+    focus: categoriesFull.map((c) => c.title),
   },
 ];
 
-/** Compatibilidad con componentes existentes. */
 export const doctors = teamMembers.map(({ name, role, bio, slug }) => ({
   name,
   role,
@@ -372,74 +279,70 @@ export const careProcess = [
   {
     step: "01",
     title: "Valoración",
-    description:
-      "Revisamos tu historial general, objetivos y contraindicaciones evidentes. No sustituye una consulta presencial completa.",
+    description: "La doctora revisa tus necesidades.",
   },
   {
     step: "02",
-    title: "Plan personalizado",
-    description:
-      "Te explicamos opciones, tiempos orientativos y qué puede esperarse razonablemente. Sin presión para decidir el mismo día.",
+    title: "Explicación",
+    description: "Explica el procedimiento recomendado.",
   },
   {
     step: "03",
-    title: "Tratamiento",
-    description:
-      "Aplicamos el protocolo acordado con consentimiento informado y productos trazables cuando corresponda.",
+    title: "Confirmación",
+    description: "Confirma si es adecuado para ti.",
   },
   {
     step: "04",
-    title: "Seguimiento",
+    title: "Aplicación",
     description:
-      "Indicaciones de cuidado posterior y controles según el procedimiento. Los resultados pueden variar según cada persona.",
+      "Si corresponde, el tiempo publicado incluye la aplicación y puede variar según la zona y la valoración.",
   },
 ] as const;
 
 export const globalFAQ: FAQ[] = [
   {
     q: "¿La valoración tiene costo?",
-    a: "En esta demo indicamos valoración sin costo. En producción debe confirmarse el precio y publicarse antes de reservar [PENDIENTE DE VALIDACIÓN].",
+    a: "En toxina botulínica facial y en ácido hialurónico de rinomodelación y mentón y de labios, al separar la cita con el 10% del procedimiento la evaluación integral es gratuita. No hay una tarifa general de valoración publicada para el resto de tratamientos.",
   },
   {
     q: "¿Puedo reservar sin saber qué tratamiento necesito?",
-    a: "Sí. Elige “Consulta general” o cuéntanos qué te gustaría mejorar. La indicación final la define el equipo médico en consulta.",
+    a: "Sí. Elige “Consulta general” o cuenta qué te gustaría consultar. La indicación la define la doctora en consulta.",
   },
   {
     q: "¿Los resultados están garantizados?",
-    a: "No. Compartimos resultados esperables y factores que influyen, pero la respuesta de cada persona es individual.",
+    a: "No. La indicación y el procedimiento se confirman en valoración médica. La respuesta de cada persona es individual.",
   },
   {
     q: "¿Cómo preparo mi primera visita?",
-    a: "Llega unos minutos antes, trae identificación y lista de medicamentos o alergias relevantes. Evita exponerte al sol intenso si vendrás por un peeling o láser.",
+    a: "Todavía no hay indicaciones de preparación publicadas. Te las compartiremos al coordinar la cita.",
   },
   {
     q: "¿Puedo cancelar o reprogramar?",
-    a: "Sí. Consulta las condiciones de reserva. Recomendamos avisar con la mayor anticipación posible para reasignar el horario.",
+    a: "La política de cancelación aún no está publicada. Tampoco hay una regla publicada sobre el reembolso del 10% con el que se separan algunas citas.",
   },
   {
     q: "¿Atienden urgencias médicas?",
-    a: "Somos un centro de medicina estética programada. Ante urgencias, acude a un servicio de emergencias o a tu médico de cabecera.",
+    a: "No. Es medicina estética programada. Ante una urgencia, acude a un servicio de emergencias.",
   },
   {
     q: "¿Qué formas de pago aceptan?",
-    a: "[PENDIENTE DE VALIDACIÓN] Indica aquí medios de pago, cuotas y políticas de abono por paquetes.",
+    a: "Los medios de pago aún no están publicados.",
   },
   {
-    q: "¿Usan productos originales?",
-    a: "Trabajamos con insumos trazables cuando corresponde y te informamos antes de aplicarlos. Solicita verificar lote en consulta si lo deseas.",
+    q: "¿Dónde quedan y en qué horario atienden?",
+    a: "La dirección, las sedes y el horario aún no están confirmados. La clínica todavía no abre en Lima.",
   },
 ];
 
 export const bookingCopy = {
   title: "Solicitar valoración",
   intro:
-    "Flujo breve para coordinar una primera valoración. No es un diagnóstico en línea: revisaremos tu solicitud y te confirmaremos horario por teléfono, email o WhatsApp.",
+    "Flujo para dejar una solicitud. No es un diagnóstico en línea ni una cita confirmada: la revisaremos y te escribiremos por WhatsApp.",
   valuationCost:
-    "Valoración inicial sin costo en esta demostración [PENDIENTE DE VALIDACIÓN en clínica real].",
+    "La evaluación integral gratuita aplica al separar la cita con el 10% del procedimiento en los tratamientos del listado que lo indican. No hay una tarifa general de valoración publicada para el resto. La política de reembolso de ese 10% aún no está publicada.",
   cancellation:
-    "Puedes reprogramar o cancelar según nuestras condiciones de reserva. Te recomendamos avisar con al menos 24 horas [PENDIENTE DE VALIDACIÓN].",
-  fallback:
-    "Si el formulario falla, escríbenos por WhatsApp o llámanos y guardaremos tu solicitud manualmente.",
+    "La política de cancelación y el reembolso del 10% aún no están publicados.",
+  fallback: "Si el formulario falla, escríbenos por WhatsApp.",
 } as const;
 
 export const legalLinks = [
@@ -449,116 +352,61 @@ export const legalLinks = [
   { label: "Condiciones de reserva", href: "/condiciones-reserva" },
 ] as const;
 
-export const promosDisclaimer =
-  "Promociones sujetas a valoración médica y disponibilidad. No acumulables salvo indicación expresa. Precios referenciales en demo.";
-
-// ---- Technology ----------------------------------------------------------
+export const promosDisclaimer = catalogDisclaimer;
 
 export const technology = [
   {
-    name: "Láser diodo de alta potencia",
+    name: "Láser ND:YAG",
     description:
-      "Depilación eficaz y confortable para todo tipo de piel, con sistema de enfriamiento continuo.",
+      "Figura en la atenuación de tatuajes por zona. El equipo y la marca no están especificados en el listado.",
   },
   {
-    name: "Radiofrecuencia fraccionada",
+    name: "IPL o diodo",
     description:
-      "Tensado profundo de la piel y estimulación de colágeno sin tiempo de recuperación.",
+      "Figura en la depilación por zona. El listado no publica una marca de equipo.",
   },
   {
-    name: "Criolipólisis de 4ta generación",
+    name: "Dermapen",
     description:
-      "Reducción focalizada de adipocitos con aplicadores anatómicos de última generación.",
+      "Figura en el tratamiento de estrías por zonas, hipertróficas e hipotróficas.",
   },
   {
-    name: "HIFU facial y corporal",
+    name: "Fibroblast",
     description:
-      "Ultrasonido focalizado de alta intensidad para lifting sin cirugía.",
+      "Figura en el tratamiento de estrías por zonas con plasma superficial. El equipo concreto no está especificado.",
   },
 ];
 
-// ---- Testimonials --------------------------------------------------------
+export const testimonials: Array<{
+  name: string;
+  treatment: string;
+  quote: string;
+}> = [];
 
-export const testimonials = [
-  {
-    name: "Lucía M.",
-    treatment: "HydraGlow Facial",
-    quote:
-      "Noté la diferencia desde la primera sesión. El equipo es muy profesional y el espacio es realmente acogedor.",
-  },
-  {
-    name: "Andrea P.",
-    treatment: "Depilación láser",
-    quote:
-      "Después de 5 sesiones los resultados son increíbles. Me explicaron todo con mucha paciencia.",
-  },
-  {
-    name: "Rafaela S.",
-    treatment: "Toxina botulínica",
-    quote:
-      "Resultado súper natural, nadie nota que me hice algo pero yo me veo descansada. Repetiría sin dudar.",
-  },
-];
-
-// ---- Locations -----------------------------------------------------------
-
-export const locations = [
-  {
-    slug: "miraflores",
-    name: "Sede Miraflores",
-    address: "Av. Ejemplo 123, Miraflores, Lima",
-    phone: "+51 1 555 0123",
-    phoneHref: "+5115550123",
-    whatsapp: "+51 981 237 361",
-    whatsappHref: "51981237361",
-    hours: "Lun a Sáb · 9:00 – 20:00",
-    mapHref: "https://maps.google.com/?q=Miraflores+Lima",
-  },
-  {
-    slug: "san-isidro",
-    name: "Sede San Isidro",
-    address: "Calle Ejemplo 456, San Isidro, Lima",
-    phone: "+51 1 555 0456",
-    phoneHref: "+5115550456",
-    whatsapp: "+51 999 000 222",
-    whatsappHref: "51999000222",
-    hours: "Lun a Sáb · 10:00 – 20:00",
-    mapHref: "https://maps.google.com/?q=San+Isidro+Lima",
-  },
-  {
-    slug: "surco",
-    name: "Sede Surco",
-    address: "Av. Ejemplo 789, Santiago de Surco, Lima",
-    phone: "+51 1 555 0789",
-    phoneHref: "+5115550789",
-    whatsapp: "+51 999 000 333",
-    whatsappHref: "51999000333",
-    hours: "Mar a Sáb · 10:00 – 19:00",
-    mapHref: "https://maps.google.com/?q=Surco+Lima",
-  },
-];
-
-// ---- Footer --------------------------------------------------------------
+export const locations: Array<{
+  slug: string;
+  name: string;
+  address: string;
+  phone: string;
+  phoneHref: string;
+  whatsapp: string;
+  whatsappHref: string;
+  hours: string;
+  mapHref: string;
+}> = [];
 
 export const footer = {
-  hours: "Lunes a Sábado · 9:00 – 20:00 h",
-  legal: `© ${new Date().getFullYear()} Lumina Estética. Marca ficticia creada con fines de demostración. Todos los datos de contacto, direcciones y promociones son de ejemplo.`,
+  hours: "Horario por confirmar",
+  hoursNote: "El horario de atención aún no está publicado.",
+  legal: `© ${new Date().getFullYear()} Dra. Melissa Vigo. Medicina estética en Lima. Razón social, RUC, sede y horario pendientes de publicación.`,
 };
-
-// ---- Free-consult CTA ----------------------------------------------------
-// Reworked wording and position (now shown further down the page, after the
-// visitor has had a chance to browse the catalog).
 
 export const freeConsult = {
   eyebrow: "Siguiente paso",
-  title: "Solicita una valoración personalizada",
+  title: "Solicita una valoración",
   subtitle:
-    "Te explicaremos qué opciones tienen sentido para ti, tiempos orientativos y cuidados posteriores. Sin compromiso de iniciar tratamiento el mismo día.",
+    "La doctora revisa tus necesidades en consulta. Si prefieres no usar el formulario, escríbenos por WhatsApp.",
 };
-
-// ---- Allowed values for contact form validation --------------------------
-// Server-side we validate `tratamiento` and `sede` against these lists so
-// nobody can POST arbitrary strings into the database.
 
 const extraTreatmentOptions = ["Otro", "Consulta general"] as const;
 

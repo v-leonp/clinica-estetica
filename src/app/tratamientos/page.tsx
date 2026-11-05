@@ -6,19 +6,19 @@ import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
 import CategoryIcon from "~/components/CategoryIcon";
-import { categoriesFull, site } from "~/data/content";
+import { catalogDisclaimer, catalogIntro, categoriesFull, site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Tratamientos",
-  description: `Catálogo de tratamientos faciales, corporales, depilación láser y cirugía estética de ${site.brand}. Protocolos personalizados con médicos certificados en Lima.`,
+  description: `Catálogo de ${site.brand}: 17 tratamientos con tiempos y precios. Medicina estética en Lima.`,
   alternates: { canonical: `${getSiteUrl()}/tratamientos` },
   openGraph: {
     title: `Tratamientos | ${site.brand}`,
     description:
-      "Catálogo completo: medicina estética facial, dermatología estética, faciales, corporales, láser y paquetes en Lima.",
+      "Medicina estética facial, cuidado de la piel, tratamientos corporales y láser.",
     url: `${getSiteUrl()}/tratamientos`,
   },
 };
@@ -34,8 +34,8 @@ export default function TratamientosIndexPage() {
       />
       <PageHero
         eyebrow="Catálogo"
-        title="Todos nuestros tratamientos"
-        subtitle="Explora nuestras especialidades. Cada categoría agrupa los protocolos que trabajamos con tecnología de alta gama y acompañamiento médico."
+        title="Tratamientos"
+        subtitle={catalogIntro}
       />
 
       <section className="section pt-4">
@@ -81,6 +81,7 @@ export default function TratamientosIndexPage() {
               </li>
             ))}
           </ul>
+          <p className="mt-10 max-w-2xl text-sm text-ink-700">{catalogDisclaimer}</p>
         </div>
       </section>
 
