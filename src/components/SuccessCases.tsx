@@ -13,7 +13,7 @@ export default function SuccessCases() {
           <h2 className="heading mt-3 font-serif text-3xl leading-tight sm:text-4xl">
             {successCases.title}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-cream-100/85">
+          <p className="mt-4 body-copy text-base leading-relaxed text-cream-100/85">
             {successCases.intro}
           </p>
         </div>
@@ -23,7 +23,7 @@ export default function SuccessCases() {
               <article className="rounded-2xl border border-cream-100/10 bg-cream-50/5 p-6">
                 <p className="text-xs uppercase tracking-wider text-gold">{item.tag}</p>
                 <h3 className="heading mt-3 font-serif text-xl">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-cream-100/80">
+                <p className="mt-3 body-copy text-sm leading-relaxed text-cream-100/80">
                   {item.description}
                 </p>
               </article>

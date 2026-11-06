@@ -33,7 +33,7 @@ export default function FAQSection({
                   +
                 </span>
               </summary>
-              <p className="mt-3 text-sm leading-relaxed text-ink-700">{f.a}</p>
+              <p className="mt-3 body-copy text-sm leading-relaxed text-ink-700">{f.a}</p>
             </details>
           ))}
         </div>

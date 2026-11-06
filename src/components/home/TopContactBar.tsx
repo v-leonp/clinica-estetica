@@ -1,6 +1,13 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 import { site } from "~/data/content";
 
 export default function TopContactBar() {
+  const pathname = usePathname();
+  if (pathname === "/") return null;
+
   return (
     <div className="border-b border-cream-200 bg-white text-xs text-ink-700">
       <div className="container-x flex flex-wrap items-center justify-between gap-2 py-2">

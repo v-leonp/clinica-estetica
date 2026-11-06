@@ -54,7 +54,7 @@ export default function PromocionesPage() {
                       {p.sessionInfo}
                     </p>
                   )}
-                  <p className="relative mt-3 text-sm leading-relaxed text-cream-100/85">
+                  <p className="relative mt-3 body-copy text-sm leading-relaxed text-cream-100/85">
                     {p.description}
                   </p>
                   <div className="relative mt-6">

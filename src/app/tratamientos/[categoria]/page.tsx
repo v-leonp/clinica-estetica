@@ -7,6 +7,8 @@ import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
 import CategoryIcon from "~/components/CategoryIcon";
+import ClinicPhoto from "~/components/ClinicPhoto";
+import { photoForCategory } from "~/data/clinic-photos";
 import { categoriesFull, getCategory, site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
@@ -79,15 +81,18 @@ export default async function CategoryPage({
                     href={`/tratamientos/${cat.slug}/${t.slug}`}
                     className="group block"
                   >
-                    <div
-                      aria-hidden="true"
-                      className="h-28 w-full rounded-xl bg-gradient-rose opacity-80 transition group-hover:opacity-100"
-                    />
+                    {photoForCategory(cat.slug) && (
+                      <ClinicPhoto
+                        photo={photoForCategory(cat.slug)!}
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        className="mb-5 rounded-xl"
+                      />
+                    )}
                     <h3 className="heading mt-5 font-serif text-xl leading-snug text-ink-900 group-hover:text-rose-gold">
                       {t.name}
                     </h3>
                   </Link>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-700">
+                  <p className="body-copy mt-2 flex-1 text-sm leading-relaxed text-ink-700">
                     {t.short}
                   </p>
                   <dl className="mt-4 grid grid-cols-2 gap-2 text-xs text-ink-500">

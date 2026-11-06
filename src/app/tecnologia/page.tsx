@@ -48,7 +48,7 @@ export default function TecnologiaPage() {
                 </span>
                 <div>
                   <h2 className="heading font-serif text-lg text-ink-900">{t.name}</h2>
-                  <p className="mt-1 text-sm leading-relaxed text-ink-700">
+                  <p className="mt-1 body-copy text-sm leading-relaxed text-ink-700">
                     {t.description}
                   </p>
                 </div>

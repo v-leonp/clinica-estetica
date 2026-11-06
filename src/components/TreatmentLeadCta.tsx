@@ -21,7 +21,7 @@ export default function TreatmentLeadCta({
         <h2 className="heading font-serif text-2xl leading-tight text-ink-900 md:text-3xl">
           ¿Te interesa este tratamiento?
         </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-700">
+        <p className="mt-3 max-w-2xl body-copy text-sm leading-relaxed text-ink-700">
           Solicita una valoración. Revisaremos tu caso y te indicaremos si este
           protocolo es adecuado. Los resultados pueden variar según cada persona.
         </p>

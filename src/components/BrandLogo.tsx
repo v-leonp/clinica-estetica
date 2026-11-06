@@ -15,7 +15,7 @@ export default function BrandLogo({ variant = "header" }: Props) {
       priority={variant === "header"}
       className={
         variant === "header"
-          ? "h-[4.25rem] w-auto md:h-24"
+          ? "h-14 w-auto xl:h-[4.75rem]"
           : "h-20 w-auto"
       }
     />

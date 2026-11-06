@@ -1,49 +1,31 @@
-import { technology } from '~/data/content';
+import { technology } from "~/data/content";
 
 export default function Technology() {
   return (
-    <section id="tecnologia" className="section">
-      <div className="container-x grid gap-10 md:grid-cols-12 md:gap-16">
-        <div className="md:col-span-5">
-          <p className="eyebrow">Tecnología</p>
-          <h2 className="section-title">
-            Lo que nombra el catálogo
-          </h2>
+    <section id="tecnologia" className="section bg-cream-50">
+      <div className="container-x">
+        <div className="max-w-3xl">
+          <p className="eyebrow">Técnicas</p>
+          <h2 className="section-title">Cuando el procedimiento lo pide</h2>
           <p className="section-sub">
-            Equipos y técnicas que aparecen en el listado de tratamientos. No hay
-            otras tecnologías publicadas.
+            Aparecen en tratamientos del catálogo. Si no consta la marca del
+            equipo, no la publicamos.
           </p>
-
-          <div
-            aria-hidden="true"
-            className="mt-10 aspect-square overflow-hidden rounded-3xl bg-gradient-cream md:aspect-[4/5]"
-          >
-            <div className="flex h-full items-center justify-center">
-              <div className="h-40 w-40 rounded-full bg-gradient-rose opacity-80 blur-xl" />
-            </div>
-          </div>
         </div>
-
-        <div className="md:col-span-7">
-          <ul className="space-y-5">
-            {technology.map((t, i) => (
-              <li
-                key={t.name}
-                className="flex items-start gap-5 rounded-2xl border border-cream-200 bg-white p-5 shadow-soft"
-              >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-gold font-serif text-cream-50">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="heading font-serif text-lg text-ink-900">{t.name}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-ink-700">
-                    {t.description}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="mt-12 grid gap-5 sm:grid-cols-2">
+          {technology.map((item) => (
+            <li key={item.name} className="min-w-0">
+              <article className="h-full rounded-2xl border border-cream-200 bg-cream-50 p-6">
+                <h3 className="heading font-serif text-lg leading-snug text-ink-900">
+                  {item.name}
+                </h3>
+                <p className="mt-3 body-copy text-sm leading-relaxed text-ink-700">
+                  {item.description}
+                </p>
+              </article>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

@@ -5,11 +5,10 @@ import Doctors from "~/components/Doctors";
 import Technology from "~/components/Technology";
 import Locations from "~/components/Locations";
 import SiteShell from "~/components/SiteShell";
-import HomeReferenceHero from "~/components/home/HomeReferenceHero";
-import PartnerBrandsBar from "~/components/home/PartnerBrandsBar";
+import HomeVideoHero from "~/components/home/HomeVideoHero";
+import HomeCategories from "~/components/home/HomeCategories";
 import HomePromoOffers from "~/components/home/HomePromoOffers";
 import HomeValuePillars from "~/components/home/HomeValuePillars";
-import HomeTreatmentStories from "~/components/home/HomeTreatmentStories";
 import HomeContactBlock from "~/components/home/HomeContactBlock";
 import { medicalClinicJsonLd } from "~/lib/json-ld";
 
@@ -29,13 +28,12 @@ export default function HomePage() {
 
   return (
     <SiteShell>
-      <HomeReferenceHero />
-      <PartnerBrandsBar />
-      <HomePromoOffers />
-      <HomeValuePillars />
-      <HomeTreatmentStories />
+      <HomeVideoHero />
+      <HomeCategories />
       <Featured />
+      <HomePromoOffers />
       <Doctors />
+      <HomeValuePillars />
       <Technology />
       <Locations />
       <HomeContactBlock />

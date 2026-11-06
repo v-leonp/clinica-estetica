@@ -24,7 +24,7 @@ export default function Hero() {
           <h1 className="heading mt-4 max-w-3xl font-serif text-4xl leading-[1.12] text-ink-900 sm:text-5xl md:text-6xl lg:text-7xl">
             {hero.title}
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-700 sm:text-lg md:text-xl">
+          <p className="mt-6 max-w-xl body-copy text-base leading-relaxed text-ink-700 sm:text-lg md:text-xl">
             {hero.subtitle}
           </p>
 

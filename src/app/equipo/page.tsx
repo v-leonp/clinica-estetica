@@ -38,7 +38,7 @@ export default function EquipoPage() {
                 <DoctorPortrait className="h-32 w-32" />
                 <h2 className="heading mt-5 font-serif text-xl text-ink-900">{m.name}</h2>
                 <p className="credential mt-2 text-[1.05rem] text-gold-ink">{m.role}</p>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-700">{m.bio}</p>
+                <p className="body-copy mt-3 flex-1 text-sm leading-relaxed text-ink-700">{m.bio}</p>
                 <Link
                   href={`/equipo/${m.slug}`}
                   className="mt-5 text-sm text-gold-ink hover:underline"

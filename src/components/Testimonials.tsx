@@ -14,7 +14,7 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <li key={t.name}>
               <figure className="card h-full">
-                <blockquote className="text-sm leading-relaxed text-ink-700">
+                <blockquote className="body-copy text-sm leading-relaxed text-ink-700">
                   {t.quote}
                 </blockquote>
                 <figcaption className="mt-5">

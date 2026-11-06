@@ -43,6 +43,20 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}
+
 body {
   background: #f7f5f1;
   color: #183553;
@@ -145,6 +159,34 @@ h4 {
   .card {
     @apply rounded-2xl border border-cream-200 bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lg;
     min-width: 0;
+  }
+
+  /* Cuerpo y descripciones largas. No aplica a títulos, botones ni precios. */
+  .body-copy {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  .body-copy :is(h1, h2, h3, h4, h5, h6, summary, dt) {
+    text-align: start;
+    hyphens: manual;
+  }
+}
+
+/* En tres o cuatro columnas la justificación abre huecos. En móvil, una columna, se mantiene. */
+@media (min-width: 768px) {
+  .md\:grid-cols-3 .body-copy {
+    text-align: start;
+    hyphens: manual;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 .body-copy,
+  .xl\:grid-cols-4 .body-copy {
+    text-align: start;
+    hyphens: manual;
   }
 }
 
