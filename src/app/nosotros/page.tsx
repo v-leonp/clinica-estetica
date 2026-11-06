@@ -32,7 +32,6 @@ export default function NosotrosPage() {
         ]}
       />
       <PageHero
-        eyebrow="La doctora"
         title="Melissa Vigo"
         subtitle="Médico cirujano, CMP 101245. Medicina estética. La clínica aún no abre en Lima: la sede, el horario y la biografía extendida se publicarán cuando estén confirmados."
       />
@@ -40,7 +39,7 @@ export default function NosotrosPage() {
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
-            <h2 className="font-serif text-2xl text-ink-900">Qué está publicado</h2>
+            <h2 className="heading font-serif text-2xl text-ink-900">Qué está publicado</h2>
             <p className="mt-3 text-base leading-relaxed text-ink-700">
               En la consulta, la doctora revisa tus necesidades, explica el
               procedimiento recomendado y confirma si es adecuado para ti. El
@@ -64,8 +63,8 @@ export default function NosotrosPage() {
                 key={b.title}
                 className="rounded-2xl border border-cream-200 bg-white p-4 text-center"
               >
-                <p className="font-serif text-base text-ink-900">{b.title}</p>
-                <p className="mt-1 text-xs text-ink-500">{b.subtitle}</p>
+                <p className="heading font-serif text-base text-ink-900">{b.title}</p>
+                <p className="mt-1 text-xs uppercase tracking-wide text-ink-500">{b.subtitle}</p>
               </li>
             ))}
           </ul>
@@ -87,10 +86,8 @@ export default function NosotrosPage() {
               <li key={d.name}>
                 <article className="card h-full text-center">
                   <DoctorPortrait />
-                  <h3 className="mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
-                  <p className="mt-1 text-xs uppercase tracking-wider text-gold-ink">
-                    {d.role}
-                  </p>
+                  <h3 className="heading mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
+                  <p className="credential mt-2 text-[1.05rem] text-gold-ink">{d.role}</p>
                   <p className="mt-3 text-sm leading-relaxed text-ink-700">{d.bio}</p>
                 </article>
               </li>

@@ -51,14 +51,18 @@ export default async function EquipoMemberPage({
           { label: member.name },
         ]}
       />
-      <PageHero eyebrow={member.role} title={member.name} subtitle={member.bio} />
+      <PageHero
+        title={member.name}
+        credential={member.role}
+        subtitle={member.bio}
+      />
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-2">
           <div>
             <div className="mb-8">
               <DoctorPortrait variant="profile" />
             </div>
-            <h2 className="font-serif text-2xl text-ink-900">Datos confirmados</h2>
+            <h2 className="heading font-serif text-2xl text-ink-900">Datos confirmados</h2>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-700">
               {member.credentials.map((c) => (
                 <li key={c}>{c}</li>
@@ -66,7 +70,7 @@ export default async function EquipoMemberPage({
             </ul>
           </div>
           <div>
-            <h2 className="font-serif text-2xl text-ink-900">Catálogo publicado</h2>
+            <h2 className="heading font-serif text-2xl text-ink-900">Catálogo publicado</h2>
             <ul className="mt-4 flex flex-wrap gap-2">
               {member.focus.map((f) => (
                 <li

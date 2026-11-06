@@ -17,7 +17,7 @@ export default function ProcessSteps() {
             <li key={item.step}>
               <article className="card h-full">
                 <p className="font-serif text-3xl text-rose-gold/80">{item.step}</p>
-                <h3 className="mt-3 font-serif text-xl text-ink-900">{item.title}</h3>
+                <h3 className="heading mt-3 font-serif text-xl text-ink-900">{item.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink-700">
                   {item.description}
                 </p>

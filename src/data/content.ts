@@ -223,7 +223,7 @@ export const homePillars = [
       "Cada ficha muestra el tiempo y el precio publicados. No hay paquetes ni conteos de sesiones inventados.",
   },
   {
-    title: "Aún no abre",
+    title: "Visítanos en",
     description:
       "La dirección y el horario en Lima se anunciarán cuando la clínica los confirme.",
   },

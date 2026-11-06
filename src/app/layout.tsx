@@ -12,9 +12,10 @@ import { getSiteUrl } from "~/lib/site-url";
  * Títulos: Nexa Bold. Cuerpo: Nexa Light. Licencia Fontfabric (free fonts)
  * que permite @font-face comercial. Los archivos .otf no se modifican.
  *
- * El manual pide Gabriola para subtítulos. Esa licencia no permite uso web,
- * así que no está en el repositorio. Los subtítulos usan Cormorant Garamond
- * Italic (OFL, Google Fonts), cursiva humanista de trazo caligráfico.
+ * El manual pide Gabriola para subtítulos, incluida la línea profesional
+ * «Médico cirujano · Medicina estética». Esa licencia no permite uso web,
+ * así que no está en el repositorio ni se sustituye por una imagen.
+ * Esos subtítulos usan Cormorant Garamond Italic (OFL, Google Fonts).
  * Sustituir por Gabriola si se compra licencia web.
  */
 const nexaBold = localFont({

@@ -35,7 +35,7 @@ export default function Technology() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="font-serif text-lg text-ink-900">{t.name}</h3>
+                  <h3 className="heading font-serif text-lg text-ink-900">{t.name}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-ink-700">
                     {t.description}
                   </p>

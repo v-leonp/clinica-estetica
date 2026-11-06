@@ -88,10 +88,27 @@ h4 {
   .eyebrow {
     @apply text-xs uppercase tracking-[0.2em] text-gold-ink;
     font-family: var(--font-nexa-bold), sans-serif;
+    overflow-wrap: break-word;
+    max-width: 100%;
   }
 
   .section-title {
-    @apply mt-3 font-serif text-3xl leading-tight text-ink-900 sm:text-4xl md:text-5xl;
+    @apply mt-3 font-serif text-3xl leading-[1.12] text-ink-900 sm:text-4xl md:text-5xl;
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    hyphens: manual;
+  }
+
+  /* Títulos y nombres de sección/tarjeta/servicio. Los párrafos (.section-sub
+     y el cuerpo) se quedan en oración. */
+  .heading {
+    text-transform: uppercase;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    hyphens: manual;
   }
 
   .section-sub {
@@ -99,9 +116,52 @@ h4 {
     font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
     font-style: italic;
     font-weight: 500;
+    overflow-wrap: break-word;
+  }
+
+  /* Precio destacado. Nexa Bold es el corte en negrita de la marca;
+     Nexa Light no tiene peso 700. */
+  .price {
+    font-family: var(--font-nexa-bold), "Nexa Bold", sans-serif;
+    font-weight: 700;
+    font-synthesis: none;
+    overflow-wrap: break-word;
+  }
+
+  /* Línea «Médico cirujano · Medicina estética». Gabriola no tiene licencia
+     web: Cormorant Garamond Italic es el sustituto aprobado. */
+  .credential {
+    font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    max-width: 100%;
   }
 
   .card {
     @apply rounded-2xl border border-cream-200 bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lg;
+    min-width: 0;
+  }
+}
+
+/* Evita que un nombre largo en mayúsculas ensanche la columna de una grilla. */
+:where(ul, ol).grid > :where(li) {
+  min-width: 0;
+}
+
+/* En ~390 px un título largo (p. ej. rinomodelación) no debe desbordar. */
+@media (max-width: 420px) {
+  h1.heading {
+    font-size: min(2.25rem, 8.2vw);
+    line-height: 1.12;
+  }
+
+  h2.section-title {
+    font-size: min(1.875rem, 7.6vw);
+    line-height: 1.12;
   }
 }

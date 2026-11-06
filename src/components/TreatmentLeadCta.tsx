@@ -18,7 +18,7 @@ export default function TreatmentLeadCta({
   return (
     <section className="section bg-cream-100/60 pt-8">
       <div className="container-x rounded-3xl border border-cream-200 bg-white p-8 shadow-soft md:p-10">
-        <h2 className="font-serif text-2xl text-ink-900 md:text-3xl">
+        <h2 className="heading font-serif text-2xl leading-tight text-ink-900 md:text-3xl">
           ¿Te interesa este tratamiento?
         </h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-700">

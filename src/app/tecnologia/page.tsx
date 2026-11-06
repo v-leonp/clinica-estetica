@@ -47,7 +47,7 @@ export default function TecnologiaPage() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h2 className="font-serif text-lg text-ink-900">{t.name}</h2>
+                  <h2 className="heading font-serif text-lg text-ink-900">{t.name}</h2>
                   <p className="mt-1 text-sm leading-relaxed text-ink-700">
                     {t.description}
                   </p>

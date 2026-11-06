@@ -8,7 +8,7 @@ export default function Locations() {
       <div className="container-x">
         <div className="max-w-2xl">
           <p className="eyebrow">Sedes</p>
-          <h2 className="section-title">Dónde atenderemos</h2>
+          <h2 className="section-title">Visítanos en</h2>
           <p className="section-sub">
             {locations.length === 0
               ? "Próximamente. La dirección y el horario aún no están confirmados."
@@ -37,7 +37,7 @@ export default function Locations() {
             {locations.map((l) => (
               <li key={l.slug}>
                 <article className="card h-full">
-                  <h3 className="font-serif text-xl text-ink-900">{l.name}</h3>
+                  <h3 className="heading font-serif text-xl text-ink-900">{l.name}</h3>
                   <p className="mt-2 text-sm text-ink-700">{l.address}</p>
                   <p className="mt-2 text-sm text-ink-700">{l.hours}</p>
                   <Link

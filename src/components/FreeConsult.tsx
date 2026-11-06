@@ -20,7 +20,7 @@ export default function FreeConsult() {
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-900/80">
               {freeConsult.eyebrow}
             </p>
-            <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
+            <h2 className="heading mt-3 font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
               {freeConsult.title}
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-900/85">

@@ -8,7 +8,7 @@ export default function HomeContactBlock() {
       <div className="container-x grid gap-8 md:grid-cols-2 md:items-center">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-gold">Contacto</p>
-          <h2 className="mt-3 font-serif text-3xl sm:text-4xl">
+          <h2 className="heading mt-3 font-serif text-3xl leading-tight sm:text-4xl">
             ¿Quieres una valoración?
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-cream-100/90 sm:text-base">
