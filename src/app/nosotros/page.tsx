@@ -5,7 +5,9 @@ import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
+import ClinicPhoto from "~/components/ClinicPhoto";
 import DoctorPortrait from "~/components/DoctorPortrait";
+import { clinicPhotos } from "~/data/clinic-photos";
 import { doctors, site, trustBadges } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
@@ -40,13 +42,13 @@ export default function NosotrosPage() {
         <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
             <h2 className="heading font-serif text-2xl text-ink-900">Qué está publicado</h2>
-            <p className="mt-3 text-base leading-relaxed text-ink-700">
+            <p className="body-copy mt-3 text-base leading-relaxed text-ink-700">
               En la consulta, la doctora revisa tus necesidades, explica el
               procedimiento recomendado y confirma si es adecuado para ti. El
               catálogo reúne los 17 tratamientos del listado, con sus tiempos y
               precios.
             </p>
-            <p className="mt-3 text-base leading-relaxed text-ink-700">
+            <p className="body-copy mt-3 text-base leading-relaxed text-ink-700">
               No hay otras profesionales en este sitio. Tampoco hay razón social,
               RUC, teléfono, correo ni redes confirmados.
             </p>
@@ -57,7 +59,13 @@ export default function NosotrosPage() {
             </p>
           </div>
 
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:col-span-5">
+          <div className="md:col-span-5">
+            <ClinicPhoto
+              photo={clinicPhotos.doctoraRetrato}
+              sizes="(max-width: 768px) 100vw, 360px"
+              className="mx-auto max-w-sm rounded-2xl shadow-soft"
+            />
+          <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {trustBadges.map((b) => (
               <li
                 key={b.title}
@@ -68,6 +76,7 @@ export default function NosotrosPage() {
               </li>
             ))}
           </ul>
+          </div>
         </div>
       </section>
 
@@ -88,7 +97,7 @@ export default function NosotrosPage() {
                   <DoctorPortrait />
                   <h3 className="heading mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
                   <p className="credential mt-2 text-[1.05rem] text-gold-ink">{d.role}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-700">{d.bio}</p>
+                  <p className="body-copy mt-3 text-sm leading-relaxed text-ink-700">{d.bio}</p>
                 </article>
               </li>
             ))}

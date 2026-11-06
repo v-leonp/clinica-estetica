@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import ClinicPhoto from "~/components/ClinicPhoto";
+import { photoForTreatment } from "~/data/clinic-photos";
 import { featured, featuredHeading, getTreatment } from "~/data/content";
 
 export default function Featured() {
@@ -14,6 +16,7 @@ export default function Featured() {
         description: match.treatment.short,
         price: match.treatment.priceFrom,
         duration: match.treatment.duration,
+        photo: photoForTreatment(f.treatmentSlug, f.categorySlug),
       };
     })
     .filter(Boolean) as Array<{
@@ -23,6 +26,7 @@ export default function Featured() {
     description: string;
     price: string;
     duration: string;
+    photo: ReturnType<typeof photoForTreatment>;
   }>;
 
   return (
@@ -44,11 +48,18 @@ export default function Featured() {
             <li key={item.href}>
               <article className="card flex h-full flex-col">
                 <Link href={item.href} className="group block">
+                  {item.photo && (
+                    <ClinicPhoto
+                      photo={item.photo}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="mb-5 rounded-xl"
+                    />
+                  )}
                   <h3 className="heading font-serif text-xl leading-snug text-ink-900 group-hover:text-gold-ink">
                     {item.title}
                   </h3>
                 </Link>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-700">
+                <p className="body-copy mt-2 flex-1 text-sm leading-relaxed text-ink-700">
                   {item.description}
                 </p>
                 <div className="mt-5 flex items-center justify-between text-sm">

@@ -16,7 +16,7 @@ export default function HomeValuePillars() {
             <li key={p.title} className="min-w-0">
               <article className="h-full rounded-2xl border border-cream-200 bg-white p-8 shadow-soft">
                 <h3 className="heading font-serif text-xl leading-snug text-ink-900">{p.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-ink-700">{p.description}</p>
+                <p className="mt-4 body-copy text-sm leading-relaxed text-ink-700">{p.description}</p>
               </article>
             </li>
           ))}

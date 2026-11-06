@@ -28,7 +28,7 @@ export default function Categories() {
                 <h3 className="heading mt-5 font-serif text-xl text-ink-900">
                   {cat.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-700">
+                <p className="mt-2 body-copy text-sm leading-relaxed text-ink-700">
                   {cat.description}
                 </p>
                 <Link

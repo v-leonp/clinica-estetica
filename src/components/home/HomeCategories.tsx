@@ -1,6 +1,8 @@
 import Link from "next/link";
 
+import ClinicPhoto from "~/components/ClinicPhoto";
 import { categoriesFull, homeEditorialIntro } from "~/data/content";
+import { photoForCategory } from "~/data/clinic-photos";
 
 export default function HomeCategories() {
   const total = categoriesFull.reduce(
@@ -21,7 +23,15 @@ export default function HomeCategories() {
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {categoriesFull.map((category) => (
             <li key={category.slug} className="min-w-0">
-              <article className="flex h-full flex-col rounded-2xl border border-cream-200 bg-white p-6 shadow-soft">
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-cream-200 bg-white shadow-soft">
+                {photoForCategory(category.slug) && (
+                  <ClinicPhoto
+                    photo={photoForCategory(category.slug)!}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                    className="rounded-none"
+                  />
+                )}
+                <div className="flex flex-1 flex-col p-6">
                 <p className="text-[11px] uppercase tracking-[0.16em] text-gold-ink">
                   {category.treatments.length}{" "}
                   {category.treatments.length === 1 ? "tratamiento" : "tratamientos"}
@@ -29,7 +39,7 @@ export default function HomeCategories() {
                 <h3 className="heading mt-3 font-serif text-xl leading-snug text-ink-900">
                   {category.title}
                 </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-700">
+                <p className="body-copy mt-3 flex-1 text-sm leading-relaxed text-ink-700">
                   {category.short}
                 </p>
                 <Link
@@ -38,6 +48,7 @@ export default function HomeCategories() {
                 >
                   Ver tratamientos
                 </Link>
+                </div>
               </article>
             </li>
           ))}

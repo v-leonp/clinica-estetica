@@ -1,7 +1,8 @@
 import Image from "next/image";
 
 const ALT =
-  "Retrato de la Dra. Melissa Vigo, médico estético, sonriendo en su consultorio.";
+  "Retrato de la Dra. Melissa Vigo con los brazos cruzados, frente al letrero de su marca.";
+const SRC = "/fotos/clinica/06-retrato-doctora-brazos-cruzados.jpg";
 
 /** Misma resolución nativa (1086×1448). El ancho CSS queda por debajo de 543 px. */
 const PROFILE_MAX = 360;
@@ -19,7 +20,7 @@ export default function DoctorPortrait({
   if (variant === "profile") {
     return (
       <Image
-        src="/fotos/doctora-sonriente.jpg"
+        src={SRC}
         alt={ALT}
         width={1086}
         height={1448}
@@ -36,7 +37,7 @@ export default function DoctorPortrait({
       className={`relative mx-auto block overflow-hidden rounded-full ${className}`}
     >
       <Image
-        src="/fotos/doctora-sonriente.jpg"
+        src={SRC}
         alt={ALT}
         fill
         quality={90}

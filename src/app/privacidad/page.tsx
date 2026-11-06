@@ -40,7 +40,7 @@ export default function PrivacidadPage() {
       />
 
       <section className="section pt-4">
-        <article className="container-x prose-style max-w-3xl space-y-8 text-base leading-relaxed text-ink-700">
+        <article className="container-x prose-style max-w-3xl space-y-8 body-copy text-base leading-relaxed text-ink-700">
           <div>
             <h2 className="font-serif text-2xl text-ink-900">
               1. Titular del tratamiento

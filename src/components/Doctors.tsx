@@ -1,18 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import ClinicPhoto from "~/components/ClinicPhoto";
+import { clinicPhotos } from "~/data/clinic-photos";
 import { cta, teamMembers } from "~/data/content";
 
-const portraits = [
-  {
-    src: "/fotos/doctora-sonriente.jpg",
-    alt: "Retrato de la Dra. Melissa Vigo, médico estético, sonriendo en su consultorio.",
-  },
-  {
-    src: "/fotos/doctora-brazos-cruzados.jpg",
-    alt: "Dra. Melissa Vigo, médico estético, con los brazos cruzados frente al letrero de su consultorio.",
-  },
-] as const;
+const portraits = [clinicPhotos.doctoraTratando, clinicPhotos.doctoraRetrato];
 
 export default function Doctors() {
   const doctor = teamMembers[0];
@@ -25,8 +17,8 @@ export default function Doctors() {
           <p className="eyebrow">Consulta</p>
           <h2 className="section-title">{doctor.name}</h2>
           <p className="credential mt-4 text-xl text-gold-ink sm:text-2xl">{doctor.role}</p>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-700">{doctor.bio}</p>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-ink-700">
+          <p className="body-copy mt-5 max-w-xl text-base leading-relaxed text-ink-700">{doctor.bio}</p>
+          <p className="body-copy mt-4 max-w-xl text-sm leading-relaxed text-ink-700">
             La atención del catálogo es suya. No hay otro profesional publicado.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -41,16 +33,11 @@ export default function Doctors() {
         <ul className="grid grid-cols-2 gap-3 sm:gap-4">
           {portraits.map((photo) => (
             <li key={photo.src} className="min-w-0">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-cream-100 shadow-soft">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(max-width: 1024px) 45vw, 280px"
-                  quality={85}
-                  className="object-cover object-top"
-                />
-              </div>
+              <ClinicPhoto
+                photo={photo}
+                sizes="(max-width: 1024px) 45vw, 280px"
+                className="rounded-2xl shadow-soft"
+              />
             </li>
           ))}
         </ul>

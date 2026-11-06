@@ -23,7 +23,7 @@ export default function FreeConsult() {
             <h2 className="heading mt-3 font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
               {freeConsult.title}
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-900/85">
+            <p className="mx-auto mt-5 max-w-xl body-copy text-base leading-relaxed text-ink-900/85">
               {freeConsult.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

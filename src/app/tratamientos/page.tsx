@@ -6,6 +6,8 @@ import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
 import CategoryIcon from "~/components/CategoryIcon";
+import ClinicPhoto from "~/components/ClinicPhoto";
+import { photoForCategory } from "~/data/clinic-photos";
 import { catalogDisclaimer, catalogIntro, categoriesFull, site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
@@ -44,13 +46,20 @@ export default function TratamientosIndexPage() {
             {categoriesFull.map((cat) => (
               <li key={cat.slug}>
                 <article className="card flex h-full flex-col">
+                  {photoForCategory(cat.slug) && (
+                    <ClinicPhoto
+                      photo={photoForCategory(cat.slug)!}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="mb-5 rounded-xl"
+                    />
+                  )}
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-blush text-rose-gold">
                     <CategoryIcon name={cat.icon} />
                   </div>
                   <h2 className="heading mt-5 font-serif text-xl text-ink-900">
                     {cat.title}
                   </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-700">
+                  <p className="body-copy mt-2 text-sm leading-relaxed text-ink-700">
                     {cat.short}
                   </p>
                   <p className="mt-3 text-xs uppercase tracking-wider text-ink-500">

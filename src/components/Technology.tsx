@@ -19,7 +19,7 @@ export default function Technology() {
                 <h3 className="heading font-serif text-lg leading-snug text-ink-900">
                   {item.name}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-700">
+                <p className="mt-3 body-copy text-sm leading-relaxed text-ink-700">
                   {item.description}
                 </p>
               </article>

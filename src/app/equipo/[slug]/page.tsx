@@ -6,7 +6,9 @@ import SiteShell from "~/components/SiteShell";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import PageHero from "~/components/PageHero";
 import { cta, getTeamMember, site, teamMembers } from "~/data/content";
+import ClinicPhoto from "~/components/ClinicPhoto";
 import DoctorPortrait from "~/components/DoctorPortrait";
+import { clinicPhotos } from "~/data/clinic-photos";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
@@ -59,8 +61,13 @@ export default async function EquipoMemberPage({
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-2">
           <div>
-            <div className="mb-8">
+            <div className="mb-8 grid grid-cols-2 gap-3">
               <DoctorPortrait variant="profile" />
+              <ClinicPhoto
+                photo={clinicPhotos.doctoraTratando}
+                sizes="180px"
+                className="rounded-2xl shadow-soft"
+              />
             </div>
             <h2 className="heading font-serif text-2xl text-ink-900">Datos confirmados</h2>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-700">

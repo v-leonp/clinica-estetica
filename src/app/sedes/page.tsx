@@ -40,7 +40,7 @@ export default function SedesPage() {
           {locations.length === 0 ? (
             <article className="max-w-2xl rounded-2xl border border-cream-200 bg-white p-6 shadow-soft">
               <h2 className="heading font-serif text-2xl text-ink-900">Sin sede publicada</h2>
-              <p className="mt-3 text-sm leading-relaxed text-ink-700">
+              <p className="mt-3 body-copy text-sm leading-relaxed text-ink-700">
                 Cuando exista una dirección, aparecerá en esta página. Mientras
                 tanto puedes escribir por WhatsApp.
               </p>

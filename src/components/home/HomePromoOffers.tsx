@@ -34,7 +34,7 @@ export default function HomePromoOffers() {
                   {p.priceNow && (
                     <p className="price mt-3 text-3xl text-gold-ink">{p.priceNow}</p>
                   )}
-                  <p className="mt-3 text-sm leading-relaxed text-ink-700">{p.description}</p>
+                  <p className="mt-3 body-copy text-sm leading-relaxed text-ink-700">{p.description}</p>
                 </div>
                 <Link href={p.href} className="btn-primary shrink-0 text-center uppercase tracking-[0.12em]">
                   {p.cta}

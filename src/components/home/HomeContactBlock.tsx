@@ -12,7 +12,7 @@ export default function HomeContactBlock() {
           El formulario es una solicitud, no una agenda. La revisamos y te
           escribimos por WhatsApp.
         </p>
-        <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-700">
+        <p className="mx-auto mt-4 max-w-xl body-copy text-sm leading-relaxed text-ink-700">
           Teléfono, correo y dirección siguen sin publicarse. WhatsApp{" "}
           {site.whatsappDisplay}. {site.whatsappNote}
         </p>
