@@ -39,7 +39,7 @@ export default function SedesPage() {
         <div className="container-x">
           {locations.length === 0 ? (
             <article className="max-w-2xl rounded-2xl border border-cream-200 bg-white p-6 shadow-soft">
-              <h2 className="font-serif text-2xl text-ink-900">Sin sede publicada</h2>
+              <h2 className="heading font-serif text-2xl text-ink-900">Sin sede publicada</h2>
               <p className="mt-3 text-sm leading-relaxed text-ink-700">
                 Cuando exista una dirección, aparecerá en esta página. Mientras
                 tanto puedes escribir por WhatsApp.
@@ -59,7 +59,7 @@ export default function SedesPage() {
               {locations.map((l) => (
                 <li key={l.slug}>
                   <article className="card">
-                    <h2 className="font-serif text-xl text-ink-900">{l.name}</h2>
+                    <h2 className="heading font-serif text-xl text-ink-900">{l.name}</h2>
                     <p className="mt-2 text-sm text-ink-700">{l.address}</p>
                     <p className="mt-2 text-sm text-ink-700">{l.hours}</p>
                   </article>

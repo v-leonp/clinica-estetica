@@ -8,7 +8,7 @@ export default function HomeValuePillars() {
           {homePillars.map((p) => (
             <li key={p.title}>
               <article className="h-full rounded-2xl border border-cream-200 bg-white p-8 text-center shadow-soft">
-                <h3 className="font-serif text-2xl text-ink-900">{p.title}</h3>
+                <h3 className="heading font-serif text-2xl text-ink-900">{p.title}</h3>
                 <p className="mt-4 text-sm leading-relaxed text-ink-700">{p.description}</p>
               </article>
             </li>

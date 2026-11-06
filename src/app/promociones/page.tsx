@@ -45,9 +45,9 @@ export default function PromocionesPage() {
                   <span className="relative inline-flex rounded-full bg-gold px-3 py-1 text-xs uppercase tracking-wider text-ink-900">
                     {p.tag}
                   </span>
-                  <h2 className="relative mt-4 font-serif text-2xl">{p.title}</h2>
+                  <h2 className="heading relative mt-4 font-serif text-2xl leading-snug">{p.title}</h2>
                   {p.priceNow && (
-                    <p className="relative mt-3 font-serif text-3xl text-gold">{p.priceNow}</p>
+                    <p className="price relative mt-3 text-3xl text-gold">{p.priceNow}</p>
                   )}
                   {p.sessionInfo && (
                     <p className="relative mt-2 text-xs uppercase tracking-wider text-cream-100/70">

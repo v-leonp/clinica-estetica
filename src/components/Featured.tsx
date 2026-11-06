@@ -48,7 +48,7 @@ export default function Featured() {
                     aria-hidden="true"
                     className="h-32 w-full rounded-xl bg-gradient-rose opacity-80 transition group-hover:opacity-100"
                   />
-                  <h3 className="mt-5 font-serif text-xl text-ink-900 group-hover:text-rose-gold">
+                  <h3 className="heading mt-5 font-serif text-xl leading-snug text-ink-900 group-hover:text-rose-gold">
                     {item.title}
                   </h3>
                 </Link>
@@ -56,7 +56,7 @@ export default function Featured() {
                   {item.description}
                 </p>
                 <div className="mt-5 flex items-center justify-between text-sm">
-                  <span className="font-medium text-ink-900">{item.price}</span>
+                  <span className="price text-ink-900">{item.price}</span>
                   <span className="text-ink-500">{item.duration}</span>
                 </div>
                 <div className="mt-5 grid grid-cols-2 gap-2">

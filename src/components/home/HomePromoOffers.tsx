@@ -25,14 +25,14 @@ export default function HomePromoOffers() {
                 <span className="mt-2 inline-flex w-fit rounded-full bg-rose-blush px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-rose-gold">
                   {p.tag}
                 </span>
-                <h3 className="mt-3 font-serif text-xl leading-snug text-ink-900">{p.title}</h3>
+                <h3 className="heading mt-3 font-serif text-xl leading-snug text-ink-900">{p.title}</h3>
                 {(p.priceBefore || p.priceNow) && (
-                  <p className="mt-3 flex items-baseline gap-2">
+                  <p className="mt-3 flex flex-wrap items-baseline gap-2">
                     {p.priceBefore && (
                       <span className="text-sm text-ink-500 line-through">{p.priceBefore}</span>
                     )}
                     {p.priceNow && (
-                      <span className="font-serif text-2xl text-rose-gold">{p.priceNow}</span>
+                      <span className="price text-2xl text-rose-gold">{p.priceNow}</span>
                     )}
                   </p>
                 )}

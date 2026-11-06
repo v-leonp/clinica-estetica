@@ -104,7 +104,7 @@ export default async function TreatmentPage({
           >
             Consultar por WhatsApp
           </a>
-          <span className="rounded-full bg-cream-100 px-4 py-2 text-sm text-ink-900">
+          <span className="price rounded-full bg-cream-100 px-4 py-2 text-sm text-ink-900">
             {treatment.priceFrom}
           </span>
         </div>
@@ -113,14 +113,14 @@ export default async function TreatmentPage({
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
-            <h2 className="font-serif text-2xl text-ink-900">
+            <h2 className="heading font-serif text-2xl text-ink-900">
               Sobre el tratamiento
             </h2>
             <p className="mt-3 text-base leading-relaxed text-ink-700">
               {treatment.long}
             </p>
 
-            <h3 className="mt-10 font-serif text-xl text-ink-900">
+            <h3 className="heading mt-10 font-serif text-xl text-ink-900">
               Beneficios
             </h3>
             <ul className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -140,7 +140,7 @@ export default async function TreatmentPage({
               ))}
             </ul>
 
-            <h3 className="mt-10 font-serif text-xl text-ink-900">Proceso de atención</h3>
+            <h3 className="heading mt-10 font-serif text-xl text-ink-900">Proceso de atención</h3>
             <ol className="mt-4 grid gap-3 sm:grid-cols-2">
               {careProcess.map((step) => (
                 <li
@@ -148,13 +148,13 @@ export default async function TreatmentPage({
                   className="rounded-xl border border-cream-200 bg-cream-50/80 p-4 text-sm text-ink-700"
                 >
                   <span className="font-serif text-rose-gold">{step.step}</span>
-                  <p className="mt-1 font-medium text-ink-900">{step.title}</p>
+                  <p className="heading mt-1 font-serif text-sm text-ink-900">{step.title}</p>
                   <p className="mt-1 leading-relaxed">{step.description}</p>
                 </li>
               ))}
             </ol>
 
-            <h3 className="mt-10 font-serif text-xl text-ink-900">
+            <h3 className="heading mt-10 font-serif text-xl text-ink-900">
               Antes de decidir
             </h3>
             <p className="mt-3 text-base leading-relaxed text-ink-700">
@@ -166,14 +166,14 @@ export default async function TreatmentPage({
               </p>
             )}
 
-            <h3 className="mt-10 font-serif text-xl text-ink-900">
+            <h3 className="heading mt-10 font-serif text-xl text-ink-900">
               ¿Para quién puede ser adecuado?
             </h3>
             <p className="mt-3 text-base leading-relaxed text-ink-700">
               {treatment.whoFor}
             </p>
 
-            <h3 className="mt-10 font-serif text-xl text-ink-900">
+            <h3 className="heading mt-10 font-serif text-xl text-ink-900">
               Preguntas frecuentes
             </h3>
             <div className="mt-4 divide-y divide-cream-200 overflow-hidden rounded-2xl border border-cream-200 bg-white">
@@ -207,7 +207,7 @@ export default async function TreatmentPage({
                 {treatment.recovery ? (
                   <InfoRow label="Recuperación" value={treatment.recovery} />
                 ) : null}
-                <InfoRow label="Precio" value={treatment.priceFrom} />
+                <InfoRow label="Precio" value={treatment.priceFrom} price />
                 {treatment.brands ? (
                   <InfoRow label="Producto" value={treatment.brands} />
                 ) : null}
@@ -234,7 +234,7 @@ export default async function TreatmentPage({
 
       <section className="section pt-0">
         <div className="container-x">
-          <h2 className="font-serif text-2xl text-ink-900">
+          <h2 className="heading font-serif text-2xl leading-tight text-ink-900">
             Otros tratamientos en {category.title.toLowerCase()}
           </h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -247,7 +247,7 @@ export default async function TreatmentPage({
                     href={`/tratamientos/${category.slug}/${t.slug}`}
                     className="card block h-full"
                   >
-                    <h3 className="font-serif text-lg text-ink-900">
+                    <h3 className="heading font-serif text-lg leading-snug text-ink-900">
                       {t.name}
                     </h3>
                     <p className="mt-2 text-sm text-ink-700">{t.short}</p>
@@ -278,11 +278,23 @@ export default async function TreatmentPage({
   );
 }
 
-function InfoRow({ label, value }: { label: string; value: string }) {
+function InfoRow({
+  label,
+  value,
+  price = false,
+}: {
+  label: string;
+  value: string;
+  price?: boolean;
+}) {
   return (
     <div className="flex items-start justify-between gap-4 border-b border-cream-200 pb-4 last:border-b-0 last:pb-0">
       <dt className="text-xs uppercase tracking-wider text-ink-500">{label}</dt>
-      <dd className="text-right text-sm text-ink-900">{value}</dd>
+      <dd
+        className={`min-w-0 text-right text-sm text-ink-900 ${price ? "price" : ""}`}
+      >
+        {value}
+      </dd>
     </div>
   );
 }

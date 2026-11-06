@@ -25,7 +25,7 @@ export default function HomeReferenceHero() {
           <p className="text-xs uppercase tracking-[0.25em] text-gold">
             {hero.eyebrow}
           </p>
-          <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
+          <h1 className="heading mt-4 font-serif text-4xl leading-[1.12] sm:text-5xl lg:text-6xl">
             {hero.title}
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-cream-100/95 sm:text-lg">

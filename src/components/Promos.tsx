@@ -30,7 +30,7 @@ export default function Promos() {
                 <span className="relative inline-flex rounded-full bg-rose-gold/90 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white">
                   {p.tag}
                 </span>
-                <h3 className="relative mt-4 font-serif text-2xl">{p.title}</h3>
+                <h3 className="heading relative mt-4 font-serif text-2xl leading-snug">{p.title}</h3>
                 <p className="relative mt-3 text-sm leading-relaxed text-cream-100/85">
                   {p.description}
                 </p>

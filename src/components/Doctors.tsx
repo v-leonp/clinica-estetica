@@ -20,10 +20,8 @@ export default function Doctors() {
             <li key={d.slug}>
               <article className="card h-full text-center">
                 <DoctorPortrait />
-                <h3 className="mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
-                <p className="mt-1 text-xs uppercase tracking-wider text-gold-ink">
-                  {d.role}
-                </p>
+                <h3 className="heading mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
+                <p className="credential mt-2 text-[1.05rem] text-gold-ink">{d.role}</p>
                 <p className="mt-3 text-sm leading-relaxed text-ink-700">{d.bio}</p>
                 <Link
                   href={`/equipo/${d.slug}`}

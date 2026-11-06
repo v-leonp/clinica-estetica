@@ -25,7 +25,7 @@ export default function Categories() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-blush text-rose-gold">
                   <CategoryIcon name={cat.icon} />
                 </div>
-                <h3 className="mt-5 font-serif text-xl text-ink-900">
+                <h3 className="heading mt-5 font-serif text-xl text-ink-900">
                   {cat.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-700">

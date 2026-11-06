@@ -47,7 +47,9 @@ export default function HomeTreatmentStories() {
                 <p className="text-xs uppercase tracking-wider text-rose-gold">
                   {category.title}
                 </p>
-                <h3 className="mt-2 font-serif text-3xl text-ink-900">{treatment.name}</h3>
+                <h3 className="heading mt-2 font-serif text-[1.65rem] leading-tight text-ink-900 sm:text-3xl">
+                  {treatment.name}
+                </h3>
                 <p className="mt-4 text-sm leading-relaxed text-ink-700">{treatment.long}</p>
                 <Link
                   href={`/tratamientos/${categorySlug}/${treatmentSlug}`}

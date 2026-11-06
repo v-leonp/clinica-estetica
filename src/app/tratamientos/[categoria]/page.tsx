@@ -67,7 +67,7 @@ export default async function CategoryPage({
 
       <section className="section pt-4">
         <div className="container-x">
-          <h2 className="font-serif text-2xl text-ink-900">
+          <h2 className="heading font-serif text-2xl text-ink-900">
             Tratamientos disponibles
           </h2>
 
@@ -83,7 +83,7 @@ export default async function CategoryPage({
                       aria-hidden="true"
                       className="h-28 w-full rounded-xl bg-gradient-rose opacity-80 transition group-hover:opacity-100"
                     />
-                    <h3 className="mt-5 font-serif text-xl text-ink-900 group-hover:text-rose-gold">
+                    <h3 className="heading mt-5 font-serif text-xl leading-snug text-ink-900 group-hover:text-rose-gold">
                       {t.name}
                     </h3>
                   </Link>
@@ -103,7 +103,7 @@ export default async function CategoryPage({
                     ) : null}
                   </dl>
                   <div className="mt-5 flex items-center justify-between text-sm">
-                    <span className="font-medium text-ink-900">
+                    <span className="price text-ink-900">
                       {t.priceFrom}
                     </span>
                   </div>

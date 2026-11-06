@@ -21,7 +21,7 @@ export default function Hero() {
       <div className="container-x relative flex min-h-[88vh] flex-col justify-center py-16 md:grid md:min-h-[88vh] md:grid-cols-12 md:items-center md:gap-12 md:py-24">
         <div className="md:col-span-7">
           <p className="eyebrow">{hero.eyebrow}</p>
-          <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-[1.05] text-ink-900 sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="heading mt-4 max-w-3xl font-serif text-4xl leading-[1.12] text-ink-900 sm:text-5xl md:text-6xl lg:text-7xl">
             {hero.title}
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-700 sm:text-lg md:text-xl">
@@ -65,8 +65,8 @@ export default function Hero() {
               key={b.title}
               className="rounded-2xl border border-cream-200 bg-white/90 p-4 text-center backdrop-blur"
             >
-              <p className="font-serif text-sm text-ink-900 sm:text-base">{b.title}</p>
-              <p className="mt-1 text-[11px] text-ink-500 sm:text-xs">{b.subtitle}</p>
+              <p className="heading font-serif text-sm text-ink-900 sm:text-base">{b.title}</p>
+              <p className="mt-1 text-[11px] uppercase tracking-wide text-ink-500 sm:text-xs">{b.subtitle}</p>
             </li>
           ))}
         </ul>
