@@ -8,8 +8,8 @@ import { hero, partnerBrands, site } from "~/data/content";
 
 const POSTER = "/media/portada-poster.jpg";
 const VIDEO = "/media/portada.mp4";
-/** Cámara lenta suave: el plano dura 6.5 s a velocidad normal. */
-const PLAYBACK_RATE = 0.7;
+/** Ritmo suave: el archivo dura 6.5 s y aquí corre un poco más lento. */
+const PLAYBACK_RATE = 0.88;
 
 type Playback = "static" | "playing";
 
