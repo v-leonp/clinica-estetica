@@ -31,7 +31,7 @@ export default function MegaMenu() {
     <div ref={wrapRef} className="relative">
       <button
         type="button"
-        className="inline-flex items-center gap-1 transition hover:text-rose-gold focus:outline-none focus-visible:text-rose-gold"
+        className="inline-flex items-center gap-1 whitespace-nowrap font-serif text-[11px] uppercase tracking-[0.16em] text-current transition hover:text-gold-ink focus:outline-none focus-visible:text-gold-ink"
         aria-expanded={open}
         aria-haspopup="true"
         aria-controls="mega-tratamientos"
@@ -49,12 +49,12 @@ export default function MegaMenu() {
           aria-label="Categorías de tratamientos"
           className="absolute left-1/2 top-full z-50 mt-3 w-[min(100vw-2rem,720px)] -translate-x-1/2 rounded-2xl border border-cream-200 bg-white p-6 shadow-soft"
         >
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-6 sm:grid-cols-2">
             {categoriesFull.map((cat) => (
               <li key={cat.slug}>
                 <Link
                   href={`/tratamientos/${cat.slug}`}
-                  className="font-serif text-lg text-ink-900 hover:text-rose-gold"
+                  className="heading font-serif text-base leading-snug text-ink-900 hover:text-gold-ink"
                   onClick={() => setOpen(false)}
                 >
                   {cat.title}

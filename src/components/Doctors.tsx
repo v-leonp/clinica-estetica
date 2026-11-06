@@ -1,46 +1,59 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { cta, teamMembers } from "~/data/content";
-import DoctorPortrait from "~/components/DoctorPortrait";
+
+const portraits = [
+  {
+    src: "/fotos/doctora-sonriente.jpg",
+    alt: "Retrato de la Dra. Melissa Vigo, médico estético, sonriendo en su consultorio.",
+  },
+  {
+    src: "/fotos/doctora-brazos-cruzados.jpg",
+    alt: "Dra. Melissa Vigo, médico estético, con los brazos cruzados frente al letrero de su consultorio.",
+  },
+] as const;
 
 export default function Doctors() {
-  return (
-    <section id="equipo" className="section bg-cream-100/60">
-      <div className="container-x">
-        <div className="max-w-2xl">
-          <p className="eyebrow">La profesional</p>
-          <h2 className="section-title">Dra. Melissa Vigo</h2>
-          <p className="section-sub">
-            Es la única profesional publicada. La biografía extendida aún no está confirmada.
-          </p>
-        </div>
+  const doctor = teamMembers[0];
+  if (!doctor) return null;
 
-        <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {teamMembers.map((d) => (
-            <li key={d.slug}>
-              <article className="card h-full text-center">
-                <DoctorPortrait />
-                <h3 className="heading mt-5 font-serif text-xl text-ink-900">{d.name}</h3>
-                <p className="credential mt-2 text-[1.05rem] text-gold-ink">{d.role}</p>
-                <p className="mt-3 text-sm leading-relaxed text-ink-700">{d.bio}</p>
-                <Link
-                  href={`/equipo/${d.slug}`}
-                  className="mt-4 inline-block text-sm text-gold-ink hover:underline"
-                >
-                  Ver perfil
-                </Link>
-              </article>
+  return (
+    <section id="equipo" className="section bg-white">
+      <div className="container-x grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="min-w-0">
+          <p className="eyebrow">Consulta</p>
+          <h2 className="section-title">{doctor.name}</h2>
+          <p className="credential mt-4 text-xl text-gold-ink sm:text-2xl">{doctor.role}</p>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-700">{doctor.bio}</p>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-ink-700">
+            La atención del catálogo es suya. No hay otro profesional publicado.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href={`/equipo/${doctor.slug}`} className="btn-outline uppercase tracking-[0.12em]">
+              Ver perfil
+            </Link>
+            <Link href={cta.book.href} className="btn-primary uppercase tracking-[0.12em]">
+              {cta.book.label}
+            </Link>
+          </div>
+        </div>
+        <ul className="grid grid-cols-2 gap-3 sm:gap-4">
+          {portraits.map((photo) => (
+            <li key={photo.src} className="min-w-0">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-cream-100 shadow-soft">
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 1024px) 45vw, 280px"
+                  quality={85}
+                  className="object-cover object-top"
+                />
+              </div>
             </li>
           ))}
         </ul>
-        <p className="mt-10 text-center">
-          <Link href="/equipo" className="btn-outline">
-            Ver perfil
-          </Link>
-          <Link href={cta.primary.href} className="btn-primary ml-3">
-            {cta.primary.label}
-          </Link>
-        </p>
       </div>
     </section>
   );

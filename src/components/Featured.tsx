@@ -44,11 +44,7 @@ export default function Featured() {
             <li key={item.href}>
               <article className="card flex h-full flex-col">
                 <Link href={item.href} className="group block">
-                  <div
-                    aria-hidden="true"
-                    className="h-32 w-full rounded-xl bg-gradient-rose opacity-80 transition group-hover:opacity-100"
-                  />
-                  <h3 className="heading mt-5 font-serif text-xl leading-snug text-ink-900 group-hover:text-rose-gold">
+                  <h3 className="heading font-serif text-xl leading-snug text-ink-900 group-hover:text-gold-ink">
                     {item.title}
                   </h3>
                 </Link>

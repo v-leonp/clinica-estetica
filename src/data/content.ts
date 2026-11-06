@@ -85,11 +85,18 @@ export const cta = {
 } as const;
 
 export const hero = {
-  eyebrow: "Medicina estética · Lima, Perú",
-  title: "Cuidado estético con criterio médico",
-  subtitle:
-    "Dra. Melissa Vigo, médico cirujano (CMP 101245). La clínica aún no abre: puedes revisar el catálogo y escribir por WhatsApp mientras se confirman la sede y el horario.",
-  ctaPrimary: cta.primary,
+  eyebrow: "Medicina estética · Lima",
+  title: "Cuidado médico para tu piel",
+  /** Línea profesional en cursiva. Gabriola no tiene licencia web. */
+  subtitle: "Médico cirujano · CMP 101245",
+  /**
+   * Aviso necesario: la reserva de esta web es una solicitud, y sede,
+   * horario y WhatsApp siguen sin confirmarse. No afirma que el video
+   * del hero sea la clínica ni una paciente.
+   */
+  support:
+    "Cada tratamiento publicado indica su tiempo y su precio. Reservar deja una solicitud: la cita se confirma solo cuando te escribamos. La sede y el horario todavía no están publicados.",
+  ctaPrimary: cta.book,
   ctaSecondary: cta.treatments,
 };
 
@@ -171,10 +178,10 @@ export const featured: Array<{
 ];
 
 export const featuredHeading = {
-  eyebrow: "Catálogo",
-  title: "Tratamientos publicados",
+  eyebrow: "Precios",
+  title: "Una selección del catálogo",
   subtitle:
-    "Selección del listado de la doctora, con el tiempo y el precio que figuran en el documento.",
+    "Tiempo y precio de cada ficha. La indicación se confirma en consulta, antes de cualquier procedimiento.",
 };
 
 export const promos: Array<{
@@ -188,12 +195,12 @@ export const promos: Array<{
   priceNow?: string;
 }> = [
   {
-    tag: "Publicada",
-    title: "Toxina botulínica facial 2x1",
+    tag: "2x1",
+    title: "Toxina botulínica facial",
     sessionInfo: "15–20 min · primeros 50 clientes",
     priceNow: "S/ 1,300",
     description:
-      "El precio de S/ 1,300 ya incluye la promoción 2x1 para los primeros 50 clientes. Separa tu cita con el 10% del procedimiento y obtén la evaluación integral gratuita. No hay otras promociones publicadas.",
+      "Para los primeros 50 clientes, S/ 1,300 ya incluye la promoción 2x1. Si separas la cita con el 10% del procedimiento, la evaluación integral es gratuita. No hay otras promociones publicadas.",
     cta: "Ver tratamiento",
     href: "/tratamientos/medicina-estetica-facial/toxina-botulinica-facial",
   },
@@ -213,36 +220,28 @@ export const partnerBrands = [
 
 export const homePillars = [
   {
-    title: "Criterio en consulta",
+    title: "Primero, la consulta",
     description:
-      "La doctora revisa tus necesidades, explica el procedimiento y confirma si es adecuado para ti.",
+      "La Dra. Melissa Vigo revisa lo que buscas, explica el procedimiento y confirma si es adecuado para ti.",
   },
   {
-    title: "Precios del listado",
+    title: "Tiempo y precio a la vista",
     description:
-      "Cada ficha muestra el tiempo y el precio publicados. No hay paquetes ni conteos de sesiones inventados.",
+      "Cada tratamiento publicado indica su duración y su precio. No hay paquetes extra en esta web.",
   },
   {
-    title: "Visítanos en",
+    title: "Lima, aún sin abrir",
     description:
-      "La dirección y el horario en Lima se anunciarán cuando la clínica los confirme.",
+      "La dirección y el horario se publicarán cuando estén confirmados. Mientras tanto puedes dejar tu solicitud.",
   },
 ] as const;
 
 export const homeEditorialIntro = {
-  eyebrow: "El listado",
-  title: "Medicina estética facial, piel, corporal y láser",
+  eyebrow: "Tratamientos",
+  title: "Cuatro caminos para empezar",
   description:
-    "Cuatro grupos para los 17 servicios del documento. La indicación final se confirma en valoración.",
+    "Facial, piel, cuerpo y láser. La indicación se confirma en consulta.",
 } as const;
-
-export const homeEditorialSlugs: Array<{ categorySlug: string; treatmentSlug: string }> =
-  [
-    { categorySlug: "medicina-estetica-facial", treatmentSlug: "toxina-botulinica-facial" },
-    { categorySlug: "medicina-estetica-facial", treatmentSlug: "acido-hialuronico-rinomodelacion-y-menton" },
-    { categorySlug: "cuidado-de-la-piel", treatmentSlug: "peeling-enzimatico" },
-    { categorySlug: "laser-y-depilacion", treatmentSlug: "atenuacion-de-tatuajes-nd-yag" },
-  ];
 
 export type TeamMember = {
   slug: string;
@@ -358,22 +357,22 @@ export const technology = [
   {
     name: "Láser ND:YAG",
     description:
-      "Figura en la atenuación de tatuajes por zona. El equipo y la marca no están especificados en el listado.",
+      "Se usa en la atenuación de tatuajes por zona. El catálogo no publica la marca del equipo.",
   },
   {
     name: "IPL o diodo",
     description:
-      "Figura en la depilación por zona. El listado no publica una marca de equipo.",
+      "Se usa en la depilación por zona. El catálogo no publica una marca de equipo.",
   },
   {
     name: "Dermapen",
     description:
-      "Figura en el tratamiento de estrías por zonas, hipertróficas e hipotróficas.",
+      "Se usa en estrías por zonas, hipertróficas e hipotróficas.",
   },
   {
     name: "Fibroblast",
     description:
-      "Figura en el tratamiento de estrías por zonas con plasma superficial. El equipo concreto no está especificado.",
+      "Se usa en estrías por zonas, con plasma superficial. El equipo concreto no está especificado.",
   },
 ];
 

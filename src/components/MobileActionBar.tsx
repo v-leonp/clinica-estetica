@@ -19,7 +19,7 @@ export default function MobileActionBar() {
             className="flex flex-col items-center gap-1 rounded-lg px-1 py-2 text-gold-ink"
           >
             <span aria-hidden="true">📅</span>
-            Valoración
+            Reservar
           </Link>
         </li>
         <li>
