@@ -8,8 +8,10 @@ import { hero, partnerBrands, site } from "~/data/content";
 
 const POSTER = "/media/portada-poster.jpg";
 const VIDEO = "/media/portada.mp4";
+/** Cámara lenta suave: el plano dura 6.5 s a velocidad normal. */
+const PLAYBACK_RATE = 0.7;
 
-type Playback = "static" | "playing" | "paused";
+type Playback = "static" | "playing";
 
 type NetworkInfo = {
   saveData?: boolean;
@@ -17,9 +19,9 @@ type NetworkInfo = {
 };
 
 /**
- * Video de la práctica, ya silenciado y sin el cierre. Trae rótulos
- * integrados en el centro inferior; el copy de la interfaz queda arriba
- * y esa franja se tapa con azul marino. No nombra a las personas del plano.
+ * Video de la práctica, silenciado. Se reproduce más lento que el archivo
+ * para que se lean los planos. Sin control de pausa. Las personas del plano
+ * no se nombran.
  */
 function prefersStillImage(): boolean {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -42,16 +44,12 @@ export default function HomeVideoHero() {
 
   useEffect(() => {
     const el = videoRef.current;
-    if (!el || playback === "static") return;
+    if (!el || playback !== "playing") return;
     el.muted = true;
-    if (playback === "playing") {
-      void el.play().catch(() => setPlayback("paused"));
-    } else {
-      el.pause();
-    }
+    el.defaultPlaybackRate = PLAYBACK_RATE;
+    el.playbackRate = PLAYBACK_RATE;
+    void el.play().catch(() => setPlayback("static"));
   }, [playback]);
-
-  const playing = playback === "playing";
 
   return (
     <section className="relative isolate min-h-[calc(100svh-4.75rem)] overflow-hidden bg-ink-900 text-cream-50 xl:min-h-[calc(100svh-5.5rem)]">
@@ -74,19 +72,22 @@ export default function HomeVideoHero() {
           loop
           preload="metadata"
           aria-hidden="true"
+          onLoadedMetadata={(event) => {
+            event.currentTarget.playbackRate = PLAYBACK_RATE;
+          }}
           onError={() => setPlayback("static")}
         >
           <source src={VIDEO} type="video/mp4" />
         </video>
       )}
 
-      <div className="absolute inset-0 bg-ink-900/70" aria-hidden="true" />
+      <div className="absolute inset-0 bg-ink-900/45 md:bg-transparent" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/75 to-ink-900/35"
+        className="absolute inset-0 bg-gradient-to-r from-ink-900/80 via-ink-900/45 to-transparent md:from-ink-900/75 md:via-ink-900/30"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink-900 to-transparent md:h-56"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-ink-900/70 to-transparent md:h-40"
         aria-hidden="true"
       />
 
@@ -135,19 +136,9 @@ export default function HomeVideoHero() {
             {" · "}
             {site.whatsappDisplay}. {site.whatsappNote}
           </p>
-          <button
-            type="button"
-            className="mt-4 inline-flex w-fit items-center rounded-full border border-cream-50/45 bg-ink-900/70 px-4 py-2 font-serif text-[11px] uppercase tracking-[0.16em] text-cream-50 transition hover:border-gold hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:mt-6"
-            aria-pressed={playing}
-            onClick={() =>
-              setPlayback((current) => (current === "playing" ? "paused" : "playing"))
-            }
-          >
-            {playing ? "Pausar video" : "Reproducir video"}
-          </button>
         </div>
 
-        <div className="relative bg-ink-900 pb-24 pt-2 md:pb-10">
+        <div className="relative pb-24 pt-2 md:pb-10">
           <div className="container-x md:pr-24">
             <p className="text-[11px] uppercase tracking-[0.22em] text-cream-50/80">
               Productos del catálogo
