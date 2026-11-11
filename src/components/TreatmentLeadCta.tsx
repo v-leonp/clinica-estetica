@@ -10,9 +10,8 @@ export default function TreatmentLeadCta({
   treatmentSlug: string;
 }) {
   const reservar = `/reservar?tratamiento=${treatmentSlug}`;
-  const contacto = `/contacto?tratamiento=${treatmentSlug}`;
   const wa = encodeURIComponent(
-    `Hola ${site.brand}, solicito valoración para ${treatmentName}.`,
+    `Hola ${site.brand}, me interesa reservar cita para ${treatmentName}.`,
   );
 
   return (
@@ -22,18 +21,12 @@ export default function TreatmentLeadCta({
           ¿Te interesa este tratamiento?
         </h2>
         <p className="mt-3 max-w-2xl body-copy text-sm leading-relaxed text-ink-700">
-          Solicita una valoración. Revisaremos tu caso y te indicaremos si este
-          protocolo es adecuado. Los resultados pueden variar según cada persona.
+          Reserva una cita. Revisaremos tu caso y te indicaremos si este protocolo
+          es adecuado. Los resultados pueden variar según cada persona.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href={reservar} className="btn-primary">
-            {cta.primary.label}
-          </Link>
-          <Link href={reservar} className="btn-outline">
             {cta.book.label}
-          </Link>
-          <Link href={contacto} className="btn-outline">
-            Formulario de contacto
           </Link>
           <a
             href={`https://wa.me/${site.whatsappNumber}?text=${wa}`}

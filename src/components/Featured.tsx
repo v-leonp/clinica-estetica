@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import ClinicPhoto from "~/components/ClinicPhoto";
 import { photoForTreatment } from "~/data/clinic-photos";
-import { featured, featuredHeading, getTreatment } from "~/data/content";
+import { cta, featured, featuredHeading, getTreatment } from "~/data/content";
 
 export default function Featured() {
   const items = featured
@@ -71,7 +71,7 @@ export default function Featured() {
                     Ver más
                   </Link>
                   <Link href={item.bookHref} className="btn-rose">
-                    Valoración
+                    {cta.book.label}
                   </Link>
                 </div>
               </article>

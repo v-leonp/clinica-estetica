@@ -143,7 +143,7 @@ export default function ContactForm() {
       <div className="container-x grid gap-10 md:grid-cols-12">
         <div className="md:col-span-5">
           <p className="eyebrow">Contacto</p>
-          <h2 className="section-title">Solicitar valoración</h2>
+          <h2 className="section-title">Reservar cita</h2>
           <p className="section-sub">
             Cuéntanos qué te gustaría consultar. No es un diagnóstico en línea: revisaremos
             tu mensaje y te propondremos los siguientes pasos.
@@ -409,7 +409,7 @@ export default function ContactForm() {
             className="btn-primary mt-6 w-full sm:w-auto"
             disabled={createLead.isPending}
           >
-            {createLead.isPending ? "Enviando..." : "Enviar solicitud de valoración"}
+            {createLead.isPending ? "Enviando..." : "Enviar solicitud de cita"}
           </button>
 
           <p

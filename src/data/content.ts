@@ -34,7 +34,7 @@ export const site = {
   brandFull: "Dra. Melissa Vigo – Médico Estético",
   tagline: "Médico Estético",
   description:
-    "Medicina estética en Lima, Perú, a cargo de la Dra. Melissa Vigo, médico cirujano (CMP 101245). Catálogo con tiempos y precios. La sede y el horario aún no están publicados.",
+    "Medicina estética en San Miguel, Lima, Perú, a cargo de la Dra. Melissa Vigo, médico cirujano (CMP 101245). Catálogo con tiempos y precios.",
   legal: {
     companyName: null as string | null,
     ruc: null as string | null,
@@ -46,7 +46,8 @@ export const site = {
   whatsappNumber: WHATSAPP_PENDIENTE_DE_CONFIRMAR.number,
   whatsappNote: WHATSAPP_PENDIENTE_DE_CONFIRMAR.note,
   email: null as string | null,
-  address: null as string | null,
+  address: "Calle Manuel Pérez Oblitas 190, San Miguel",
+  addressReference: "Ref. cuadra 10 de la Av. La Marina",
   socials: null as {
     instagram: string;
     facebook: string;
@@ -58,20 +59,16 @@ export const nav: Array<{ label: string; href: string }> = [
   { label: "Inicio", href: "/" },
   { label: "Tratamientos", href: "/tratamientos" },
   { label: "Promociones", href: "/promociones" },
-  { label: "Nosotros", href: "/nosotros" },
-  { label: "Tecnología", href: "/tecnologia" },
-  { label: "Sedes", href: "/sedes" },
-  { label: "Contacto", href: "/contacto" },
+  { label: "Dra. Melissa Vigo", href: "/nosotros" },
 ];
 
 export const navSecondary: Array<{ label: string; href: string }> = [
   { label: "Equipo médico", href: "/equipo" },
-  { label: "Solicitar valoración", href: "/reservar" },
   { label: "Preguntas frecuentes", href: "/preguntas-frecuentes" },
 ];
 
 export const cta = {
-  primary: { label: "Solicitar valoración", href: "/reservar" },
+  primary: { label: "Reservar cita", href: "/reservar" },
   book: { label: "Reservar cita", href: "/reservar" },
   secondary: { label: "Ver tratamientos", href: "/tratamientos" },
   whatsapp: {
@@ -95,9 +92,8 @@ export const hero = {
    * del hero sea la clínica ni una paciente.
    */
   support:
-    "Cada tratamiento publicado indica su tiempo y su precio. Reservar deja una solicitud: la cita se confirma solo cuando te escribamos. La sede y el horario todavía no están publicados.",
+    "Cada tratamiento publicado indica su tiempo y su precio. Reservar deja una solicitud: la cita se confirma solo cuando te escribamos.",
   ctaPrimary: cta.book,
-  ctaSecondary: cta.treatments,
 };
 
 export const trustBadges = [
@@ -105,7 +101,7 @@ export const trustBadges = [
   { title: "Una sola profesional", subtitle: "Melissa Vigo" },
   { title: "Catálogo publicado", subtitle: "17 tratamientos con tiempo y precio" },
   { title: "Indicación en consulta", subtitle: "Nada se aplica sin valoración" },
-  { title: "Aún no abre en Lima", subtitle: "Dirección y horario por confirmar" },
+  { title: "San Miguel, Lima", subtitle: "Calle Manuel Pérez Oblitas 190" },
   {
     title: "Promoción publicada",
     subtitle: "Toxina botulínica 2x1, primeros 50 clientes",
@@ -126,7 +122,7 @@ export const differentialBenefits = [
   {
     title: "Lo que falta, se dice",
     description:
-      "Sede, horario, razón social, RUC, teléfono, correo y redes se publicarán cuando existan.",
+      "Horario, razón social, RUC, teléfono, correo y redes se publicarán cuando existan.",
   },
 ] as const;
 
@@ -230,9 +226,9 @@ export const homePillars = [
       "Cada tratamiento publicado indica su duración y su precio. No hay paquetes extra en esta web.",
   },
   {
-    title: "Lima, aún sin abrir",
+    title: "San Miguel, Lima",
     description:
-      "La dirección y el horario se publicarán cuando estén confirmados. Mientras tanto puedes dejar tu solicitud.",
+      "Consultorio en Calle Manuel Pérez Oblitas 190. El horario de atención se publicará cuando esté confirmado.",
   },
 ] as const;
 
@@ -329,16 +325,16 @@ export const globalFAQ: FAQ[] = [
   },
   {
     q: "¿Dónde quedan y en qué horario atienden?",
-    a: "La dirección, las sedes y el horario aún no están confirmados. La clínica todavía no abre en Lima.",
+    a: `Consultorio en ${site.address}. ${site.addressReference}. El horario de atención aún no está publicado.`,
   },
 ];
 
 export const bookingCopy = {
-  title: "Solicitar valoración",
+  title: "Reservar cita",
   intro:
     "Flujo para dejar una solicitud. No es un diagnóstico en línea ni una cita confirmada: la revisaremos y te escribiremos por WhatsApp.",
   valuationCost:
-    "La evaluación integral gratuita aplica al separar la cita con el 10% del procedimiento en los tratamientos del listado que lo indican. No hay una tarifa general de valoración publicada para el resto. La política de reembolso de ese 10% aún no está publicada.",
+    "La evaluación integral gratuita aplica al separar la cita con el 10% del procedimiento en los tratamientos del listado que lo indican. La política de reembolso de ese 10% aún no está publicada.",
   cancellation:
     "La política de cancelación y el reembolso del 10% aún no están publicados.",
   fallback: "Si el formulario falla, escríbenos por WhatsApp.",
@@ -392,17 +388,30 @@ export const locations: Array<{
   whatsappHref: string;
   hours: string;
   mapHref: string;
-}> = [];
+}> = [
+  {
+    slug: "san-miguel",
+    name: "Consultorio San Miguel",
+    address: "Calle Manuel Pérez Oblitas 190, San Miguel",
+    phone: site.whatsappDisplay,
+    phoneHref: site.whatsappNumber ? `tel:+${site.whatsappNumber}` : "",
+    whatsapp: site.whatsappDisplay,
+    whatsappHref: `https://wa.me/${site.whatsappNumber}`,
+    hours: "Horario por confirmar",
+    mapHref:
+      "https://www.google.com/maps/search/?api=1&query=Calle+Manuel+Pérez+Oblitas+190,+San+Miguel,+Lima",
+  },
+];
 
 export const footer = {
   hours: "Horario por confirmar",
   hoursNote: "El horario de atención aún no está publicado.",
-  legal: `© ${new Date().getFullYear()} Dra. Melissa Vigo. Medicina estética en Lima. Razón social, RUC, sede y horario pendientes de publicación.`,
+  legal: `© ${new Date().getFullYear()} Dra. Melissa Vigo. Medicina estética en San Miguel, Lima. Razón social, RUC y horario pendientes de publicación.`,
 };
 
 export const freeConsult = {
   eyebrow: "Siguiente paso",
-  title: "Solicita una valoración",
+  title: "Reserva tu cita",
   subtitle:
     "La doctora revisa tus necesidades en consulta. Si prefieres no usar el formulario, escríbenos por WhatsApp.",
 };

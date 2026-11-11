@@ -2,7 +2,7 @@ import { site } from '~/data/content';
 
 export default function WhatsAppButton() {
   const text = encodeURIComponent(
-    `Hola ${site.brand}, me gustaría solicitar una valoración.`,
+    `Hola ${site.brand}, me gustaría reservar una cita.`,
   );
   return (
     <a

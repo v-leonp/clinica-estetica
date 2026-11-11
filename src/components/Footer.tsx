@@ -77,9 +77,16 @@ export default function Footer() {
             <li className="text-cream-100/80">
               Teléfono, correo y redes: próximamente.
             </li>
-            <li className="text-cream-100/80">
-              Dirección: próximamente. La clínica aún no abre en Lima.
-            </li>
+            {site.address ? (
+              <li className="text-cream-100/80">
+                <span className="block">{site.address}</span>
+                {site.addressReference ? (
+                  <span className="mt-1 block text-xs text-cream-100/70">
+                    {site.addressReference}
+                  </span>
+                ) : null}
+              </li>
+            ) : null}
           </ul>
         </div>
       </div>

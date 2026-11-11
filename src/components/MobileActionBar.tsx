@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cta, site } from "~/data/content";
 
 const waText = encodeURIComponent(
-  `Hola ${site.brand}, me gustaría solicitar una valoración.`,
+  `Hola ${site.brand}, me gustaría reservar una cita.`,
 );
 
 export default function MobileActionBar() {

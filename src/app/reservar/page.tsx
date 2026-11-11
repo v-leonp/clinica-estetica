@@ -11,8 +11,8 @@ import { getSiteUrl } from "~/lib/site-url";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Solicitar valoración",
-  description: `Solicita una valoración con ${site.brand}. No es un diagnóstico en línea ni una cita confirmada.`,
+  title: "Reservar cita",
+  description: `Reserva una cita con ${site.brand}. No es un diagnóstico en línea ni una cita confirmada.`,
   alternates: { canonical: `${getSiteUrl()}/reservar` },
 };
 
@@ -22,7 +22,7 @@ export default function ReservarPage() {
       <Breadcrumbs
         items={[
           { label: "Inicio", href: "/" },
-          { label: "Solicitar valoración" },
+          { label: "Reservar cita" },
         ]}
       />
       <PageHero

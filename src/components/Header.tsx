@@ -9,8 +9,6 @@ import MegaMenu from "~/components/MegaMenu";
 import BrandLogo from "~/components/BrandLogo";
 
 const headerActions = [
-  { label: "Precios", href: "/tratamientos" },
-  { label: "Promos", href: "/promociones" },
   { label: cta.book.label, href: cta.book.href, primary: true },
 ] as const;
 
@@ -173,14 +171,6 @@ export default function Header() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
-                href="/tratamientos"
-                className="block rounded-lg px-3 py-3 font-serif text-xs uppercase tracking-[0.14em] transition hover:bg-cream-100 hover:text-gold-ink"
-              >
-                Precios
-              </Link>
-            </li>
             <li className="pt-2">
               <Link href={cta.book.href} className="btn-primary w-full uppercase tracking-[0.12em]">
                 {cta.book.label}

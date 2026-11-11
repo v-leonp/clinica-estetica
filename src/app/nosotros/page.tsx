@@ -14,11 +14,11 @@ import { getSiteUrl } from "~/lib/site-url";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Nosotros",
-  description: `${site.brand}, médico cirujano (CMP 101245). Medicina estética en Lima. La clínica aún no abre.`,
+  title: "Dra. Melissa Vigo",
+  description: `${site.brand}, médico cirujano (CMP 101245). Medicina estética en San Miguel, Lima.`,
   alternates: { canonical: `${getSiteUrl()}/nosotros` },
   openGraph: {
-    title: `Nosotros | ${site.brand}`,
+    title: `Dra. Melissa Vigo | ${site.brand}`,
     description: "Dra. Melissa Vigo, médico cirujano. Medicina estética en Lima.",
     url: `${getSiteUrl()}/nosotros`,
   },
@@ -30,7 +30,7 @@ export default function NosotrosPage() {
       <Breadcrumbs
         items={[
           { label: "Inicio", href: "/" },
-          { label: "Nosotros" },
+          { label: "Dra. Melissa Vigo" },
         ]}
       />
       <PageHero
