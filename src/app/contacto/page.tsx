@@ -10,9 +10,12 @@ import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
 
+const hiddenFromIndex = { index: false, follow: true } as const;
+
 export const metadata: Metadata = {
   title: "Contacto",
-  description: `Escribe a ${site.brand} o deja tus datos. Teléfono, correo y sede aún no están publicados.`,
+  description: `Escribe a ${site.brand} o deja tus datos. Consultorio en ${site.address ?? "San Miguel"}.`,
+  robots: hiddenFromIndex,
   alternates: { canonical: `${getSiteUrl()}/contacto` },
   openGraph: {
     title: `Contacto | ${site.brand}`,

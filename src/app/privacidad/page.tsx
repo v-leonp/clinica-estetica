@@ -145,7 +145,7 @@ export default function PrivacidadPage() {
 
           <p>
             <Link
-              href="/contacto"
+              href="/reservar"
               className="inline-flex items-center gap-1 text-sm font-medium text-rose-gold hover:text-ink-900"
             >
               Volver al formulario de contacto →

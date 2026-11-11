@@ -1,16 +1,14 @@
 import Link from "next/link";
 
-import { cta, site } from "~/data/content";
+import { cta, site, whatsappWidget } from "~/data/content";
 
-const waText = encodeURIComponent(
-  `Hola ${site.brand}, me gustaría reservar una cita.`,
-);
+const waText = encodeURIComponent(whatsappWidget.welcomeMessage);
 
 export default function MobileActionBar() {
   return (
     <nav
       aria-label="Acciones rápidas"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-cream-200 bg-cream-50/95 backdrop-blur md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-cream-200 bg-cream-50/95 backdrop-blur md:hidden"
     >
       <ul className="container-x grid grid-cols-4 gap-1 py-2 text-[10px] text-ink-700">
         <li>
@@ -44,11 +42,11 @@ export default function MobileActionBar() {
         </li>
         <li>
           <Link
-            href="/contacto"
+            href="/promociones"
             className="flex flex-col items-center gap-1 rounded-lg px-1 py-2 hover:text-gold-ink"
           >
-            <span aria-hidden="true">✉️</span>
-            Contacto
+            <span aria-hidden="true">🏷️</span>
+            Promos
           </Link>
         </li>
       </ul>
