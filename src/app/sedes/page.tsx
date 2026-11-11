@@ -11,7 +11,8 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Sedes",
-  description: `La sede de ${site.brand} en Lima aún no está publicada.`,
+  description: `Consultorio de ${site.brand} en ${site.address ?? "San Miguel, Lima"}.`,
+  robots: { index: false, follow: true },
   alternates: { canonical: `${getSiteUrl()}/sedes` },
   openGraph: {
     title: `Sedes | ${site.brand}`,
@@ -31,8 +32,12 @@ export default function SedesPage() {
       />
       <PageHero
         eyebrow="Sedes"
-        title="Próximamente en Lima"
-        subtitle="La dirección, el mapa y el horario todavía no están confirmados. La clínica aún no abre."
+        title={locations[0]?.name ?? "Consultorio San Miguel"}
+        subtitle={
+          site.address
+            ? `${site.address}. ${site.addressReference ?? ""} Horario por confirmar.`
+            : "Horario por confirmar."
+        }
       />
 
       <section className="section pt-4">

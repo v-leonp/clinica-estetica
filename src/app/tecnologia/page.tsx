@@ -12,6 +12,7 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "Tecnología",
   description: `Técnicas y equipos que el catálogo de ${site.brand} nombra: láser ND:YAG, IPL o diodo, Dermapen y Fibroblast.`,
+  robots: { index: false, follow: true },
   alternates: { canonical: `${getSiteUrl()}/tecnologia` },
   openGraph: {
     title: `Tecnología | ${site.brand}`,
