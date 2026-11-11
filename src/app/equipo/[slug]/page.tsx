@@ -89,7 +89,7 @@ export default async function EquipoMemberPage({
               ))}
             </ul>
             <Link href={cta.primary.href} className="btn-primary mt-8 inline-flex">
-              Solicitar valoración
+              {cta.primary.label}
             </Link>
           </div>
         </div>

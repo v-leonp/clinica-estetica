@@ -17,7 +17,7 @@ export default function NotFound() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link href="/reservar" className="btn-primary">
-              Solicitar valoración
+              Reservar cita
             </Link>
             <Link href="/tratamientos" className="btn-outline">
               Ver tratamientos

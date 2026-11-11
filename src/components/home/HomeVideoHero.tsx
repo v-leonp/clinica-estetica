@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-import { hero, partnerBrands, site } from "~/data/content";
+import { hero, partnerBrands } from "~/data/content";
 
 const POSTER = "/media/portada-poster.jpg";
 const VIDEO = "/media/portada.mp4";
@@ -117,25 +117,7 @@ export default function HomeVideoHero() {
             >
               {hero.ctaPrimary.label}
             </Link>
-            <Link
-              href={hero.ctaSecondary.href}
-              className="inline-flex items-center justify-center rounded-full border border-cream-50/70 bg-ink-900/40 px-6 py-3 font-serif text-sm uppercase tracking-[0.12em] text-cream-50 transition hover:border-gold hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
-            >
-              {hero.ctaSecondary.label}
-            </Link>
           </div>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-cream-50/90">
-            <a
-              href={`https://wa.me/${site.whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-gold/80 underline-offset-4 hover:text-gold"
-            >
-              Escríbenos por WhatsApp
-            </a>
-            {" · "}
-            {site.whatsappDisplay}. {site.whatsappNote}
-          </p>
         </div>
 
         <div className="relative pb-24 pt-2 md:pb-10">

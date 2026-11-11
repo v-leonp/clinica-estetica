@@ -96,7 +96,7 @@ export default async function TreatmentPage({
       >
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <Link href={bookHref} className="btn-primary">
-            Solicitar valoración
+            Reservar cita
           </Link>
           <a
             href={waHref}
@@ -224,7 +224,7 @@ export default async function TreatmentPage({
               </dl>
 
               <Link href={bookHref} className="btn-primary mt-7 w-full">
-                Solicitar valoración
+                Reservar cita
               </Link>
               <a
                 href={waHref}

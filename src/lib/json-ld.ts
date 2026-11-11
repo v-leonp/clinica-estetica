@@ -19,16 +19,27 @@ export function medicalClinicJsonLd() {
     },
     ...(site.phoneHref ? { telephone: site.phoneHref } : {}),
     ...(site.email ? { email: site.email } : {}),
-    ...(locations.length
+    ...(locations[0]
       ? {
-          address: locations.map((l) => ({
+          address: {
             "@type": "PostalAddress",
-            streetAddress: l.address,
-            addressLocality: "Lima",
+            streetAddress: locations[0].address,
+            addressLocality: "San Miguel",
+            addressRegion: "Lima",
             addressCountry: "PE",
-          })),
+          },
         }
-      : {}),
+      : site.address
+        ? {
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: site.address,
+              addressLocality: "San Miguel",
+              addressRegion: "Lima",
+              addressCountry: "PE",
+            },
+          }
+        : {}),
   };
 }
 

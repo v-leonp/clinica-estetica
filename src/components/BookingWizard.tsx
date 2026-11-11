@@ -100,7 +100,7 @@ export default function BookingWizard() {
       return;
     }
     const mensaje = [
-      "Solicitud de valoración (flujo /reservar)",
+      "Solicitud de cita (flujo /reservar)",
       `Motivo: ${tratamiento}`,
       `Sede preferida: ${sede}`,
       `Fecha preferida: ${fecha}`,

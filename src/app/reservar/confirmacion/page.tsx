@@ -40,7 +40,7 @@ export default function ReservaConfirmacionPage() {
         <div className="container-x max-w-xl text-center">
           <p className="eyebrow">Solicitud recibida</p>
           <h1 className="mt-3 font-serif text-4xl text-ink-900">
-            Revisaremos tu valoración
+            Revisaremos tu solicitud
           </h1>
           <p className="mt-4 text-base text-ink-700">
             Hemos registrado tu solicitud. Te contactaremos para confirmar fecha y hora
