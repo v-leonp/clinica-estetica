@@ -15,7 +15,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Tratamientos",
-  description: `Catálogo de ${site.brand}: 17 tratamientos con tiempos y precios. Medicina estética en Lima.`,
+  description: `Catálogo de ${site.brand}: 17 tratamientos con tiempos publicados. Medicina estética en San Miguel, Lima.`,
   alternates: { canonical: `${getSiteUrl()}/tratamientos` },
   openGraph: {
     title: `Tratamientos | ${site.brand}`,

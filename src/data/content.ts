@@ -14,6 +14,28 @@ import type { Category, Treatment, FAQ } from "./treatments-catalog";
 export type { FAQ, Treatment, Category } from "./treatments-catalog";
 export { categoriesFull, catalogIntro, catalogDisclaimer };
 
+/** Petición cliente: no mostrar precios en la UI del catálogo. */
+export const catalogShowsPrices = false;
+
+export const BOTOX_TREATMENT_SLUG = "toxina-botulinica-facial";
+
+export function treatmentPromoBadge(treatmentSlug: string): string | null {
+  if (treatmentSlug === BOTOX_TREATMENT_SLUG) {
+    return "PROMOCION 2x1 a los primeros 50 pacientes";
+  }
+  return null;
+}
+
+export const doctorProfile = {
+  name: "Dra. Melissa Vigo Ruiz",
+  role: "Médico cirujano · Medicina estética",
+  paragraphs: [
+    "Soy la Dra. Melissa Vigo Ruiz, médico cirujano con formación en Maestría Internacional en Medicina estética.",
+    "Mi enfoque y mi experiencia se basa en una medicina ética, personalizada y de alta precisión. Me dedico a potenciar la belleza natural de mis pacientes combinando técnicas avanzadas de neuromodulación, rellenos faciales y tecnología médica de última generación. Además de actualizaciones continuas, para generar mejores conocimientos y nuevas técnicas avanzadas.",
+    "Mi compromiso es ofrecerte resultados armónicos, elegantes y, sobre todo, seguros, sin perder la naturalidad. Los invito a acompañarme en este espacio donde compartiremos ciencia, cuidado de la piel y bienestar integral.",
+  ],
+} as const;
+
 /**
  * Única fuente del WhatsApp. El número todavía no está confirmado por la
  * clínica: no lo copies en sedes, componentes ni textos sueltos.
@@ -34,7 +56,7 @@ export const site = {
   brandFull: "Dra. Melissa Vigo – Médico Estético",
   tagline: "Médico Estético",
   description:
-    "Medicina estética en San Miguel, Lima, Perú, a cargo de la Dra. Melissa Vigo, médico cirujano (CMP 101245). Catálogo con tiempos y precios.",
+    "Medicina estética en San Miguel, Lima, Perú, a cargo de la Dra. Melissa Vigo, médico cirujano (CMP 101245). Catálogo con tiempos de cada tratamiento.",
   legal: {
     companyName: null as string | null,
     ruc: null as string | null,
@@ -92,14 +114,14 @@ export const hero = {
    * del hero sea la clínica ni una paciente.
    */
   support:
-    "Cada tratamiento publicado indica su tiempo y su precio. Reservar deja una solicitud: la cita se confirma solo cuando te escribamos.",
+    "Cada tratamiento publicado indica su tiempo. Reservar deja una solicitud: la cita se confirma solo cuando te escribamos.",
   ctaPrimary: cta.book,
 };
 
 export const trustBadges = [
   { title: "Médico cirujano", subtitle: "CMP 101245" },
   { title: "Una sola profesional", subtitle: "Melissa Vigo" },
-  { title: "Catálogo publicado", subtitle: "17 tratamientos con tiempo y precio" },
+  { title: "Catálogo publicado", subtitle: "17 tratamientos con tiempo publicado" },
   { title: "Indicación en consulta", subtitle: "Nada se aplica sin valoración" },
   { title: "San Miguel, Lima", subtitle: "Calle Manuel Pérez Oblitas 190" },
   {
@@ -117,7 +139,7 @@ export const differentialBenefits = [
   {
     title: "Listado concreto",
     description:
-      "Tiempos y precios salen del documento de la doctora. No hay paquetes ni promociones de ejemplo.",
+      "Tiempos y protocolos salen del documento de la doctora. No hay paquetes ni promociones de ejemplo.",
   },
   {
     title: "Lo que falta, se dice",
@@ -174,10 +196,10 @@ export const featured: Array<{
 ];
 
 export const featuredHeading = {
-  eyebrow: "Precios",
+  eyebrow: "Destacados",
   title: "Una selección del catálogo",
   subtitle:
-    "Tiempo y precio de cada ficha. La indicación se confirma en consulta, antes de cualquier procedimiento.",
+    "Tiempos publicados en cada ficha. La indicación se confirma en consulta, antes de cualquier procedimiento.",
 };
 
 export const promos: Array<{
@@ -221,9 +243,9 @@ export const homePillars = [
       "La Dra. Melissa Vigo revisa lo que buscas, explica el procedimiento y confirma si es adecuado para ti.",
   },
   {
-    title: "Tiempo y precio a la vista",
+    title: "Tiempos publicados",
     description:
-      "Cada tratamiento publicado indica su duración y su precio. No hay paquetes extra en esta web.",
+      "Cada tratamiento indica su duración aproximada. La indicación final se confirma en consulta.",
   },
   {
     title: "San Miguel, Lima",
@@ -234,7 +256,7 @@ export const homePillars = [
 
 export const homeEditorialIntro = {
   eyebrow: "Tratamientos",
-  title: "Cuatro caminos para empezar",
+  title: "Catálogo de medicina estética",
   description:
     "Facial, piel, cuerpo y láser. La indicación se confirma en consulta.",
 } as const;
@@ -253,7 +275,7 @@ export const teamMembers: TeamMember[] = [
     slug: "melissa-vigo",
     name: "Dra. Melissa Vigo",
     role: "Médico cirujano · Medicina estética",
-    bio: "Médico cirujano, CMP 101245. Medicina estética. La biografía extendida se publicará cuando la doctora la confirme.",
+    bio: doctorProfile.paragraphs[0]!,
     credentials: ["Médico cirujano", "CMP 101245", "Medicina estética"],
     focus: categoriesFull.map((c) => c.title),
   },

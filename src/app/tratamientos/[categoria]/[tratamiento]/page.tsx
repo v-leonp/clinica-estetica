@@ -12,8 +12,10 @@ import {
   allTreatments,
   careProcess,
   catalogDisclaimer,
+  catalogShowsPrices,
   getTreatment,
   site,
+  treatmentPromoBadge,
 } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 import { faqPageJsonLd, medicalProcedureJsonLd } from "~/lib/json-ld";
@@ -106,9 +108,15 @@ export default async function TreatmentPage({
           >
             Consultar por WhatsApp
           </a>
-          <span className="price rounded-full bg-cream-100 px-4 py-2 text-sm text-ink-900">
-            {treatment.priceFrom}
-          </span>
+          {treatmentPromoBadge(treatment.slug) ? (
+            <span className="rounded-full border border-gold/50 bg-cream-100 px-4 py-2 text-xs font-medium uppercase tracking-wide text-gold-ink">
+              {treatmentPromoBadge(treatment.slug)}
+            </span>
+          ) : catalogShowsPrices ? (
+            <span className="price rounded-full bg-cream-100 px-4 py-2 text-sm text-ink-900">
+              {treatment.priceFrom}
+            </span>
+          ) : null}
         </div>
       </PageHero>
 
@@ -216,7 +224,9 @@ export default async function TreatmentPage({
                 {treatment.recovery ? (
                   <InfoRow label="Recuperación" value={treatment.recovery} />
                 ) : null}
-                <InfoRow label="Precio" value={treatment.priceFrom} price />
+                {catalogShowsPrices ? (
+                  <InfoRow label="Precio" value={treatment.priceFrom} price />
+                ) : null}
                 {treatment.brands ? (
                   <InfoRow label="Producto" value={treatment.brands} />
                 ) : null}

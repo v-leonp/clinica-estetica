@@ -2,7 +2,13 @@ import Link from "next/link";
 
 import ClinicPhoto from "~/components/ClinicPhoto";
 import { photoForTreatment } from "~/data/clinic-photos";
-import { cta, featured, featuredHeading, getTreatment } from "~/data/content";
+import {
+  cta,
+  featured,
+  featuredHeading,
+  getTreatment,
+  treatmentPromoBadge,
+} from "~/data/content";
 
 export default function Featured() {
   const items = featured
@@ -14,7 +20,7 @@ export default function Featured() {
         bookHref: `/reservar?tratamiento=${f.treatmentSlug}`,
         title: match.treatment.name,
         description: match.treatment.short,
-        price: match.treatment.priceFrom,
+        slug: match.treatment.slug,
         duration: match.treatment.duration,
         photo: photoForTreatment(f.treatmentSlug, f.categorySlug),
       };
@@ -24,7 +30,7 @@ export default function Featured() {
     bookHref: string;
     title: string;
     description: string;
-    price: string;
+    slug: string;
     duration: string;
     photo: ReturnType<typeof photoForTreatment>;
   }>;
@@ -44,7 +50,9 @@ export default function Featured() {
         </div>
 
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((item) => (
+          {items.map((item) => {
+            const promo = treatmentPromoBadge(item.slug);
+            return (
             <li key={item.href}>
               <article className="card flex h-full flex-col">
                 <Link href={item.href} className="group block">
@@ -62,10 +70,12 @@ export default function Featured() {
                 <p className="body-copy mt-2 flex-1 text-sm leading-relaxed text-ink-700">
                   {item.description}
                 </p>
-                <div className="mt-5 flex items-center justify-between text-sm">
-                  <span className="price text-ink-900">{item.price}</span>
-                  <span className="text-ink-500">{item.duration}</span>
-                </div>
+                {promo ? (
+                  <p className="mt-3 rounded-lg border border-gold/40 bg-cream-100/80 px-3 py-2 text-xs font-medium uppercase tracking-wide text-gold-ink">
+                    {promo}
+                  </p>
+                ) : null}
+                <p className="mt-3 text-sm text-ink-500">Duración: {item.duration}</p>
                 <div className="mt-5 grid grid-cols-2 gap-2">
                   <Link href={item.href} className="btn-outline">
                     Ver más
@@ -76,7 +86,8 @@ export default function Featured() {
                 </div>
               </article>
             </li>
-          ))}
+            );
+          })}
         </ul>
       </div>
     </section>

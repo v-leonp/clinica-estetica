@@ -9,7 +9,14 @@ import FreeConsult from "~/components/FreeConsult";
 import CategoryIcon from "~/components/CategoryIcon";
 import ClinicPhoto from "~/components/ClinicPhoto";
 import { photoForCategory } from "~/data/clinic-photos";
-import { categoriesFull, getCategory, site } from "~/data/content";
+import {
+  catalogShowsPrices,
+  categoriesFull,
+  cta,
+  getCategory,
+  site,
+  treatmentPromoBadge,
+} from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
@@ -107,11 +114,15 @@ export default async function CategoryPage({
                       </div>
                     ) : null}
                   </dl>
-                  <div className="mt-5 flex items-center justify-between text-sm">
-                    <span className="price text-ink-900">
-                      {t.priceFrom}
-                    </span>
-                  </div>
+                  {treatmentPromoBadge(t.slug) ? (
+                    <p className="mt-4 rounded-lg border border-gold/40 bg-cream-100/80 px-3 py-2 text-xs font-medium uppercase tracking-wide text-gold-ink">
+                      {treatmentPromoBadge(t.slug)}
+                    </p>
+                  ) : catalogShowsPrices ? (
+                    <div className="mt-5 text-sm">
+                      <span className="price text-ink-900">{t.priceFrom}</span>
+                    </div>
+                  ) : null}
                   <div className="mt-5 grid grid-cols-2 gap-2">
                     <Link
                       href={`/tratamientos/${cat.slug}/${t.slug}`}
@@ -120,10 +131,10 @@ export default async function CategoryPage({
                       Ver detalle
                     </Link>
                     <Link
-                      href={`/contacto?tratamiento=${t.slug}`}
+                      href={`/reservar?tratamiento=${t.slug}`}
                       className="btn-rose"
                     >
-                      Agendar
+                      {cta.book.label}
                     </Link>
                   </div>
                 </article>
