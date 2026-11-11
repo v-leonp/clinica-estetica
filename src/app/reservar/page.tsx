@@ -28,7 +28,7 @@ export default function ReservarPage() {
       <PageHero
         eyebrow="Reserva"
         title={bookingCopy.title}
-        subtitle={bookingCopy.intro}
+        subtitle={bookingCopy.callFormLead}
       />
       <Suspense fallback={<p className="container-x pb-16 text-sm">Cargando formulario…</p>}>
         <BookingWizard />

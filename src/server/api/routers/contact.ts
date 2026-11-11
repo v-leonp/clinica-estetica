@@ -34,8 +34,17 @@ export const contactInputSchema = z.object({
     .string()
     .trim()
     .toLowerCase()
-    .email("Ingresa un correo electrónico válido")
-    .max(200),
+    .max(200)
+    .superRefine((value, ctx) => {
+      if (value.length === 0) return;
+      const ok = z.string().email().safeParse(value).success;
+      if (!ok) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Ingresa un correo electrónico válido",
+        });
+      }
+    }),
   telefono: z
     .string()
     .trim()
@@ -86,10 +95,15 @@ export const contactRouter = createTRPCRouter({
 
       const ua = ctx.headers.get("user-agent") ?? null;
 
+      const emailForDb =
+        input.email.length > 0
+          ? input.email
+          : `reserva.${input.telefono.replace(/\D/g, "").slice(-15) || "sin-telefono"}@placeholder.local`;
+
       const lead = await ctx.db.lead.create({
         data: {
           nombre: input.nombre,
-          email: input.email,
+          email: emailForDb,
           telefono: input.telefono,
           tratamiento: input.tratamiento,
           mensaje: input.mensaje,

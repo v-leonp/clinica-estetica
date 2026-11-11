@@ -10,6 +10,8 @@ import { BOOKING_STORAGE_KEY, cta, site } from "~/data/content";
 type Stored = {
   nombre?: string;
   tratamiento?: string;
+  telefono?: string;
+  modos?: string[];
   sede?: string;
   fecha?: string;
   hora?: string;
@@ -50,7 +52,9 @@ export default function ReservaConfirmacionPage() {
           {data?.nombre && (
             <p className="mt-6 rounded-2xl border border-cream-200 bg-white p-4 text-sm text-ink-700">
               <strong>{data.nombre}</strong>
+              {data.telefono ? ` · ${data.telefono}` : ""}
               {data.tratamiento ? ` · ${data.tratamiento}` : ""}
+              {data.modos?.length ? ` · contacto: ${data.modos.join(", ")}` : ""}
               {data.sede ? ` · ${data.sede}` : ""}
               {data.fecha ? ` · preferencia ${data.fecha} ${data.hora ?? ""}` : ""}
             </p>
