@@ -1,119 +1,79 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, useState, type ReactNode } from "react";
 
 import {
-  allTreatments,
-  allowedSedes,
-  allowedTratamientos,
   BOOKING_STORAGE_KEY,
+  bookingCallMotives,
+  bookingContactModes,
   bookingCopy,
-  categoriesFull,
-  locations,
   site,
 } from "~/data/content";
 import { api } from "~/trpc/react";
 
-type Step = 1 | 2 | 3 | 4 | 5 | 6;
-
-function resolvePrefill(slug: string): string {
-  if (!slug) return "";
-  const cat = categoriesFull.find((c) => c.slug === slug);
-  if (cat) return cat.title;
-  const match = allTreatments.find(({ treatment }) => treatment.slug === slug);
-  if (match) return match.treatment.name;
-  return "";
-}
+type ContactMode = (typeof bookingContactModes)[number];
 
 export default function BookingWizard() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const startedAt = useRef(Date.now());
 
-  const [step, setStep] = useState<Step>(1);
-  const [tratamiento, setTratamiento] = useState("Consulta general");
-  const [sede, setSede] = useState("Sin preferencia");
-  const [fecha, setFecha] = useState("");
-  const [hora, setHora] = useState("");
   const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
+  const [motivo, setMotivo] = useState<(typeof bookingCallMotives)[number]>(
+    "Consulta médica",
+  );
+  const [modos, setModos] = useState<ContactMode[]>(["WhatsApp"]);
   const [acepto, setAcepto] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    const slug = searchParams.get("tratamiento") ?? "";
-    const pre = resolvePrefill(slug);
-    if (pre) setTratamiento(pre);
-  }, [searchParams]);
 
   const createLead = api.contact.createLead.useMutation({
     onSuccess: () => {
       sessionStorage.setItem(
         BOOKING_STORAGE_KEY,
-        JSON.stringify({ nombre, tratamiento, sede, fecha, hora }),
+        JSON.stringify({ nombre, tratamiento: motivo, telefono, modos }),
       );
       router.push("/reservar/confirmacion");
     },
   });
 
-  const tratamientoOptions = useMemo(
-    () => [...allowedTratamientos],
-    [],
-  );
+  function toggleModo(mode: ContactMode) {
+    setModos((prev) =>
+      prev.includes(mode) ? prev.filter((m) => m !== mode) : [...prev, mode],
+    );
+  }
 
-  function validate(current: Step): boolean {
+  function validate(): boolean {
     const next: Record<string, string> = {};
-    if (current === 1 && !tratamiento) next.tratamiento = "Elige un motivo de consulta.";
-    if (current === 3) {
-      if (!fecha) next.fecha = "Indica una fecha preferida.";
-      if (!hora) next.hora = "Indica un horario preferido.";
+    if (!nombre.trim()) next.nombre = "Escribe tu nombre.";
+    if (!telefono.trim() || telefono.trim().length < 6) {
+      next.telefono = "Introduce un teléfono válido.";
     }
-    if (current === 4) {
-      if (!nombre.trim()) next.nombre = "Escribe tu nombre.";
-      if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        next.email = "Introduce un correo válido.";
-      }
-      if (!telefono.trim()) next.telefono = "Introduce un teléfono de contacto.";
+    if (modos.length === 0) {
+      next.modos = "Elige al menos un modo de contacto.";
     }
-    if (current === 5 && !acepto) {
+    if (!acepto) {
       next.acepto = "Debes aceptar la política de privacidad para continuar.";
     }
     setErrors(next);
     return Object.keys(next).length === 0;
   }
 
-  function goNext() {
-    if (!validate(step)) return;
-    setStep((s) => (s < 6 ? ((s + 1) as Step) : s));
-  }
-
-  function goBack() {
-    setStep((s) => (s > 1 ? ((s - 1) as Step) : s));
-  }
-
   function submit() {
-    if (!validate(5)) {
-      setStep(5);
-      return;
-    }
+    if (!validate()) return;
+
     const mensaje = [
-      "Solicitud de cita (flujo /reservar)",
-      `Motivo: ${tratamiento}`,
-      `Sede preferida: ${sede}`,
-      `Fecha preferida: ${fecha}`,
-      `Horario preferido: ${hora}`,
-      bookingCopy.valuationCost,
+      "Solicitud de cita (formulario ¡Te llamamos!)",
+      `Motivo: ${motivo}`,
+      `Modo de contacto: ${modos.join(", ")}`,
     ].join("\n");
 
     createLead.mutate({
-      nombre,
-      email,
-      telefono,
-      tratamiento,
-      sede: sede === "Sin preferencia" ? undefined : sede,
+      nombre: nombre.trim(),
+      email: "",
+      telefono: telefono.trim(),
+      tratamiento: motivo,
       mensaje,
       acepto: true,
       website: "",
@@ -122,236 +82,136 @@ export default function BookingWizard() {
   }
 
   return (
-    <section className="section">
-      <div className="container-x max-w-2xl">
-        <p className="text-sm text-ink-500">
-          Paso {step} de 6 · {bookingCopy.intro}
-        </p>
-
-        <ol
-          aria-label="Progreso de reserva"
-          className="mt-4 flex gap-1"
-        >
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <li
-              key={n}
-              className={`h-1 flex-1 rounded-full ${
-                n <= step ? "bg-rose-gold" : "bg-cream-200"
-              }`}
-              aria-current={n === step ? "step" : undefined}
-            />
-          ))}
-        </ol>
-
-        <div className="mt-8 rounded-3xl border border-cream-200 bg-white p-6 shadow-soft md:p-8">
-          {step === 1 && (
-            <fieldset>
-              <legend className="font-serif text-2xl text-ink-900">
-                ¿Qué te gustaría consultar?
-              </legend>
-              <p className="mt-2 text-sm text-ink-600">
-                Cuéntanos el motivo general. La indicación médica se define en valoración.
-              </p>
-              <label htmlFor="bk-tratamiento" className="sr-only">
-                Tratamiento o motivo
-              </label>
-              <select
-                id="bk-tratamiento"
-                value={tratamiento}
-                onChange={(e) => setTratamiento(e.target.value)}
-                className="mt-5 w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
-              >
-                {tratamientoOptions.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-              {errors.tratamiento && (
-                <p className="mt-2 text-xs text-red-700">{errors.tratamiento}</p>
-              )}
-            </fieldset>
-          )}
-
-          {step === 2 && (
-            <fieldset>
-              <legend className="font-serif text-2xl text-ink-900">Sede preferida</legend>
-              {locations.length === 0 && (
-                <p className="mt-2 text-sm text-ink-700">
-                  Aún no hay sedes publicadas. Continúa sin preferencia; la
-                  dirección se confirmará cuando la clínica la tenga.
-                </p>
-              )}
-              <select
-                value={sede}
-                onChange={(e) => setSede(e.target.value)}
-                className="mt-5 w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
-              >
-                {allowedSedes.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-              </select>
-            </fieldset>
-          )}
-
-          {step === 3 && (
-            <fieldset>
-              <legend className="font-serif text-2xl text-ink-900">
-                Fecha y horario preferidos
-              </legend>
-              <p className="mt-2 text-sm text-ink-600">
-                Te confirmaremos la disponibilidad por WhatsApp. El teléfono y el correo de la clínica aún no están publicados.
-              </p>
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="bk-fecha" className="mb-1 block text-sm font-medium">
-                    Fecha
-                  </label>
-                  <input
-                    id="bk-fecha"
-                    type="date"
-                    value={fecha}
-                    onChange={(e) => setFecha(e.target.value)}
-                    className="w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
-                  />
-                  {errors.fecha && (
-                    <p className="mt-1 text-xs text-red-700">{errors.fecha}</p>
-                  )}
-                </div>
-                <div>
-                  <label htmlFor="bk-hora" className="mb-1 block text-sm font-medium">
-                    Horario
-                  </label>
-                  <select
-                    id="bk-hora"
-                    value={hora}
-                    onChange={(e) => setHora(e.target.value)}
-                    className="w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
-                  >
-                    <option value="">Selecciona</option>
-                    {["09:00", "11:00", "13:00", "16:00", "18:00"].map((h) => (
-                      <option key={h} value={h}>
-                        {h} h
-                      </option>
-                    ))}
-                  </select>
-                  {errors.hora && (
-                    <p className="mt-1 text-xs text-red-700">{errors.hora}</p>
-                  )}
-                </div>
-              </div>
-            </fieldset>
-          )}
-
-          {step === 4 && (
-            <fieldset>
-              <legend className="font-serif text-2xl text-ink-900">Tus datos de contacto</legend>
-              <div className="mt-5 grid gap-4">
-                <input
-                  placeholder="Nombre completo"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  className="w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
-                  autoComplete="name"
-                />
-                {errors.nombre && (
-                  <p className="text-xs text-red-700">{errors.nombre}</p>
-                )}
-                <input
-                  type="email"
-                  placeholder="Correo electrónico"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
-                  autoComplete="email"
-                />
-                {errors.email && (
-                  <p className="text-xs text-red-700">{errors.email}</p>
-                )}
-                <input
-                  type="tel"
-                  placeholder="Teléfono / WhatsApp"
-                  value={telefono}
-                  onChange={(e) => setTelefono(e.target.value)}
-                  className="w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
-                  autoComplete="tel"
-                />
-                {errors.telefono && (
-                  <p className="text-xs text-red-700">{errors.telefono}</p>
-                )}
-              </div>
-            </fieldset>
-          )}
-
-          {step === 5 && (
-            <fieldset>
-              <legend className="font-serif text-2xl text-ink-900">Privacidad</legend>
-              <label className="mt-5 flex items-start gap-3 text-sm text-ink-700">
-                <input
-                  type="checkbox"
-                  checked={acepto}
-                  onChange={(e) => setAcepto(e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-cream-200 text-rose-gold"
-                />
-                <span>
-                  Acepto el tratamiento de mis datos para coordinar la valoración según la{" "}
-                  <Link href="/privacidad" className="underline hover:text-rose-gold">
-                    política de privacidad
-                  </Link>{" "}
-                  y las{" "}
-                  <Link href="/condiciones-reserva" className="underline hover:text-rose-gold">
-                    condiciones de reserva
-                  </Link>
-                  .
-                </span>
-              </label>
-              {errors.acepto && (
-                <p className="mt-2 text-xs text-red-700">{errors.acepto}</p>
-              )}
-              <p className="mt-4 text-xs text-ink-500">{bookingCopy.cancellation}</p>
-            </fieldset>
-          )}
-
-          {step === 6 && (
-            <div>
-              <h2 className="font-serif text-2xl text-ink-900">Revisa tu solicitud</h2>
-              <dl className="mt-5 space-y-3 text-sm">
-                <Row label="Motivo" value={tratamiento} />
-                <Row label="Sede" value={sede} />
-                <Row label="Fecha preferida" value={fecha} />
-                <Row label="Horario" value={hora} />
-                <Row label="Nombre" value={nombre} />
-                <Row label="Email" value={email} />
-                <Row label="Teléfono" value={telefono} />
-              </dl>
-              <p className="mt-4 text-xs text-ink-500">{bookingCopy.valuationCost}</p>
-            </div>
-          )}
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            {step > 1 && step < 6 && (
-              <button type="button" onClick={goBack} className="btn-outline">
-                Atrás
-              </button>
-            )}
-            {step < 6 && (
-              <button type="button" onClick={goNext} className="btn-primary">
-                Continuar
-              </button>
-            )}
-            {step === 6 && (
-              <button
-                type="button"
-                onClick={submit}
-                className="btn-primary"
-                disabled={createLead.isPending}
-              >
-                {createLead.isPending ? "Enviando…" : "Confirmar solicitud"}
-              </button>
-            )}
+    <section className="section pt-4">
+      <div className="container-x flex justify-center">
+        <div className="w-full max-w-md rounded-3xl border border-cream-200 bg-white p-8 shadow-soft">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-ink-900 text-cream-50">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-8 w-8"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              aria-hidden="true"
+            >
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
           </div>
+          <p className="body-copy mt-6 text-center text-sm text-ink-700">
+            {bookingCopy.callFormLead}
+          </p>
+          <h2 className="heading mt-2 text-center font-serif text-3xl text-ink-900">
+            {bookingCopy.callFormTitle}
+          </h2>
+
+          <div className="mt-8 space-y-4">
+            <div>
+              <label htmlFor="bk-nombre" className="sr-only">
+                Nombre
+              </label>
+              <input
+                id="bk-nombre"
+                placeholder="Nombre"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                autoComplete="name"
+                className="w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
+              />
+              {errors.nombre && (
+                <p className="mt-1 text-xs text-red-700">{errors.nombre}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="bk-telefono" className="sr-only">
+                Teléfono
+              </label>
+              <input
+                id="bk-telefono"
+                type="tel"
+                placeholder="Teléfono"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+                autoComplete="tel"
+                className="w-full rounded-xl border border-cream-200 px-4 py-3 text-sm"
+              />
+              {errors.telefono && (
+                <p className="mt-1 text-xs text-red-700">{errors.telefono}</p>
+              )}
+            </div>
+          </div>
+
+          <OverviewGrid
+            label="Selecciona una opción:"
+            error={errors.motivo}
+          >
+            <fieldset className="space-y-2">
+              <legend className="sr-only">Motivo de contacto</legend>
+              {bookingCallMotives.map((option) => (
+                <label
+                  key={option}
+                  className="flex cursor-pointer items-center gap-2 text-sm text-ink-800"
+                >
+                  <input
+                    type="radio"
+                    name="motivo"
+                    value={option}
+                    checked={motivo === option}
+                    onChange={() => setMotivo(option)}
+                    className="h-4 w-4 border-cream-200 text-gold-ink"
+                  />
+                  {option}
+                </label>
+              ))}
+            </fieldset>
+          </OverviewGrid>
+
+          <OverviewGrid label="Modo *" error={errors.modos}>
+            <fieldset className="space-y-2">
+              <legend className="sr-only">Modo de contacto</legend>
+              {bookingContactModes.map((mode) => (
+                <label
+                  key={mode}
+                  className="flex cursor-pointer items-center gap-2 text-sm text-ink-800"
+                >
+                  <input
+                    type="checkbox"
+                    checked={modos.includes(mode)}
+                    onChange={() => toggleModo(mode)}
+                    className="h-4 w-4 rounded border-cream-200 text-gold-ink"
+                  />
+                  {mode}
+                </label>
+              ))}
+            </fieldset>
+          </OverviewGrid>
+
+          <label className="mt-6 flex items-start gap-3 text-xs text-ink-700">
+            <input
+              type="checkbox"
+              checked={acepto}
+              onChange={(e) => setAcepto(e.target.checked)}
+              className="mt-0.5 h-4 w-4 rounded border-cream-200 text-gold-ink"
+            />
+            <span>
+              Acepto el tratamiento de mis datos según la{" "}
+              <Link href="/privacidad" className="underline hover:text-gold-ink">
+                política de privacidad
+              </Link>
+              .
+            </span>
+          </label>
+          {errors.acepto && (
+            <p className="mt-1 text-xs text-red-700">{errors.acepto}</p>
+          )}
+
+          <button
+            type="button"
+            onClick={submit}
+            disabled={createLead.isPending}
+            className="btn-primary mt-6 w-full uppercase tracking-[0.12em]"
+          >
+            {createLead.isPending ? "Enviando…" : "Enviar solicitud"}
+          </button>
 
           {createLead.isError && (
             <p className="mt-4 text-sm text-red-700" role="alert">
@@ -370,11 +230,22 @@ export default function BookingWizard() {
   );
 }
 
-function Row({ label, value }: { label: string; value: string }) {
+function OverviewGrid({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: ReactNode;
+}) {
   return (
-    <div className="flex justify-between gap-4 border-b border-cream-100 pb-2">
-      <dt className="text-ink-500">{label}</dt>
-      <dd className="text-right font-medium text-ink-900">{value || "—"}</dd>
+    <div className="mt-6">
+      <p className="text-sm font-medium text-ink-900">{label}</p>
+      <div className="mt-3 rounded-xl border border-cream-200 bg-cream-50/50 p-4">
+        {children}
+      </div>
+      {error && <p className="mt-1 text-xs text-red-700">{error}</p>}
     </div>
   );
 }

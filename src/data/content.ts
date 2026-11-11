@@ -48,6 +48,20 @@ export const WHATSAPP_PENDIENTE_DE_CONFIRMAR = {
   note: "Número pendiente de confirmar por la clínica.",
 };
 
+/** Mensaje de bienvenida del widget (documento cliente, petición 06). */
+export const whatsappWidget = {
+  welcomeMessage:
+    "Hola! Bienvenidos a Vigo Medical Estetic tú consultorio estético en el distrito de San Miguel. ¿En qué podemos ayudarte?",
+} as const;
+
+export const bookingCallMotives = [
+  "Consulta médica",
+  "Informes",
+  "Cita",
+] as const;
+
+export const bookingContactModes = ["Teléfono", "WhatsApp"] as const;
+
 /** Clave de sessionStorage del asistente de reserva. Neutral, sin marca. */
 export const BOOKING_STORAGE_KEY = "booking-confirmed";
 
@@ -354,7 +368,9 @@ export const globalFAQ: FAQ[] = [
 export const bookingCopy = {
   title: "Reservar cita",
   intro:
-    "Flujo para dejar una solicitud. No es un diagnóstico en línea ni una cita confirmada: la revisaremos y te escribiremos por WhatsApp.",
+    "Déjanos tus datos y nos comunicaremos contigo. No es un diagnóstico en línea ni una cita confirmada.",
+  callFormTitle: "¡Te llamamos!",
+  callFormLead: "Déjanos tus datos y nos comunicaremos contigo.",
   valuationCost:
     "La evaluación integral gratuita aplica al separar la cita con el 10% del procedimiento en los tratamientos del listado que lo indican. La política de reembolso de ese 10% aún no está publicada.",
   cancellation:
@@ -438,7 +454,11 @@ export const freeConsult = {
     "La doctora revisa tus necesidades en consulta. Si prefieres no usar el formulario, escríbenos por WhatsApp.",
 };
 
-const extraTreatmentOptions = ["Otro", "Consulta general"] as const;
+const extraTreatmentOptions = [
+  "Otro",
+  "Consulta general",
+  ...bookingCallMotives,
+] as const;
 
 export const allowedTratamientos = [
   ...categoriesFull.map((c) => c.title),
