@@ -82,7 +82,7 @@ No inventar estos datos en el sitio. Hoy se ocultan o se dice “Próximamente�
 .
 ├── prisma/
 │   ├── migrations/                              # Versionadas en git
-│   └── schema.prisma                            # Modelo Lead (único)
+│   └── schema.prisma                            # Lead y modelos de citas
 ├── public/                                      # Favicon y OG
 ├── src/
 │   ├── app/
@@ -166,6 +166,7 @@ npm run dev              # → http://localhost:3000
 | `npm run start`       | Servir el build de producción                           |
 | `npm run preview`     | `build` + `start`                                       |
 | `npm run lint`        | ESLint (`next/core-web-vitals`)                         |
+| `npm run test`        | Vitest del dominio de citas (`src/domain/citas`)        |
 | `npm run typecheck`   | `tsc --noEmit`                                          |
 | `npm run db:generate` | `prisma migrate dev` (crea nueva migración)             |
 | `npm run db:migrate`  | `prisma migrate deploy` (aplica migraciones existentes) |
@@ -318,9 +319,22 @@ Flujo: **push a GitHub** → Vercel redeploy automático (si el repo está conec
 
 ---
 
+## Dominio de citas
+
+`Paciente`, `Profesional`, `Servicio`, `Sede`, `Disponibilidad`, `Cita` e
+`HistorialCita` están en Prisma. La lógica vive en `src/domain/citas` y no
+importa Prisma: una cita nace en `Solicitada`, solo un actor `ADMIN` cambia
+el estado, y el historial se agrega con el usuario, el estado anterior, el
+nuevo y la hora de America/Lima. Los slots libres salen de la disponibilidad
+del profesional; una cita `Confirmada` o `Atendida` ocupa el horario.
+
+No hay filas de sede, horario, RUC ni contacto. El asistente público sigue
+dejando un lead: el wizard, el panel, el correo y la autenticación quedan
+para el sprint siguiente. `npm test` cubre los escenarios GWT-1…GWT-6.
+
 ## Próximos pasos sugeridos
 
-- Portal/dashboard con NextAuth (cuando sea necesario)
-- Reserva online de citas (`booking` router + modelo `Appointment`)
+- Auth y panel para que el rol `ADMIN` deje de ser un dato de entrada
+- Conectar el asistente de reserva al dominio de citas
 - Panel admin para leads
 - Integración con WhatsApp Business API para notificaciones

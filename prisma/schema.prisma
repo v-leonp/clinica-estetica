@@ -33,3 +33,119 @@ model Lead {
     @@index([createdAt])
     @@index([email])
 }
+
+/// Persona que solicita o recibe una cita. Sin documento, RUC ni contacto inventado.
+model Paciente {
+    id        String   @id @default(cuid())
+    nombre    String
+    email     String?
+    telefono  String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    citas     Cita[]
+
+    @@index([email])
+}
+
+/// Profesional que atiende. Hoy la práctica publicada es la Dra. Melissa Vigo (CMP 101245).
+model Profesional {
+    id               String           @id @default(cuid())
+    nombre           String
+    cmp              String?          @unique
+    activo           Boolean          @default(true)
+    createdAt        DateTime         @default(now())
+    updatedAt        DateTime         @updatedAt
+    disponibilidades Disponibilidad[]
+    citas            Cita[]
+}
+
+/// Tratamiento agendable. La duración la usa el cálculo de slots.
+model Servicio {
+    id              String   @id @default(cuid())
+    slug            String   @unique
+    nombre          String
+    duracionMinutos Int
+    /// Céntimos de sol. Null hasta cargar el precio desde el catálogo confirmado.
+    precioCentavos  Int?
+    activo          Boolean  @default(true)
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    citas           Cita[]
+}
+
+/// Local de atención. La dirección sigue sin confirmarse: no hay filas de ejemplo.
+model Sede {
+    id               String           @id @default(cuid())
+    nombre           String
+    direccion        String?
+    activa           Boolean          @default(false)
+    createdAt        DateTime         @default(now())
+    updatedAt        DateTime         @updatedAt
+    disponibilidades Disponibilidad[]
+    citas            Cita[]
+}
+
+/// Horario en el que un profesional puede recibir citas, en America/Lima.
+/// diaSemana: 1 = lunes … 7 = domingo. Los minutos cuentan desde medianoche;
+/// finMinuto = 1440 es el cierre a las 24:00.
+model Disponibilidad {
+    id            String      @id @default(cuid())
+    profesionalId String
+    profesional   Profesional @relation(fields: [profesionalId], references: [id], onDelete: Restrict)
+    sedeId        String?
+    sede          Sede?       @relation(fields: [sedeId], references: [id], onDelete: SetNull)
+    diaSemana     Int
+    inicioMinuto  Int
+    finMinuto     Int
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
+
+    @@index([profesionalId, diaSemana])
+}
+
+/// Solicitud o cita. El estado de alta es Solicitada: confirmar es un paso aparte.
+model Cita {
+    id            String          @id @default(cuid())
+    pacienteId    String
+    paciente      Paciente        @relation(fields: [pacienteId], references: [id], onDelete: Restrict)
+    profesionalId String
+    profesional   Profesional     @relation(fields: [profesionalId], references: [id], onDelete: Restrict)
+    servicioId    String
+    servicio      Servicio        @relation(fields: [servicioId], references: [id], onDelete: Restrict)
+    sedeId        String?
+    sede          Sede?           @relation(fields: [sedeId], references: [id], onDelete: SetNull)
+    inicio        DateTime
+    fin           DateTime
+    estado        EstadoCita      @default(Solicitada)
+    createdAt     DateTime        @default(now())
+    updatedAt     DateTime        @updatedAt
+    historial     HistorialCita[]
+
+    @@index([profesionalId, inicio])
+    @@index([pacienteId])
+    @@index([estado])
+}
+
+/// Bitácora de cambios de estado. Solo se inserta: el dominio no actualiza ni borra filas.
+/// usuarioId es el actor (la cuenta llega con auth, en un sprint posterior).
+model HistorialCita {
+    id            String     @id @default(cuid())
+    citaId        String
+    cita          Cita       @relation(fields: [citaId], references: [id], onDelete: Restrict)
+    usuarioId     String
+    rol           String
+    estadoAntes   EstadoCita
+    estadoDespues EstadoCita
+    ocurridoEn    DateTime
+    zonaHoraria   String     @default("America/Lima")
+
+    @@index([citaId, ocurridoEn])
+}
+
+enum EstadoCita {
+    Solicitada
+    Confirmada
+    Atendida
+    Cancelada
+    NoAsistio
+}
