@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { promos, promosDisclaimer } from "~/data/content";
+import { promos, promosDisclaimer, treatmentPromoBadge } from "~/data/content";
 
 export default function HomePromoOffers() {
   if (promos.length === 0) return null;
@@ -31,9 +31,9 @@ export default function HomePromoOffers() {
                   <h3 className="heading mt-3 font-serif text-2xl leading-snug text-ink-900">
                     {p.title}
                   </h3>
-                  {p.priceNow && (
-                    <p className="price mt-3 text-3xl text-gold-ink">{p.priceNow}</p>
-                  )}
+                  <p className="mt-3 text-xs font-medium uppercase tracking-wide text-gold-ink">
+                    {treatmentPromoBadge("toxina-botulinica-facial")}
+                  </p>
                   <p className="mt-3 body-copy text-sm leading-relaxed text-ink-700">{p.description}</p>
                 </div>
                 <Link href={p.href} className="btn-primary shrink-0 text-center uppercase tracking-[0.12em]">

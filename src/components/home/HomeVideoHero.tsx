@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-import { hero, partnerBrands } from "~/data/content";
+import { hero } from "~/data/content";
 
 const POSTER = "/media/portada-poster.jpg";
 const VIDEO = "/media/portada.mp4";
@@ -120,23 +120,7 @@ export default function HomeVideoHero() {
           </div>
         </div>
 
-        <div className="relative pb-24 pt-2 md:pb-10">
-          <div className="container-x md:pr-24">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-cream-50/80">
-              Productos del catálogo
-            </p>
-            <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 sm:gap-x-5 sm:gap-y-2">
-              {partnerBrands.map((name) => (
-                <li
-                  key={name}
-                  className="font-serif text-[10px] uppercase tracking-[0.12em] text-cream-50 sm:text-[11px] sm:tracking-[0.14em]"
-                >
-                  {name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <div className="relative pb-12 pt-2 md:pb-14" aria-hidden="true" />
       </div>
     </section>
   );

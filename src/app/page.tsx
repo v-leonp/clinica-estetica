@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 
 import Featured from "~/components/Featured";
 import Doctors from "~/components/Doctors";
-import Technology from "~/components/Technology";
-import Locations from "~/components/Locations";
 import SiteShell from "~/components/SiteShell";
 import HomeVideoHero from "~/components/home/HomeVideoHero";
-import HomeCategories from "~/components/home/HomeCategories";
+import HomePartnerBrandsCarousel from "~/components/home/HomePartnerBrandsCarousel";
+import HomeTreatmentsCatalog from "~/components/home/HomeTreatmentsCatalog";
 import HomePromoOffers from "~/components/home/HomePromoOffers";
 import HomeValuePillars from "~/components/home/HomeValuePillars";
-import HomeContactBlock from "~/components/home/HomeContactBlock";
 import { medicalClinicJsonLd } from "~/lib/json-ld";
 
 export const dynamic = "force-static";
@@ -29,14 +27,12 @@ export default function HomePage() {
   return (
     <SiteShell>
       <HomeVideoHero />
-      <HomeCategories />
+      <HomePartnerBrandsCarousel />
+      <HomeTreatmentsCatalog />
       <Featured />
       <HomePromoOffers />
       <Doctors />
       <HomeValuePillars />
-      <Technology />
-      <Locations />
-      <HomeContactBlock />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
