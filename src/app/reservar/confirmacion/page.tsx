@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import SiteShell from "~/components/SiteShell";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import { BOOKING_STORAGE_KEY, cta, site } from "~/data/content";
+import { trackWhatsAppClick } from "~/lib/analytics";
 
 type Stored = {
   nombre?: string;
@@ -68,6 +69,9 @@ export default function ReservaConfirmacionPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline"
+              onClick={() => {
+                trackWhatsAppClick("booking");
+              }}
             >
               WhatsApp
             </a>

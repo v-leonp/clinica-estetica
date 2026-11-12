@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import WhatsAppLink from "~/components/WhatsAppLink";
 import { locations, site } from "~/data/content";
 
 export default function Locations() {
@@ -23,14 +24,15 @@ export default function Locations() {
               Lima. Cuando la sede y el horario estén confirmados, aparecerán
               aquí. Mientras tanto, escríbenos por WhatsApp.
             </p>
-            <a
+            <WhatsAppLink
               href={`https://wa.me/${site.whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary mt-6"
+              linkLocation="locations"
             >
               Escríbenos por WhatsApp
-            </a>
+            </WhatsAppLink>
             <p className="mt-3 text-xs text-gold-ink">{site.whatsappNote}</p>
           </div>
         ) : (

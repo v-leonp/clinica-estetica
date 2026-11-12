@@ -3,10 +3,13 @@ import "~/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Cormorant_Garamond } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
+
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID || "G-M8QMNVJ4GC";
 
 /**
  * Títulos: Nexa Bold. Cuerpo: Nexa Light. Licencia Fontfabric (free fonts)
@@ -102,6 +105,7 @@ export default function RootLayout({
     >
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <GoogleAnalytics gaId={gaMeasurementId} />
       </body>
     </html>
   );

@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { site, nav, navSecondary, footer, legalLinks } from "~/data/content";
 import BrandLogo from "~/components/BrandLogo";
+import WhatsAppLink from "~/components/WhatsAppLink";
 
 export default function Footer() {
   return (
@@ -63,14 +64,15 @@ export default function Footer() {
           </p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <a
+              <WhatsAppLink
                 href={`https://wa.me/${site.whatsappNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gold"
+                linkLocation="footer"
               >
                 Escríbenos por WhatsApp
-              </a>
+              </WhatsAppLink>
               <p className="mt-1 text-cream-100/80">{site.whatsappDisplay}</p>
               <p className="mt-1 text-xs text-gold">{site.whatsappNote}</p>
             </li>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import WhatsAppLink from "~/components/WhatsAppLink";
 import { cta, site } from "~/data/content";
 
 export default function TreatmentLeadCta({
@@ -28,14 +29,15 @@ export default function TreatmentLeadCta({
           <Link href={reservar} className="btn-primary">
             {cta.book.label}
           </Link>
-          <a
+          <WhatsAppLink
             href={`https://wa.me/${site.whatsappNumber}?text=${wa}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline"
+            linkLocation="treatment_page"
           >
             WhatsApp
-          </a>
+          </WhatsAppLink>
         </div>
       </div>
     </section>
