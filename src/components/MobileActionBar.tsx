@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import WhatsAppLink from "~/components/WhatsAppLink";
 import { cta, site, whatsappWidget } from "~/data/content";
 
 const waText = encodeURIComponent(whatsappWidget.welcomeMessage);
@@ -21,15 +22,16 @@ export default function MobileActionBar() {
           </Link>
         </li>
         <li>
-          <a
+          <WhatsAppLink
             href={`https://wa.me/${site.whatsappNumber}?text=${waText}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center gap-1 rounded-lg px-1 py-2 hover:text-gold-ink"
+            linkLocation="mobile_bar"
           >
             <span aria-hidden="true">💬</span>
             WhatsApp
-          </a>
+          </WhatsAppLink>
         </li>
         <li>
           <Link

@@ -11,6 +11,7 @@ import {
   bookingCopy,
   site,
 } from "~/data/content";
+import { trackWhatsAppClick } from "~/lib/analytics";
 import { api } from "~/trpc/react";
 
 type ContactMode = (typeof bookingContactModes)[number];
@@ -219,6 +220,9 @@ export default function BookingWizard() {
               <a
                 href={`https://wa.me/${site.whatsappNumber}`}
                 className="underline"
+                onClick={() => {
+                  trackWhatsAppClick("booking");
+                }}
               >
                 WhatsApp
               </a>

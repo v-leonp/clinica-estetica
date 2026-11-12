@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import WhatsAppLink from "~/components/WhatsAppLink";
 import { cta, site } from "~/data/content";
 
 export default function HomeContactBlock() {
@@ -20,14 +21,15 @@ export default function HomeContactBlock() {
           <Link href={cta.book.href} className="btn-primary uppercase tracking-[0.12em]">
             {cta.book.label}
           </Link>
-          <a
+          <WhatsAppLink
             href={`https://wa.me/${site.whatsappNumber}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline uppercase tracking-[0.12em]"
+            linkLocation="contact"
           >
             WhatsApp
-          </a>
+          </WhatsAppLink>
           <Link href="/contacto" className="btn-outline uppercase tracking-[0.12em]">
             Formulario
           </Link>

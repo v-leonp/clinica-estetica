@@ -7,6 +7,7 @@ import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import ClinicPhoto from "~/components/ClinicPhoto";
 import TreatmentLeadCta from "~/components/TreatmentLeadCta";
+import WhatsAppLink from "~/components/WhatsAppLink";
 import { photoForTreatment } from "~/data/clinic-photos";
 import {
   allTreatments,
@@ -100,14 +101,15 @@ export default async function TreatmentPage({
           <Link href={bookHref} className="btn-primary">
             Reservar cita
           </Link>
-          <a
+          <WhatsAppLink
             href={waHref}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline"
+            linkLocation="treatment_page"
           >
             Consultar por WhatsApp
-          </a>
+          </WhatsAppLink>
           {treatmentPromoBadge(treatment.slug) ? (
             <span className="rounded-full border border-gold/50 bg-cream-100 px-4 py-2 text-xs font-medium uppercase tracking-wide text-gold-ink">
               {treatmentPromoBadge(treatment.slug)}
@@ -236,14 +238,15 @@ export default async function TreatmentPage({
               <Link href={bookHref} className="btn-primary mt-7 w-full">
                 Reservar cita
               </Link>
-              <a
+              <WhatsAppLink
                 href={waHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline mt-3 w-full"
+                linkLocation="treatment_page"
               >
                 WhatsApp
-              </a>
+              </WhatsAppLink>
 
               <p className="mt-5 text-xs text-ink-500">{catalogDisclaimer}</p>
             </div>

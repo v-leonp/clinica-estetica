@@ -10,6 +10,7 @@ import {
   allTreatments,
   categoriesFull,
 } from "~/data/content";
+import { trackWhatsAppClick } from "~/lib/analytics";
 import { api } from "~/trpc/react";
 
 type FieldName =
@@ -179,6 +180,9 @@ export default function ContactForm() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gold-ink"
+                onClick={() => {
+                  trackWhatsAppClick("contact");
+                }}
               >
                 {site.whatsappDisplay}
               </a>

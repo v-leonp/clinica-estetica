@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 
 import { site } from "~/data/content";
+import { trackWhatsAppClick } from "~/lib/analytics";
 
 export default function TopContactBar() {
   const pathname = usePathname();
@@ -20,6 +21,9 @@ export default function TopContactBar() {
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gold-ink"
+          onClick={() => {
+            trackWhatsAppClick("header");
+          }}
         >
           Escríbenos por WhatsApp
         </a>

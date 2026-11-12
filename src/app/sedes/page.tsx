@@ -4,6 +4,7 @@ import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
+import WhatsAppLink from "~/components/WhatsAppLink";
 import { locations, site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
@@ -49,14 +50,15 @@ export default function SedesPage() {
                 Cuando exista una dirección, aparecerá en esta página. Mientras
                 tanto puedes escribir por WhatsApp.
               </p>
-              <a
+              <WhatsAppLink
                 href={`https://wa.me/${site.whatsappNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary mt-6"
+                linkLocation="sedes"
               >
                 Escríbenos por WhatsApp
-              </a>
+              </WhatsAppLink>
               <p className="mt-3 text-xs text-gold-ink">{site.whatsappNote}</p>
             </article>
           ) : (

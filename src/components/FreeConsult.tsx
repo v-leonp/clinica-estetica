@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import WhatsAppLink from "~/components/WhatsAppLink";
 import { freeConsult, site, cta } from "~/data/content";
 
 export default function FreeConsult() {
@@ -30,14 +31,15 @@ export default function FreeConsult() {
               <Link href={cta.primary.href} className="btn-primary">
                 {cta.primary.label}
               </Link>
-              <a
+              <WhatsAppLink
                 href={`https://wa.me/${site.whatsappNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline border-ink-900/40"
+                linkLocation="free_consult"
               >
                 Escríbenos por WhatsApp
-              </a>
+              </WhatsAppLink>
             </div>
           </div>
         </div>
