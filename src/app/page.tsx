@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import SiteShell from "~/components/SiteShell";
 import HomeVideoHero from "~/components/home/HomeVideoHero";
-import HomePartnerBrandsCarousel from "~/components/home/HomePartnerBrandsCarousel";
 import HomeTreatmentsCatalog from "~/components/home/HomeTreatmentsCatalog";
 import HomePromoOffers from "~/components/home/HomePromoOffers";
 import { medicalClinicJsonLd } from "~/lib/json-ld";
@@ -24,7 +23,6 @@ export default function HomePage() {
   return (
     <SiteShell>
       <HomeVideoHero />
-      <HomePartnerBrandsCarousel />
       <HomeTreatmentsCatalog />
       <HomePromoOffers />
       <script

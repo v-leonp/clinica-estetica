@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { hero } from "~/data/content";
+import HomePartnerBrandsCarousel from "~/components/home/HomePartnerBrandsCarousel";
 
 const POSTER = "/media/portada-poster.jpg";
 const VIDEO = "/media/portada.mp4";
@@ -120,9 +121,8 @@ export default function HomeVideoHero() {
               {hero.ctaPrimary.label}
             </Link>
           </div>
+          <HomePartnerBrandsCarousel />
         </div>
-
-        <div className="relative pb-12 pt-2 md:pb-14" aria-hidden="true" />
       </div>
     </section>
   );
