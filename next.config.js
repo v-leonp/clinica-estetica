@@ -11,6 +11,20 @@ const config = {
     // El optimizador elige AVIF si el navegador lo acepta y, si no, WebP.
     formats: ["image/avif", "image/webp"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/equipo",
+        destination: "/nosotros",
+        permanent: true,
+      },
+      {
+        source: "/equipo/:path*",
+        destination: "/nosotros",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     const securityHeaders = [
       { key: "X-Frame-Options", value: "SAMEORIGIN" },
