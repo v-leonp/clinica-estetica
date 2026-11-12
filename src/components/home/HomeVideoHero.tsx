@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { hero } from "~/data/content";
+import HomePartnerBrandsCarousel from "~/components/home/HomePartnerBrandsCarousel";
 
 const POSTER = "/media/portada-poster.jpg";
 const VIDEO = "/media/portada.mp4";
@@ -95,8 +96,7 @@ export default function HomeVideoHero() {
         <div className="container-x flex flex-1 flex-col justify-start py-8 sm:py-14">
           <p className="sr-only">
             Video de consultas y primeros planos de la práctica. Las personas
-            que aparecen no se identifican por su nombre. Reservar en esta web
-            deja una solicitud, no una cita confirmada.
+            que aparecen no se identifican por su nombre.
           </p>
           <p className="text-xs uppercase tracking-[0.25em] text-gold">
             {hero.eyebrow}
@@ -105,9 +105,12 @@ export default function HomeVideoHero() {
             {hero.title}
           </h1>
           <p className="credential mt-5 max-w-xl text-xl text-cream-100 sm:text-2xl">
-            {hero.subtitle}
+            {hero.name}
           </p>
-          <p className="body-copy mt-4 max-w-xl text-base leading-relaxed text-cream-50/95">
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-cream-50/90">
+            {hero.credential}
+          </p>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-cream-50/95">
             {hero.support}
           </p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
@@ -118,9 +121,8 @@ export default function HomeVideoHero() {
               {hero.ctaPrimary.label}
             </Link>
           </div>
+          <HomePartnerBrandsCarousel />
         </div>
-
-        <div className="relative pb-12 pt-2 md:pb-14" aria-hidden="true" />
       </div>
     </section>
   );

@@ -2,19 +2,17 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState } from "react";
 
 import {
   BOOKING_STORAGE_KEY,
-  bookingCallMotives,
-  bookingContactModes,
+  allTreatments,
   bookingCopy,
+  bookingWhatsAppHref,
   site,
 } from "~/data/content";
 import { trackWhatsAppClick } from "~/lib/analytics";
 import { api } from "~/trpc/react";
-
-type ContactMode = (typeof bookingContactModes)[number];
 
 export default function BookingWizard() {
   const router = useRouter();
@@ -22,10 +20,7 @@ export default function BookingWizard() {
 
   const [nombre, setNombre] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [motivo, setMotivo] = useState<(typeof bookingCallMotives)[number]>(
-    "Consulta médica",
-  );
-  const [modos, setModos] = useState<ContactMode[]>(["WhatsApp"]);
+  const [tratamiento, setTratamiento] = useState("");
   const [acepto, setAcepto] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -33,26 +28,21 @@ export default function BookingWizard() {
     onSuccess: () => {
       sessionStorage.setItem(
         BOOKING_STORAGE_KEY,
-        JSON.stringify({ nombre, tratamiento: motivo, telefono, modos }),
+        JSON.stringify({
+          nombre,
+          telefono,
+          tratamiento: tratamiento || undefined,
+        }),
       );
       router.push("/reservar/confirmacion");
     },
   });
 
-  function toggleModo(mode: ContactMode) {
-    setModos((prev) =>
-      prev.includes(mode) ? prev.filter((m) => m !== mode) : [...prev, mode],
-    );
-  }
-
   function validate(): boolean {
     const next: Record<string, string> = {};
-    if (!nombre.trim()) next.nombre = "Escribe tu nombre.";
+    if (nombre.trim().length < 2) next.nombre = "Escribe tu nombre.";
     if (!telefono.trim() || telefono.trim().length < 6) {
-      next.telefono = "Introduce un teléfono válido.";
-    }
-    if (modos.length === 0) {
-      next.modos = "Elige al menos un modo de contacto.";
+      next.telefono = "Introduce un celular válido.";
     }
     if (!acepto) {
       next.acepto = "Debes aceptar la política de privacidad para continuar.";
@@ -64,21 +54,16 @@ export default function BookingWizard() {
   function submit() {
     if (!validate()) return;
 
-    const mensaje = [
-      "Solicitud de cita (formulario ¡Te llamamos!)",
-      `Motivo: ${motivo}`,
-      `Modo de contacto: ${modos.join(", ")}`,
-    ].join("\n");
-
     createLead.mutate({
       nombre: nombre.trim(),
       email: "",
       telefono: telefono.trim(),
-      tratamiento: motivo,
-      mensaje,
+      tratamiento,
+      mensaje: "",
       acepto: true,
       website: "",
       startedAt: startedAt.current,
+      origen: "reserva",
     });
   }
 
@@ -86,24 +71,12 @@ export default function BookingWizard() {
     <section className="section pt-4">
       <div className="container-x flex justify-center">
         <div className="w-full max-w-md rounded-3xl border border-cream-200 bg-white p-8 shadow-soft">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-ink-900 text-cream-50">
-            <svg
-              viewBox="0 0 24 24"
-              className="h-8 w-8"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              aria-hidden="true"
-            >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-          </div>
-          <p className="body-copy mt-6 text-center text-sm text-ink-700">
-            {bookingCopy.callFormLead}
-          </p>
-          <h2 className="heading mt-2 text-center font-serif text-3xl text-ink-900">
+          <h2 className="heading text-center font-serif text-3xl text-ink-900">
             {bookingCopy.callFormTitle}
           </h2>
+          <p className="body-copy mt-3 text-center text-sm text-ink-700">
+            {bookingCopy.callFormLead}
+          </p>
 
           <div className="mt-8 space-y-4">
             <div>
@@ -124,12 +97,12 @@ export default function BookingWizard() {
             </div>
             <div>
               <label htmlFor="bk-telefono" className="sr-only">
-                Teléfono
+                Celular
               </label>
               <input
                 id="bk-telefono"
                 type="tel"
-                placeholder="Teléfono"
+                placeholder="Celular"
                 value={telefono}
                 onChange={(e) => setTelefono(e.target.value)}
                 autoComplete="tel"
@@ -139,52 +112,25 @@ export default function BookingWizard() {
                 <p className="mt-1 text-xs text-red-700">{errors.telefono}</p>
               )}
             </div>
+            <div>
+              <label htmlFor="bk-tratamiento" className="sr-only">
+                Tratamiento de interés
+              </label>
+              <select
+                id="bk-tratamiento"
+                value={tratamiento}
+                onChange={(e) => setTratamiento(e.target.value)}
+                className="w-full rounded-xl border border-cream-200 bg-white px-4 py-3 text-sm text-ink-900"
+              >
+                <option value="">Tratamiento de interés (opcional)</option>
+                {allTreatments.map(({ treatment }) => (
+                  <option key={treatment.slug} value={treatment.name}>
+                    {treatment.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-
-          <OverviewGrid
-            label="Selecciona una opción:"
-            error={errors.motivo}
-          >
-            <fieldset className="space-y-2">
-              <legend className="sr-only">Motivo de contacto</legend>
-              {bookingCallMotives.map((option) => (
-                <label
-                  key={option}
-                  className="flex cursor-pointer items-center gap-2 text-sm text-ink-800"
-                >
-                  <input
-                    type="radio"
-                    name="motivo"
-                    value={option}
-                    checked={motivo === option}
-                    onChange={() => setMotivo(option)}
-                    className="h-4 w-4 border-cream-200 text-gold-ink"
-                  />
-                  {option}
-                </label>
-              ))}
-            </fieldset>
-          </OverviewGrid>
-
-          <OverviewGrid label="Modo *" error={errors.modos}>
-            <fieldset className="space-y-2">
-              <legend className="sr-only">Modo de contacto</legend>
-              {bookingContactModes.map((mode) => (
-                <label
-                  key={mode}
-                  className="flex cursor-pointer items-center gap-2 text-sm text-ink-800"
-                >
-                  <input
-                    type="checkbox"
-                    checked={modos.includes(mode)}
-                    onChange={() => toggleModo(mode)}
-                    className="h-4 w-4 rounded border-cream-200 text-gold-ink"
-                  />
-                  {mode}
-                </label>
-              ))}
-            </fieldset>
-          </OverviewGrid>
 
           <label className="mt-6 flex items-start gap-3 text-xs text-ink-700">
             <input
@@ -218,8 +164,10 @@ export default function BookingWizard() {
             <p className="mt-4 text-sm text-red-700" role="alert">
               No pudimos registrar la solicitud. {bookingCopy.fallback}{" "}
               <a
-                href={`https://wa.me/${site.whatsappNumber}`}
+                href={bookingWhatsAppHref()}
                 className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => {
                   trackWhatsAppClick("booking");
                 }}
@@ -231,25 +179,5 @@ export default function BookingWizard() {
         </div>
       </div>
     </section>
-  );
-}
-
-function OverviewGrid({
-  label,
-  error,
-  children,
-}: {
-  label: string;
-  error?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="mt-6">
-      <p className="text-sm font-medium text-ink-900">{label}</p>
-      <div className="mt-3 rounded-xl border border-cream-200 bg-cream-50/50 p-4">
-        {children}
-      </div>
-      {error && <p className="mt-1 text-xs text-red-700">{error}</p>}
-    </div>
   );
 }

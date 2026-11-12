@@ -7,11 +7,11 @@ export type WhatsAppLinkLocation =
   | "floating"
   | "mobile_bar"
   | "footer"
-  | "header"
   | "treatment_page"
+  | "catalog_card"
   | "booking"
+  | "booking_cta"
   | "contact"
-  | "free_consult"
   | "locations"
   | "sedes";
 

@@ -31,7 +31,7 @@ export type Category = {
 };
 
 export const catalogIntro =
-  "En la consulta, la Doctora revisa tus necesidades, explica el procedimiento recomendado y confirma si es adecuado para ti. Los tiempos son aproximados e incluyen la aplicación; pueden variar según la zona y la valoración.";
+  "En consulta, la Dra. Melissa Vigo evalúa tus necesidades y te explica qué opciones son adecuadas para ti.";
 
 export const catalogDisclaimer =
   "Información orientativa. La indicación y el procedimiento se confirman en valoración médica.";

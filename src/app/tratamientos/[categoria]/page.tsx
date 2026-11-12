@@ -8,8 +8,10 @@ import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
 import CategoryIcon from "~/components/CategoryIcon";
 import ClinicPhoto from "~/components/ClinicPhoto";
+import WhatsAppLink from "~/components/WhatsAppLink";
 import { photoForCategory } from "~/data/clinic-photos";
 import {
+  catalogCardWhatsAppHref,
   catalogShowsPrices,
   categoriesFull,
   cta,
@@ -130,12 +132,15 @@ export default async function CategoryPage({
                     >
                       Ver detalle
                     </Link>
-                    <Link
-                      href={`/reservar?tratamiento=${t.slug}`}
+                    <WhatsAppLink
+                      href={catalogCardWhatsAppHref(t.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="btn-rose"
+                      linkLocation="catalog_card"
                     >
                       {cta.book.label}
-                    </Link>
+                    </WhatsAppLink>
                   </div>
                 </article>
               </li>
