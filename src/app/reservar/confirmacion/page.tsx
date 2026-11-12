@@ -46,9 +46,7 @@ export default function ReservaConfirmacionPage() {
             Revisaremos tu solicitud
           </h1>
           <p className="mt-4 text-base text-ink-700">
-            Hemos registrado tu solicitud. Te contactaremos para confirmar fecha y hora
-            definitivas. Los resultados y tiempos de cualquier tratamiento pueden variar
-            según cada persona.
+            Hemos registrado tu solicitud. La cita se confirma cuando te escribamos.
           </p>
           {data?.nombre && (
             <p className="mt-6 rounded-2xl border border-cream-200 bg-white p-4 text-sm text-ink-700">

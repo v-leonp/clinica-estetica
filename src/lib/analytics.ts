@@ -10,8 +10,8 @@ export type WhatsAppLinkLocation =
   | "treatment_page"
   | "catalog_card"
   | "booking"
+  | "booking_cta"
   | "contact"
-  | "free_consult"
   | "locations"
   | "sedes";
 

@@ -140,6 +140,13 @@ export function catalogCardWhatsAppHref(treatmentName: string): string {
   return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(text)}`;
 }
 
+/** Reserva general. El evento no incluye datos de la persona. */
+export function bookingWhatsAppHref(): string {
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
+    "Hola, quisiera reservar una cita.",
+  )}`;
+}
+
 export const hero = {
   eyebrow: "Medicina estética · Lima",
   title: "Realza tus rasgos con naturalidad",
@@ -237,36 +244,6 @@ export const promos: Array<{
   },
 ];
 
-export const partnerBrands = [
-  "Reage®",
-  "Abbott",
-  "Neauvia®",
-  "Croma©",
-  "Sciela",
-  "Radiesse®",
-  "Exel",
-  "Dermapen",
-  "Fibroblast",
-] as const;
-
-export const homePillars = [
-  {
-    title: "Primero, la consulta",
-    description:
-      "La Dra. Melissa Vigo revisa lo que buscas, explica el procedimiento y confirma si es adecuado para ti.",
-  },
-  {
-    title: "Tiempos publicados",
-    description:
-      "Cada tratamiento indica su duración aproximada. La indicación final se confirma en consulta.",
-  },
-  {
-    title: "San Miguel, Lima",
-    description:
-      "Consultorio en Calle Manuel Pérez Oblitas 190. El horario de atención se publicará cuando esté confirmado.",
-  },
-] as const;
-
 export const homeEditorialIntro = {
   eyebrow: "Tratamientos",
   title: "Tratamientos de medicina estética",
@@ -292,13 +269,6 @@ export const teamMembers: TeamMember[] = [
     focus: categoriesFull.map((c) => c.title),
   },
 ];
-
-export const doctors = teamMembers.map(({ name, role, bio, slug }) => ({
-  name,
-  role,
-  bio,
-  slug,
-}));
 
 export function getTeamMember(slug: string) {
   return teamMembers.find((m) => m.slug === slug);
@@ -367,8 +337,8 @@ export const bookingCopy = {
   title: "Reservar cita",
   intro:
     "Déjanos tus datos y nos comunicaremos contigo. No es un diagnóstico en línea ni una cita confirmada.",
-  callFormTitle: "¡Te llamamos!",
-  callFormLead: "Déjanos tus datos y nos comunicaremos contigo.",
+  callFormTitle: "Déjanos tus datos",
+  callFormLead: "La cita se confirma cuando te escribamos.",
   valuationCost:
     "La evaluación integral gratuita aplica al separar la cita con el 10% del procedimiento en los tratamientos del listado que lo indican. La política de reembolso de ese 10% aún no está publicada.",
   cancellation:
@@ -448,7 +418,7 @@ export const freeConsult = {
   eyebrow: "Siguiente paso",
   title: "Reserva tu cita",
   subtitle:
-    "La doctora revisa tus necesidades en consulta. Si prefieres no usar el formulario, escríbenos por WhatsApp.",
+    "La doctora revisa tus necesidades en consulta. Escríbenos por WhatsApp y te respondemos para coordinar tu cita, o déjanos tus datos.",
 };
 
 const extraTreatmentOptions = [

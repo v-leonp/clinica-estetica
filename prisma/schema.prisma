@@ -21,8 +21,8 @@ model Lead {
     nombre      String
     email       String
     telefono    String
-    tratamiento String
-    mensaje     String
+    tratamiento String?
+    mensaje     String?
     sede        String?
     source      String   @default("contact-form")
     ip          String?

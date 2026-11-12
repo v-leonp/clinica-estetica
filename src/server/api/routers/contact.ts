@@ -24,52 +24,78 @@ const tratamientoEnum = z.enum(
 );
 const sedeEnum = z.enum(allowedSedes as unknown as [string, ...string[]]);
 
-export const contactInputSchema = z.object({
-  nombre: z
-    .string()
-    .trim()
-    .min(2, "Ingresa tu nombre completo")
-    .max(120, "El nombre es demasiado largo"),
-  email: z
-    .string()
-    .trim()
-    .toLowerCase()
-    .max(200)
-    .superRefine((value, ctx) => {
-      if (value.length === 0) return;
-      const ok = z.string().email().safeParse(value).success;
-      if (!ok) {
+export const contactInputSchema = z
+  .object({
+    nombre: z
+      .string()
+      .trim()
+      .min(2, "Ingresa tu nombre completo")
+      .max(120, "El nombre es demasiado largo"),
+    email: z
+      .string()
+      .trim()
+      .toLowerCase()
+      .max(200)
+      .superRefine((value, ctx) => {
+        if (value.length === 0) return;
+        const ok = z.string().email().safeParse(value).success;
+        if (!ok) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Ingresa un correo electrónico válido",
+          });
+        }
+      }),
+    telefono: z
+      .string()
+      .trim()
+      .min(6, "Ingresa un número de teléfono válido")
+      .max(40),
+    tratamiento: z.string().trim().max(160).optional().default(""),
+    mensaje: z.string().trim().max(2000).optional().default(""),
+    sede: sedeEnum.optional(),
+    acepto: z.literal(true, {
+      errorMap: () => ({
+        message: "Debes aceptar la política de privacidad para continuar.",
+      }),
+    }),
+    // Honeypot — any non-empty value here means a bot. We accept the string
+    // through zod and short-circuit silently in the mutation so bots can't
+    // detect that they were caught.
+    website: z.string().max(500).optional().default(""),
+    // Timestamp from the client when the form mounted. Used to detect
+    // instant submissions (bots).
+    startedAt: z.number().int().positive().optional(),
+    /** La reserva corta no pide mensaje ni tratamiento. El contacto sí. */
+    origen: z.enum(["reserva", "contacto"]).optional(),
+  })
+  .superRefine((data, ctx) => {
+    const tratamientoOk = tratamientoEnum.safeParse(data.tratamiento).success;
+    if (data.origen === "reserva") {
+      if (data.tratamiento.length > 0 && !tratamientoOk) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Ingresa un correo electrónico válido",
+          path: ["tratamiento"],
+          message: "Selecciona un tratamiento del catálogo",
         });
       }
-    }),
-  telefono: z
-    .string()
-    .trim()
-    .min(6, "Ingresa un número de teléfono válido")
-    .max(40),
-  tratamiento: tratamientoEnum,
-  mensaje: z
-    .string()
-    .trim()
-    .min(5, "Cuéntanos un poco más")
-    .max(2000, "El mensaje es demasiado largo"),
-  sede: sedeEnum.optional(),
-  acepto: z.literal(true, {
-    errorMap: () => ({
-      message: "Debes aceptar la política de privacidad para continuar.",
-    }),
-  }),
-  // Honeypot — any non-empty value here means a bot. We accept the string
-  // through zod and short-circuit silently in the mutation so bots can't
-  // detect that they were caught.
-  website: z.string().max(500).optional().default(""),
-  // Timestamp from the client when the form mounted. Used to detect
-  // instant submissions (bots).
-  startedAt: z.number().int().positive().optional(),
-});
+      return;
+    }
+    if (!tratamientoOk) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["tratamiento"],
+        message: "Selecciona un tratamiento",
+      });
+    }
+    if (data.mensaje.length < 5) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["mensaje"],
+        message: "Cuéntanos un poco más",
+      });
+    }
+  });
 
 export type ContactInput = z.infer<typeof contactInputSchema>;
 
@@ -105,9 +131,10 @@ export const contactRouter = createTRPCRouter({
           nombre: input.nombre,
           email: emailForDb,
           telefono: input.telefono,
-          tratamiento: input.tratamiento,
-          mensaje: input.mensaje,
+          tratamiento: input.tratamiento.length > 0 ? input.tratamiento : null,
+          mensaje: input.mensaje.length > 0 ? input.mensaje : null,
           sede: input.sede,
+          source: input.origen === "reserva" ? "reserva" : "contact-form",
           ip: ctx.ip ?? null,
           userAgent: ua,
           consentAt: new Date(),
