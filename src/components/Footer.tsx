@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { site, nav, navSecondary, footer, legalLinks } from "~/data/content";
+import { site, nav, footer, legalLinks } from "~/data/content";
 import BrandLogo from "~/components/BrandLogo";
 import WhatsAppLink from "~/components/WhatsAppLink";
 
@@ -27,13 +27,6 @@ export default function Footer() {
           </p>
           <ul className="mt-3 space-y-2 text-sm">
             {nav.map((n) => (
-              <li key={n.href}>
-                <Link href={n.href} className="hover:text-gold">
-                  {n.label}
-                </Link>
-              </li>
-            ))}
-            {navSecondary.map((n) => (
               <li key={n.href}>
                 <Link href={n.href} className="hover:text-gold">
                   {n.label}
@@ -74,10 +67,6 @@ export default function Footer() {
                 Escríbenos por WhatsApp
               </WhatsAppLink>
               <p className="mt-1 text-cream-100/80">{site.whatsappDisplay}</p>
-              <p className="mt-1 text-xs text-gold">{site.whatsappNote}</p>
-            </li>
-            <li className="text-cream-100/80">
-              Teléfono, correo y redes: próximamente.
             </li>
             {site.address ? (
               <li className="text-cream-100/80">

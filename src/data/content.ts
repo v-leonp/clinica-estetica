@@ -29,11 +29,33 @@ export function treatmentPromoBadge(treatmentSlug: string): string | null {
 export const doctorProfile = {
   name: "Dra. Melissa Vigo Ruiz",
   role: "Médico cirujano · Medicina estética",
-  paragraphs: [
-    "Soy la Dra. Melissa Vigo Ruiz, médico cirujano con formación en Maestría Internacional en Medicina estética.",
-    "Mi enfoque y mi experiencia se basa en una medicina ética, personalizada y de alta precisión. Me dedico a potenciar la belleza natural de mis pacientes combinando técnicas avanzadas de neuromodulación, rellenos faciales y tecnología médica de última generación. Además de actualizaciones continuas, para generar mejores conocimientos y nuevas técnicas avanzadas.",
-    "Mi compromiso es ofrecerte resultados armónicos, elegantes y, sobre todo, seguros, sin perder la naturalidad. Los invito a acompañarme en este espacio donde compartiremos ciencia, cuidado de la piel y bienestar integral.",
+  lead: "Médico cirujano con formación en una Maestría Internacional en Medicina Estética",
+  commitment: {
+    before:
+      "Mi compromiso es cuidar tu seguridad y realzar tus rasgos con resultados naturales y armónicos. Para ello, trabajo con un enfoque ",
+    emphasis: "ético, personalizado y de alta precisión",
+    after: ".",
+  },
+  approachTitle: "Mi enfoque",
+  approach: [
+    {
+      emphasis: "Evaluación personalizada.",
+      text: " Escucho lo que buscas, evalúo tus rasgos y te explico qué opciones son adecuadas para ti.",
+    },
+    {
+      emphasis: "Técnicas y tecnología médica.",
+      text: " Utilizo técnicas avanzadas de neuromodulación y rellenos faciales, así como tecnología médica de última generación, según las necesidades de cada paciente.",
+    },
+    {
+      emphasis: "Formación continua.",
+      text: " Actualizo mis conocimientos y técnicas para incorporar avances que aporten valor al cuidado de mis pacientes.",
+    },
   ],
+  closing: {
+    before: "En este espacio comparto información sobre ",
+    emphasis: "medicina estética, cuidado de la piel y bienestar integral",
+    after: " para ayudarte a tomar decisiones informadas.",
+  },
 } as const;
 
 /**
@@ -98,11 +120,6 @@ export const nav: Array<{ label: string; href: string }> = [
   { label: "Dra. Melissa Vigo", href: "/nosotros" },
 ];
 
-export const navSecondary: Array<{ label: string; href: string }> = [
-  { label: "Equipo médico", href: "/equipo" },
-  { label: "Preguntas frecuentes", href: "/preguntas-frecuentes" },
-];
-
 export const cta = {
   primary: { label: "Reservar cita", href: "/reservar" },
   book: { label: "Reservar cita", href: "/reservar" },
@@ -117,19 +134,20 @@ export const cta = {
   treatments: { label: "Ver tratamientos", href: "/tratamientos" },
 } as const;
 
+/** WhatsApp de la tarjeta del catálogo. El evento no lleva el nombre del tratamiento. */
+export function catalogCardWhatsAppHref(treatmentName: string): string {
+  const text = `Hola, quisiera reservar una cita para ${treatmentName}.`;
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(text)}`;
+}
+
 export const hero = {
   eyebrow: "Medicina estética · Lima",
-  title: "Cuidado médico para tu piel",
-  /** Línea profesional en cursiva. Gabriola no tiene licencia web. */
-  subtitle: "Médico cirujano · CMP 101245",
-  /**
-   * Aviso necesario: la reserva de esta web es una solicitud, y sede,
-   * horario y WhatsApp siguen sin confirmarse. No afirma que el video
-   * del hero sea la clínica ni una paciente.
-   */
-  support:
-    "Cada tratamiento publicado indica su tiempo. Reservar deja una solicitud: la cita se confirma solo cuando te escribamos.",
-  ctaPrimary: cta.book,
+  title: "Realza tus rasgos con naturalidad",
+  /** Nombre en cursiva, el estilo del subtítulo anterior. Gabriola no tiene licencia web. */
+  name: "Dra. Melissa Vigo Ruiz",
+  credential: "Médico cirujano · CMP 101245",
+  support: "Tratamientos personalizados, previa evaluación médica.",
+  ctaPrimary: { label: "Solicitar cita", href: cta.book.href },
 };
 
 export const trustBadges = [
@@ -197,25 +215,6 @@ export const categories = categoriesFull.map((c) => ({
   icon: c.icon,
 }));
 
-export const featured: Array<{
-  categorySlug: string;
-  treatmentSlug: string;
-}> = [
-  { categorySlug: "medicina-estetica-facial", treatmentSlug: "toxina-botulinica-facial" },
-  { categorySlug: "medicina-estetica-facial", treatmentSlug: "acido-hialuronico-labios" },
-  { categorySlug: "cuidado-de-la-piel", treatmentSlug: "limpieza-facial-profunda" },
-  { categorySlug: "tratamientos-corporales", treatmentSlug: "enzimas-recombinantes-corporales" },
-  { categorySlug: "laser-y-depilacion", treatmentSlug: "depilacion-ipl-o-diodo" },
-  { categorySlug: "tratamientos-corporales", treatmentSlug: "estrias-dermapen" },
-];
-
-export const featuredHeading = {
-  eyebrow: "Destacados",
-  title: "Una selección del catálogo",
-  subtitle:
-    "Tiempos publicados en cada ficha. La indicación se confirma en consulta, antes de cualquier procedimiento.",
-};
-
 export const promos: Array<{
   tag: string;
   title: string;
@@ -270,9 +269,8 @@ export const homePillars = [
 
 export const homeEditorialIntro = {
   eyebrow: "Tratamientos",
-  title: "Catálogo de medicina estética",
-  description:
-    "Facial, piel, cuerpo y láser. La indicación se confirma en consulta.",
+  title: "Tratamientos de medicina estética",
+  description: "Faciales, corporales, cuidado de la piel y láser.",
 } as const;
 
 export type TeamMember = {
@@ -289,7 +287,7 @@ export const teamMembers: TeamMember[] = [
     slug: "melissa-vigo",
     name: "Dra. Melissa Vigo",
     role: "Médico cirujano · Medicina estética",
-    bio: doctorProfile.paragraphs[0]!,
+    bio: "Soy la Dra. Melissa Vigo Ruiz, médico cirujano con formación en Maestría Internacional en Medicina estética.",
     credentials: ["Médico cirujano", "CMP 101245", "Medicina estética"],
     focus: categoriesFull.map((c) => c.title),
   },
@@ -380,7 +378,6 @@ export const bookingCopy = {
 
 export const legalLinks = [
   { label: "Privacidad", href: "/privacidad" },
-  { label: "Cookies", href: "/cookies" },
   { label: "Aviso legal", href: "/aviso-legal" },
   { label: "Condiciones de reserva", href: "/condiciones-reserva" },
 ] as const;

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import Featured from "~/components/Featured";
 import Doctors from "~/components/Doctors";
 import SiteShell from "~/components/SiteShell";
 import HomeVideoHero from "~/components/home/HomeVideoHero";
@@ -29,7 +28,6 @@ export default function HomePage() {
       <HomeVideoHero />
       <HomePartnerBrandsCarousel />
       <HomeTreatmentsCatalog />
-      <Featured />
       <HomePromoOffers />
       <Doctors />
       <HomeValuePillars />

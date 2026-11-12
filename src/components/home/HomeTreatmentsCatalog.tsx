@@ -1,6 +1,14 @@
 import Link from "next/link";
 
-import { allTreatments, catalogIntro, cta, homeEditorialIntro, treatmentPromoBadge } from "~/data/content";
+import WhatsAppLink from "~/components/WhatsAppLink";
+import {
+  allTreatments,
+  catalogCardWhatsAppHref,
+  catalogIntro,
+  cta,
+  homeEditorialIntro,
+  treatmentPromoBadge,
+} from "~/data/content";
 
 export default function HomeTreatmentsCatalog() {
   return (
@@ -9,16 +17,13 @@ export default function HomeTreatmentsCatalog() {
         <div className="max-w-3xl">
           <p className="eyebrow">{homeEditorialIntro.eyebrow}</p>
           <h2 className="section-title">{homeEditorialIntro.title}</h2>
-          <p className="section-sub">
-            {homeEditorialIntro.description} {allTreatments.length} tratamientos publicados.
-          </p>
+          <p className="section-sub">{homeEditorialIntro.description}</p>
           <p className="body-copy mt-3 text-sm text-ink-600">{catalogIntro}</p>
         </div>
 
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {allTreatments.map(({ category, treatment }) => {
             const href = `/tratamientos/${category.slug}/${treatment.slug}`;
-            const bookHref = `/reservar?tratamiento=${treatment.slug}`;
             const promo = treatmentPromoBadge(treatment.slug);
 
             return (
@@ -45,9 +50,15 @@ export default function HomeTreatmentsCatalog() {
                     <Link href={href} className="btn-outline">
                       Ver detalle
                     </Link>
-                    <Link href={bookHref} className="btn-rose">
+                    <WhatsAppLink
+                      href={catalogCardWhatsAppHref(treatment.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-rose"
+                      linkLocation="catalog_card"
+                    >
                       {cta.book.label}
-                    </Link>
+                    </WhatsAppLink>
                   </div>
                 </article>
               </li>

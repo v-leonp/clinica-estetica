@@ -9,15 +9,23 @@ import { clinicPhotos } from "~/data/clinic-photos";
 import { doctorProfile, site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
+function Emphasis({ children }: { children: React.ReactNode }) {
+  return (
+    <strong className="font-serif italic">
+      <em>{children}</em>
+    </strong>
+  );
+}
+
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Dra. Melissa Vigo",
-  description: `${doctorProfile.paragraphs[0]} CMP 101245. Medicina estética en San Miguel, Lima.`,
+  description: `${doctorProfile.lead}. CMP 101245. Medicina estética en San Miguel, Lima.`,
   alternates: { canonical: `${getSiteUrl()}/nosotros` },
   openGraph: {
     title: `Dra. Melissa Vigo | ${site.brand}`,
-    description: doctorProfile.paragraphs[0],
+    description: doctorProfile.lead,
     url: `${getSiteUrl()}/nosotros`,
   },
 };
@@ -39,14 +47,30 @@ export default function NosotrosPage() {
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
-            <p className="eyebrow">Perfil</p>
             <h2 className="heading font-serif text-2xl text-ink-900">{doctorProfile.name}</h2>
             <div className="mt-6 space-y-4">
-              {doctorProfile.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 32)} className="body-copy text-base leading-relaxed text-ink-700">
-                  {paragraph}
-                </p>
-              ))}
+              <p className="text-base leading-relaxed text-ink-700">
+                <Emphasis>{doctorProfile.lead}</Emphasis>
+              </p>
+              <p className="body-copy text-base leading-relaxed text-ink-700">
+                {doctorProfile.commitment.before}
+                <Emphasis>{doctorProfile.commitment.emphasis}</Emphasis>
+                {doctorProfile.commitment.after}
+              </p>
+              <h3 className="section-sub text-ink-900">{doctorProfile.approachTitle}</h3>
+              <ul className="list-disc space-y-3 pl-5">
+                {doctorProfile.approach.map((item) => (
+                  <li key={item.emphasis} className="body-copy text-base leading-relaxed text-ink-700">
+                    <Emphasis>{item.emphasis}</Emphasis>
+                    {item.text}
+                  </li>
+                ))}
+              </ul>
+              <p className="body-copy text-base leading-relaxed text-ink-700">
+                {doctorProfile.closing.before}
+                <Emphasis>{doctorProfile.closing.emphasis}</Emphasis>
+                {doctorProfile.closing.after}
+              </p>
             </div>
           </div>
 

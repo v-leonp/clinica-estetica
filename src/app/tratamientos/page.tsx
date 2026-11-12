@@ -8,19 +8,26 @@ import FreeConsult from "~/components/FreeConsult";
 import CategoryIcon from "~/components/CategoryIcon";
 import ClinicPhoto from "~/components/ClinicPhoto";
 import { photoForCategory } from "~/data/clinic-photos";
-import { catalogDisclaimer, catalogIntro, categoriesFull, site } from "~/data/content";
+import {
+  catalogDisclaimer,
+  catalogIntro,
+  categoriesFull,
+  homeEditorialIntro,
+  site,
+} from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
 
+const catalogDescription = `${homeEditorialIntro.description} ${catalogIntro}`;
+
 export const metadata: Metadata = {
-  title: "Tratamientos",
-  description: `Catálogo de ${site.brand}: 17 tratamientos con tiempos publicados. Medicina estética en San Miguel, Lima.`,
+  title: homeEditorialIntro.title,
+  description: catalogDescription,
   alternates: { canonical: `${getSiteUrl()}/tratamientos` },
   openGraph: {
-    title: `Tratamientos | ${site.brand}`,
-    description:
-      "Medicina estética facial, cuidado de la piel, tratamientos corporales y láser.",
+    title: `${homeEditorialIntro.title} | ${site.brand}`,
+    description: catalogDescription,
     url: `${getSiteUrl()}/tratamientos`,
   },
 };
@@ -35,10 +42,14 @@ export default function TratamientosIndexPage() {
         ]}
       />
       <PageHero
-        eyebrow="Catálogo"
-        title="Tratamientos"
-        subtitle={catalogIntro}
-      />
+        eyebrow={homeEditorialIntro.eyebrow}
+        title={homeEditorialIntro.title}
+        subtitle={homeEditorialIntro.description}
+      >
+        <p className="body-copy mt-4 max-w-2xl text-base leading-relaxed text-ink-700">
+          {catalogIntro}
+        </p>
+      </PageHero>
 
       <section className="section pt-4">
         <div className="container-x">

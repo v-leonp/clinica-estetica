@@ -25,7 +25,7 @@ export default function Hero() {
             {hero.title}
           </h1>
           <p className="mt-6 max-w-xl body-copy text-base leading-relaxed text-ink-700 sm:text-lg md:text-xl">
-            {hero.subtitle}
+            {hero.support}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">

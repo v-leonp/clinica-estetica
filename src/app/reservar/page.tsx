@@ -26,7 +26,6 @@ export default function ReservarPage() {
         ]}
       />
       <PageHero
-        eyebrow="Reserva"
         title={bookingCopy.title}
         subtitle={bookingCopy.callFormLead}
       />
