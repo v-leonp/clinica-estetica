@@ -6,7 +6,7 @@ import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
 import ClinicPhoto from "~/components/ClinicPhoto";
 import { clinicPhotos } from "~/data/clinic-photos";
-import { doctorProfile, site } from "~/data/content";
+import { doctorProfile } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
 function Emphasis({ children }: { children: React.ReactNode }) {
@@ -19,14 +19,20 @@ function Emphasis({ children }: { children: React.ReactNode }) {
 
 export const dynamic = "force-static";
 
+const pageTitle =
+  "Sobre nosotros | Dra. Melissa Vigo – Medicina estética en San Miguel";
+
 export const metadata: Metadata = {
-  title: "Dra. Melissa Vigo",
+  title: { absolute: pageTitle },
   description: `${doctorProfile.lead}. CMP 101245. Medicina estética en San Miguel, Lima.`,
   alternates: { canonical: `${getSiteUrl()}/nosotros` },
   openGraph: {
-    title: `Dra. Melissa Vigo | ${site.brand}`,
+    title: pageTitle,
     description: doctorProfile.lead,
     url: `${getSiteUrl()}/nosotros`,
+  },
+  twitter: {
+    title: pageTitle,
   },
 };
 
