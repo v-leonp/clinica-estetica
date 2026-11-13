@@ -7,27 +7,27 @@ import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
 import CategoryIcon from "~/components/CategoryIcon";
 import ClinicPhoto from "~/components/ClinicPhoto";
+import { RelatedLinks, VisibleFaq, WhatsAppCta } from "~/components/VisibleFaq";
 import { photoForCategory } from "~/data/clinic-photos";
 import {
+  bookingWhatsAppHref,
   catalogDisclaimer,
-  catalogIntro,
   categoriesFull,
   homeEditorialIntro,
-  site,
 } from "~/data/content";
+import { tratamientosSeo } from "~/data/seo-copy";
 import { getSiteUrl } from "~/lib/site-url";
+import { faqPageJsonLd } from "~/lib/json-ld";
 
 export const dynamic = "force-static";
 
-const catalogDescription = `${homeEditorialIntro.description} ${catalogIntro}`;
-
 export const metadata: Metadata = {
-  title: homeEditorialIntro.title,
-  description: catalogDescription,
+  title: { absolute: tratamientosSeo.title },
+  description: tratamientosSeo.description,
   alternates: { canonical: `${getSiteUrl()}/tratamientos` },
   openGraph: {
-    title: `${homeEditorialIntro.title} | ${site.brand}`,
-    description: catalogDescription,
+    title: tratamientosSeo.title,
+    description: tratamientosSeo.description,
     url: `${getSiteUrl()}/tratamientos`,
   },
 };
@@ -43,11 +43,11 @@ export default function TratamientosIndexPage() {
       />
       <PageHero
         eyebrow={homeEditorialIntro.eyebrow}
-        title={homeEditorialIntro.title}
-        subtitle={homeEditorialIntro.description}
+        title={tratamientosSeo.h1}
+        subtitle={tratamientosSeo.locationLine}
       >
         <p className="body-copy mt-4 max-w-2xl text-base leading-relaxed text-ink-700">
-          {catalogIntro}
+          {tratamientosSeo.body}
         </p>
       </PageHero>
 
@@ -102,10 +102,26 @@ export default function TratamientosIndexPage() {
             ))}
           </ul>
           <p className="mt-10 max-w-2xl text-sm text-ink-700">{catalogDisclaimer}</p>
+          <RelatedLinks links={tratamientosSeo.links} />
+          <h2 className="heading mt-10 font-serif text-2xl text-ink-900">
+            Preguntas frecuentes
+          </h2>
+          <VisibleFaq items={tratamientosSeo.faqs} />
+          <WhatsAppCta
+            href={bookingWhatsAppHref()}
+            label={tratamientosSeo.whatsappCta}
+            linkLocation="booking_cta"
+          />
         </div>
       </section>
 
       <FreeConsult />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqPageJsonLd(tratamientosSeo.faqs)),
+        }}
+      />
     </SiteShell>
   );
 }

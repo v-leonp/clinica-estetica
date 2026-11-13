@@ -390,11 +390,11 @@ export const categoriesFull: Category[] = [
         slug: "depilacion-ipl-o-diodo",
         name: "Depilación IPL o diodo, por zona",
         short:
-          "Limpieza, protección y luz pulsada en la zona acordada. Incluye depilación facial (bozo, patillas y zona mandibular) y zona bikini anterior.",
-        long: "Se limpia y protege el área; se aplica luz pulsada en la zona acordada para reducir progresivamente el vello. Incluye depilación facial (bozo, patillas y zona mandibular) y depilación de zona bikini (zona anterior).",
+          "Limpieza, protección y aplicación de IPL o diodo en la zona acordada. Incluye depilación facial (bozo, patillas y zona mandibular) y zona bikini anterior.",
+        long: "Se limpia y protege el área; se aplica IPL o diodo en la zona acordada para reducir progresivamente el vello. Incluye depilación facial (bozo, patillas y zona mandibular) y depilación de zona bikini (zona anterior).",
         benefits: [
           "Limpieza y protección del área",
-          "Luz pulsada en la zona acordada",
+          "IPL o diodo en la zona acordada",
           "Depilación facial y zona bikini anterior",
         ],
         whoFor: QUIEN,

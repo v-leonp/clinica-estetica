@@ -23,6 +23,16 @@ const config = {
         destination: "/nosotros",
         permanent: true,
       },
+      {
+        source: "/catalogo",
+        destination: "/tratamientos",
+        permanent: true,
+      },
+      {
+        source: "/catalogo/:path*",
+        destination: "/tratamientos",
+        permanent: true,
+      },
     ];
   },
   async headers() {

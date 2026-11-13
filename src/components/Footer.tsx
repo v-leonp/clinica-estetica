@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { site, nav, footer, legalLinks } from "~/data/content";
+import { attendNeighbors } from "~/data/seo-copy";
 import BrandLogo from "~/components/BrandLogo";
 import WhatsAppLink from "~/components/WhatsAppLink";
 
@@ -76,6 +77,9 @@ export default function Footer() {
                     {site.addressReference}
                   </span>
                 ) : null}
+                <span className="mt-1 block text-xs text-cream-100/70">
+                  {attendNeighbors}
+                </span>
               </li>
             ) : null}
           </ul>

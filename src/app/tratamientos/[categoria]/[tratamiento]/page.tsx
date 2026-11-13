@@ -8,6 +8,7 @@ import Breadcrumbs from "~/components/Breadcrumbs";
 import ClinicPhoto from "~/components/ClinicPhoto";
 import TreatmentLeadCta from "~/components/TreatmentLeadCta";
 import WhatsAppLink from "~/components/WhatsAppLink";
+import { RelatedLinks, VisibleFaq } from "~/components/VisibleFaq";
 import { photoForTreatment } from "~/data/clinic-photos";
 import {
   allTreatments,
@@ -17,7 +18,9 @@ import {
   getTreatment,
   site,
   treatmentPromoBadge,
+  type Treatment,
 } from "~/data/content";
+import { treatmentSeo } from "~/data/seo-copy";
 import { getSiteUrl } from "~/lib/site-url";
 import { faqPageJsonLd, medicalProcedureJsonLd } from "~/lib/json-ld";
 
@@ -44,17 +47,29 @@ export async function generateMetadata({
 
   const { category, treatment } = match;
   const url = `${getSiteUrl()}/tratamientos/${category.slug}/${treatment.slug}`;
-  const seoDescription = `${treatment.short} Valoración médica en Lima, Perú. ${site.brand}.`;
+  const title = treatmentPageTitle(treatment);
+  const description = treatmentPageDescription(treatment);
   return {
-    title: `${treatment.name} en Lima | ${site.brand}`,
-    description: seoDescription,
+    title: { absolute: title },
+    description,
     alternates: { canonical: url },
     openGraph: {
-      title: `${treatment.name} en Lima | ${site.brand}`,
-      description: seoDescription,
+      title,
+      description,
       url,
     },
   };
+}
+
+function treatmentPageTitle(treatment: Treatment): string {
+  return (
+    treatmentSeo[treatment.slug]?.title ??
+    `${treatment.name} en Lima | ${site.brand}`
+  );
+}
+
+function treatmentPageDescription(treatment: Treatment): string {
+  return treatmentSeo[treatment.slug]?.description ?? treatment.short;
 }
 
 export default async function TreatmentPage({
@@ -67,6 +82,9 @@ export default async function TreatmentPage({
   if (!match) notFound();
 
   const { category, treatment } = match;
+  const seo = treatmentSeo[treatment.slug];
+  const faqs = [...(seo?.faqs ?? []), ...treatment.faq];
+  const whatsappLabel = seo?.whatsappCta ?? "Consultar por WhatsApp";
   const bookHref = `/reservar?tratamiento=${treatment.slug}`;
   const waText = encodeURIComponent(
     `Hola ${site.brand}, me interesa el tratamiento "${treatment.name}". ¿Me podrían dar más información?`,
@@ -79,7 +97,7 @@ export default async function TreatmentPage({
     url: `${getSiteUrl()}/tratamientos/${category.slug}/${treatment.slug}`,
     bodyLocation: category.title,
   });
-  const faqLd = faqPageJsonLd(treatment.faq);
+  const faqLd = faqPageJsonLd(faqs);
 
   return (
     <SiteShell>
@@ -94,8 +112,8 @@ export default async function TreatmentPage({
 
       <PageHero
         eyebrow={category.title}
-        title={treatment.name}
-        subtitle={treatment.short}
+        title={seo?.h1 ?? treatment.name}
+        subtitle={seo?.heroSubtitle ?? treatment.short}
       >
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <Link href={bookHref} className="btn-primary">
@@ -108,7 +126,7 @@ export default async function TreatmentPage({
             className="btn-outline"
             linkLocation="treatment_page"
           >
-            Consultar por WhatsApp
+            {whatsappLabel}
           </WhatsAppLink>
           {treatmentPromoBadge(treatment.slug) ? (
             <span className="rounded-full border border-gold/50 bg-cream-100 px-4 py-2 text-xs font-medium uppercase tracking-wide text-gold-ink">
@@ -135,9 +153,32 @@ export default async function TreatmentPage({
             <h2 className="heading font-serif text-2xl text-ink-900">
               Sobre el tratamiento
             </h2>
+            {seo?.lead?.map((paragraph) => (
+              <p
+                key={paragraph}
+                className="body-copy mt-3 text-base leading-relaxed text-ink-700"
+              >
+                {paragraph}
+              </p>
+            ))}
+            {seo?.locationLine ? (
+              <p className="body-copy mt-3 text-base leading-relaxed text-ink-700">
+                {seo.locationLine}
+              </p>
+            ) : null}
             <p className="body-copy mt-3 text-base leading-relaxed text-ink-700">
               {treatment.long}
             </p>
+            {seo?.notes?.map((note) => (
+              <div key={note.heading}>
+                <h3 className="heading mt-10 font-serif text-xl text-ink-900">
+                  {note.heading}
+                </h3>
+                <p className="body-copy mt-3 text-base leading-relaxed text-ink-700">
+                  {note.text}
+                </p>
+              </div>
+            ))}
 
             <h3 className="heading mt-10 font-serif text-xl text-ink-900">
               Beneficios
@@ -195,24 +236,8 @@ export default async function TreatmentPage({
             <h3 className="heading mt-10 font-serif text-xl text-ink-900">
               Preguntas frecuentes
             </h3>
-            <div className="mt-4 divide-y divide-cream-200 overflow-hidden rounded-2xl border border-cream-200 bg-white">
-              {treatment.faq.map((f) => (
-                <details key={f.q} className="group p-5">
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-sm font-medium text-ink-900">
-                    <span>{f.q}</span>
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 text-rose-gold transition group-open:rotate-45"
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <p className="body-copy mt-3 text-sm leading-relaxed text-ink-700">
-                    {f.a}
-                  </p>
-                </details>
-              ))}
-            </div>
+            <VisibleFaq items={faqs} />
+            {seo?.links ? <RelatedLinks links={seo.links} /> : null}
           </div>
 
           <aside className="md:col-span-5">
@@ -245,7 +270,7 @@ export default async function TreatmentPage({
                 className="btn-outline mt-3 w-full"
                 linkLocation="treatment_page"
               >
-                WhatsApp
+                {seo?.whatsappCta ?? "WhatsApp"}
               </WhatsAppLink>
 
               <p className="mt-5 text-xs text-ink-500">{catalogDisclaimer}</p>
@@ -286,6 +311,7 @@ export default async function TreatmentPage({
       <TreatmentLeadCta
         treatmentName={treatment.name}
         treatmentSlug={treatment.slug}
+        whatsappLabel={seo?.whatsappCta ?? "WhatsApp"}
       />
 
       <script

@@ -6,7 +6,8 @@ import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
 import ClinicPhoto from "~/components/ClinicPhoto";
 import { clinicPhotos } from "~/data/clinic-photos";
-import { doctorProfile } from "~/data/content";
+import { doctorProfile, site } from "~/data/content";
+import { attendNeighbors, supportSeo } from "~/data/seo-copy";
 import { getSiteUrl } from "~/lib/site-url";
 
 function Emphasis({ children }: { children: React.ReactNode }) {
@@ -19,16 +20,15 @@ function Emphasis({ children }: { children: React.ReactNode }) {
 
 export const dynamic = "force-static";
 
-const pageTitle =
-  "Sobre nosotros | Dra. Melissa Vigo – Medicina estética en San Miguel";
+const pageTitle = supportSeo.nosotros.title;
 
 export const metadata: Metadata = {
   title: { absolute: pageTitle },
-  description: `${doctorProfile.lead}. CMP 101245. Medicina estética en San Miguel, Lima.`,
+  description: supportSeo.nosotros.description,
   alternates: { canonical: `${getSiteUrl()}/nosotros` },
   openGraph: {
     title: pageTitle,
-    description: doctorProfile.lead,
+    description: supportSeo.nosotros.description,
     url: `${getSiteUrl()}/nosotros`,
   },
   twitter: {
@@ -72,6 +72,9 @@ export default function NosotrosPage() {
                   </li>
                 ))}
               </ul>
+              <p className="body-copy text-base leading-relaxed text-ink-700">
+                Es un consultorio en {site.address}, Lima. {attendNeighbors}
+              </p>
               <p className="body-copy text-base leading-relaxed text-ink-700">
                 {doctorProfile.closing.before}
                 <Emphasis>{doctorProfile.closing.emphasis}</Emphasis>
