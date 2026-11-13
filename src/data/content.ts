@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 // Dra. Melissa Vigo — Médico Estético. Fuente editorial del sitio.
-// Solo datos confirmados. Lo que la clínica aún no entrega queda en null,
+// Solo datos confirmados. Lo que el consultorio aún no entrega queda en null,
 // en listas vacías o con un texto de “pendiente”, nunca como dato ficticio.
 // ---------------------------------------------------------------------------
 
@@ -10,6 +10,7 @@ import {
   catalogIntro,
 } from "./treatments-catalog";
 import type { Category, Treatment, FAQ } from "./treatments-catalog";
+import { homeSeo } from "./seo-copy";
 
 export type { FAQ, Treatment, Category } from "./treatments-catalog";
 export { categoriesFull, catalogIntro, catalogDisclaimer };
@@ -59,15 +60,15 @@ export const doctorProfile = {
 } as const;
 
 /**
- * Única fuente del WhatsApp. El número todavía no está confirmado por la
- * clínica: no lo copies en sedes, componentes ni textos sueltos.
+ * Única fuente del WhatsApp. El número todavía no está confirmado por el
+ * consultorio: no lo copies en sedes, componentes ni textos sueltos.
  */
 export const WHATSAPP_PENDIENTE_DE_CONFIRMAR = {
   confirmed: false as const,
   display: "+51 981 237 361",
   /** Dígitos para wa.me, sin + */
   number: "51981237361",
-  note: "Número pendiente de confirmar por la clínica.",
+  note: "Número pendiente de confirmar por el consultorio.",
 };
 
 /** Mensaje de bienvenida del widget (documento cliente, petición 06). */
@@ -149,7 +150,9 @@ export function bookingWhatsAppHref(): string {
 
 export const hero = {
   eyebrow: "Medicina estética · Lima",
-  title: "Realza tus rasgos con naturalidad",
+  title: homeSeo.h1,
+  /** Bajada: el H1 anterior, para no perder el tono de la marca. */
+  bajada: "Realza tus rasgos con naturalidad",
   /** Nombre en cursiva, el estilo del subtítulo anterior. Gabriola no tiene licencia web. */
   name: "Dra. Melissa Vigo Ruiz",
   credential: "Médico cirujano · CMP 101245",

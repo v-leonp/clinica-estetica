@@ -6,9 +6,11 @@ import { cta, site } from "~/data/content";
 export default function TreatmentLeadCta({
   treatmentName,
   treatmentSlug,
+  whatsappLabel = "WhatsApp",
 }: {
   treatmentName: string;
   treatmentSlug: string;
+  whatsappLabel?: string;
 }) {
   const reservar = `/reservar?tratamiento=${treatmentSlug}`;
   const wa = encodeURIComponent(
@@ -36,7 +38,7 @@ export default function TreatmentLeadCta({
             className="btn-outline"
             linkLocation="treatment_page"
           >
-            WhatsApp
+            {whatsappLabel}
           </WhatsAppLink>
         </div>
       </div>

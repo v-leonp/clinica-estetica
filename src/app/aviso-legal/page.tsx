@@ -34,7 +34,7 @@ export default function AvisoLegalPage() {
             Este sitio corresponde a la práctica de la Dra. Melissa Vigo, médico
             cirujano (CMP 101245), medicina estética, en {site.legal.jurisdiction}.
             La razón social, el RUC y el domicilio fiscal se publicarán cuando la
-            clínica los confirme.
+            consultorio los confirme.
           </p>
           <p>
             El contenido tiene fines informativos. No constituye consejo médico ni

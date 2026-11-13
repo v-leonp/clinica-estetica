@@ -191,7 +191,7 @@ export default function ContactForm() {
             <li>
               <span className="text-ink-500">Dirección: </span>
               <span className="text-ink-900">
-                {site.address ?? "Próximamente. La clínica aún no abre en Lima."}
+                {site.address ?? "Próximamente. El consultorio aún no abre en Lima."}
               </span>
             </li>
             {!site.email && !site.phoneDisplay && (

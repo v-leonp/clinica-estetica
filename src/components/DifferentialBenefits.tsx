@@ -8,7 +8,7 @@ export default function DifferentialBenefits() {
           <p className="eyebrow">Por qué elegirnos</p>
           <h2 className="section-title">Beneficios diferenciales</h2>
           <p className="section-sub">
-            Experiencia premium sin perder claridad clínica: menos ruido comercial,
+            Experiencia premium sin perder rigor médico: menos ruido comercial,
             más acompañamiento responsable.
           </p>
         </div>

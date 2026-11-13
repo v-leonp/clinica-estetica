@@ -6,6 +6,7 @@ import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import ContactForm from "~/components/ContactForm";
 import { site } from "~/data/content";
+import { neighborPhrase } from "~/data/seo-copy";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
@@ -14,12 +15,12 @@ const hiddenFromIndex = { index: false, follow: true } as const;
 
 export const metadata: Metadata = {
   title: "Contacto",
-  description: `Escribe a ${site.brand} o deja tus datos. Consultorio en ${site.address ?? "San Miguel"}.`,
+  description: `Contacto del consultorio en San Miguel, ${neighborPhrase}.`,
   robots: hiddenFromIndex,
   alternates: { canonical: `${getSiteUrl()}/contacto` },
   openGraph: {
     title: `Contacto | ${site.brand}`,
-    description: "Formulario de contacto. La sede aún no está publicada.",
+    description: `Contacto del consultorio en San Miguel, ${neighborPhrase}.`,
     url: `${getSiteUrl()}/contacto`,
   },
 };
@@ -36,7 +37,7 @@ export default function ContactoPage() {
       <PageHero
         eyebrow="Contacto"
         title="Contacto"
-        subtitle="Teléfono, correo y dirección aún no están publicados. Puedes usar el formulario o escribir por WhatsApp."
+        subtitle={`Teléfono y correo aún no están publicados. El consultorio está en ${site.address}, ${neighborPhrase}. Puedes usar el formulario o escribir por WhatsApp.`}
       />
       <Suspense fallback={null}>
         <ContactForm />

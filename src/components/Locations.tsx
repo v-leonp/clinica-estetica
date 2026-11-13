@@ -13,14 +13,14 @@ export default function Locations() {
           <p className="section-sub">
             {locations.length === 0
               ? "Próximamente. La dirección y el horario aún no están confirmados."
-              : "Sedes publicadas por la clínica."}
+              : "Sedes publicadas por el consultorio."}
           </p>
         </div>
 
         {locations.length === 0 ? (
           <div className="mt-10 max-w-xl rounded-2xl border border-cream-200 bg-white p-6">
             <p className="body-copy text-sm leading-relaxed text-ink-700">
-              Aún no hay una dirección publicada: la clínica no ha abierto en
+              Aún no hay una dirección publicada: el consultorio no ha abierto en
               Lima. Cuando la sede y el horario estén confirmados, aparecerán
               aquí. Mientras tanto, escríbenos por WhatsApp.
             </p>

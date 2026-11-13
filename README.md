@@ -1,7 +1,7 @@
 # Dra. Melissa Vigo – Médico Estético
 
 Sitio de la práctica de medicina estética de la **Dra. Melissa Vigo**,
-médico cirujano (CMP 101245), en Lima, Perú. La clínica **aún no abre**:
+médico cirujano (CMP 101245), en Lima, Perú. El consultorio **aún no abre**:
 el catálogo y la identidad de marca son reales; sede, horario, razón social,
 RUC y canales oficiales que no están confirmados no se publican como si lo
 estuvieran.
@@ -48,7 +48,7 @@ Logotipo en cabecera y pie (`public/brand/logo-dra-melissa-vigo.png`).
 Isotipo del loto VR como favicon (`public/favicon.svg`) y dentro de la imagen
 Open Graph (`public/og.png`).
 
-## Datos pendientes de la clínica
+## Datos pendientes del consultorio
 
 No inventar estos datos en el sitio. Hoy se ocultan o se dice “Próximamente”
 / “Escríbenos por WhatsApp”:
