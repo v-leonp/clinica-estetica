@@ -4,6 +4,7 @@ import SiteShell from "~/components/SiteShell";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import PageHero from "~/components/PageHero";
 import LegalProse from "~/components/LegalProse";
+import { CookieChoiceReset } from "~/components/CookieConsent";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
@@ -25,19 +26,22 @@ export default function CookiesPage() {
       <PageHero
         eyebrow="Legal"
         title="Política de cookies"
-        subtitle="El banner para elegir cookies todavía no está publicado."
+        subtitle="Las cookies analíticas solo se activan si las aceptas."
       />
       <section className="section pt-4">
         <LegalProse>
           <p>
             Las cookies técnicas necesarias para el funcionamiento del sitio pueden
-            utilizarse sin consentimiento. Las cookies analíticas o de marketing solo se
-            activarán tras tu elección expresa cuando el banner esté implementado.
+            utilizarse sin consentimiento. La medición con Google Analytics 4 solo se
+            carga después de pulsar Aceptar en el aviso de cookies. Si pulsas Rechazar,
+            esa medición no se activa.
           </p>
           <p>
-            El panel para retirar el consentimiento de cookies todavía no está
-            publicado. Cuando exista, lo enlazaremos desde esta página.
+            La elección se guarda en este navegador. No enviamos nombre, teléfono,
+            mensaje ni tratamiento en los eventos de medición. Puedes cambiarla cuando
+            quieras.
           </p>
+          <CookieChoiceReset />
         </LegalProse>
       </section>
     </SiteShell>

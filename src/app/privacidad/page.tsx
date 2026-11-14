@@ -47,11 +47,9 @@ export default function PrivacidadPage() {
             </h2>
             <p className="mt-3">
               El sitio corresponde a la práctica de la Dra. Melissa Vigo, médico
-              cirujano (CMP 101245), en {site.legal.jurisdiction}. La razón
-              social, el RUC y el domicilio del responsable todavía no están
-              publicados. Para asuntos de privacidad usa el formulario de contacto
-              o WhatsApp ({site.whatsappDisplay}). {site.whatsappNote} El correo
-              de privacidad se publicará cuando exista.
+              cirujano (CMP 101245), en {site.legal.jurisdiction}. El consultorio
+              está en {site.address}. Para asuntos de privacidad usa el formulario
+              de reserva o WhatsApp ({site.whatsappDisplay}).
             </p>
           </div>
 
@@ -108,10 +106,9 @@ export default function PrivacidadPage() {
             <p className="mt-3">
               Puedes ejercer tus derechos de acceso, rectificación, cancelación y
               oposición, y revocar tu consentimiento, desde el formulario de
-              contacto o por WhatsApp. El correo específico para estos trámites
-              aún no está publicado. También puedes presentar un reclamo ante la
-              Autoridad Nacional de Protección de Datos Personales — Ministerio
-              de Justicia y Derechos Humanos.
+              reserva o por WhatsApp ({site.whatsappDisplay}). También puedes
+              presentar un reclamo ante la Autoridad Nacional de Protección de
+              Datos Personales — Ministerio de Justicia y Derechos Humanos.
             </p>
           </div>
 

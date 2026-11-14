@@ -1,4 +1,4 @@
-import { site, locations, type FAQ } from "~/data/content";
+import { clinicAddress, site, type FAQ } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
 export function medicalClinicJsonLd() {
@@ -9,6 +9,8 @@ export function medicalClinicJsonLd() {
     name: site.brand,
     description: site.description,
     url: base,
+    telephone: `+${site.whatsappNumber}`,
+    sameAs: [site.socials.facebook, site.socials.instagram, site.socials.tiktok],
     areaServed: { "@type": "City", name: "Lima", containedInPlace: "PE" },
     medicalSpecialty: "Medicina estética",
     employee: {
@@ -17,29 +19,13 @@ export function medicalClinicJsonLd() {
       medicalSpecialty: "Medicina estética",
       identifier: "CMP 101245",
     },
-    ...(site.phoneHref ? { telephone: site.phoneHref } : {}),
-    ...(site.email ? { email: site.email } : {}),
-    ...(locations[0]
-      ? {
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: locations[0].address,
-            addressLocality: "San Miguel",
-            addressRegion: "Lima",
-            addressCountry: "PE",
-          },
-        }
-      : site.address
-        ? {
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: site.address,
-              addressLocality: "San Miguel",
-              addressRegion: "Lima",
-              addressCountry: "PE",
-            },
-          }
-        : {}),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: clinicAddress.street,
+      addressLocality: clinicAddress.locality,
+      addressRegion: clinicAddress.region,
+      addressCountry: "PE",
+    },
   };
 }
 

@@ -98,22 +98,15 @@ export default function HomeVideoHero() {
             Video de consultas y primeros planos de la práctica. Las personas
             que aparecen no se identifican por su nombre.
           </p>
-          <p className="text-xs uppercase tracking-[0.25em] text-gold">
-            {hero.eyebrow}
-          </p>
-          <h1 className="heading mt-4 max-w-xl font-serif text-4xl leading-[1.08] text-cream-50 sm:text-5xl lg:text-6xl">
-            {hero.title}
+          <h1 className="mt-4 max-w-3xl text-cream-50">
+            <span className="block font-serif text-xs uppercase tracking-[0.22em] text-gold sm:tracking-[0.25em]">
+              {hero.eyebrow}
+            </span>
+            <span className="heading mt-4 block font-serif text-4xl leading-[1.08] sm:text-5xl lg:text-6xl">
+              {hero.title}
+            </span>
           </h1>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-cream-50/95 sm:text-lg">
-            {hero.bajada}
-          </p>
-          <p className="credential mt-5 max-w-xl text-xl text-cream-100 sm:text-2xl">
-            {hero.name}
-          </p>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-cream-50/90">
-            {hero.credential}
-          </p>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-cream-50/95">
             {hero.support}
           </p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">

@@ -1,69 +1,157 @@
 "use client";
 
+import { Bodoni_Moda, Nunito, Oswald, Outfit, Syne } from "next/font/google";
 import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState, type TransitionEvent } from "react";
 
-const IMAGE_W = 400;
-const IMAGE_H = 282;
+import { partnerBrands } from "~/data/content";
 
-/** Recorte del dibujo dentro del archivo 400×282, sin el margen transparente. */
-const brands = [
-  { name: "IBSA", src: "/images/marcas/ibsa.webp", crop: { x: 32, y: 53, w: 337, h: 170 } },
-  { name: "Sculptra", src: "/images/marcas/sculptra.webp", crop: { x: 20, y: 58, w: 361, h: 144 } },
-  { name: "Radiesse", src: "/images/marcas/radiesse.webp", crop: { x: 12, y: 102, w: 377, h: 96 } },
-  { name: "Karisma", src: "/images/marcas/karisma.webp", crop: { x: 35, y: 24, w: 331, h: 217 } },
-  { name: "Juvéderm", src: "/images/marcas/juvederm.webp", crop: { x: 43, y: 96, w: 328, h: 81 } },
-  { name: "Jalupro", src: "/images/marcas/jalupro.webp", crop: { x: 17, y: 102, w: 367, h: 79 } },
-  { name: "Restylane", src: "/images/marcas/restylane.webp", crop: { x: 19, y: 63, w: 362, h: 147 } },
-  { name: "Genefill", src: "/images/marcas/genefill.webp", crop: { x: 4, y: 121, w: 390, h: 66 } },
-  { name: "Profhilo", src: "/images/marcas/profhilo.webp", crop: { x: 12, y: 101, w: 378, h: 81 } },
-  { name: "Evolutha", src: "/images/marcas/evolutha.webp", crop: { x: 12, y: 97, w: 375, h: 77 } },
-] as const;
+const reage = Outfit({ subsets: ["latin"], weight: "600" });
+const avalon = Bodoni_Moda({ subsets: ["latin"], weight: "600", style: "italic" });
+const sciela = Syne({ subsets: ["latin"], weight: "700" });
+const qf = Oswald({ subsets: ["latin"], weight: "600" });
+const lolasting = Nunito({ subsets: ["latin"], weight: "800" });
 
-const INTERVAL_MS = 3000;
-const TRANSITION_MS = 400;
-
-function Logo({
-  name,
-  src,
-  crop,
-}: {
-  name: string;
+/**
+ * Logotipos oficiales, pasados a blanco sobre transparente.
+ * Neauvia: wordmark del encabezado de https://www.neauvia.com/
+ * EXEL: https://www.bioexel.com/img/logo.png
+ * Radiesse: https://radiesse.com/wp-content/uploads/2025/12/logo-Radiesse-navy.webp
+ * Reage, Avalon, Sciela, QF y Lolasting no tienen un archivo oficial
+ * fiable publicado; siguen como wordmark.
+ */
+type Logo = {
+  id: string;
+  alt: string;
+  kind: "logo";
   src: string;
-  crop: { x: number; y: number; w: number; h: number };
-}) {
-  const focusX = (crop.x + crop.w / 2) / IMAGE_W;
-  const focusY = (crop.y + crop.h / 2) / IMAGE_H;
-  const fit = `min(calc(100cqw / ${crop.w}), calc(100cqh / ${crop.h}))`;
+  width: number;
+  height: number;
+  /** Altura óptica para que el trazo pese parecido al resto. */
+  box: string;
+};
 
-  return (
-    <span className="relative block h-full w-full overflow-hidden [container-type:size]">
+type Word = {
+  id: string;
+  alt: string;
+  kind: "word";
+  label: string;
+  font: string;
+  tracking: string;
+  box: string;
+};
+
+const brands: Array<Logo | Word> = [
+  {
+    id: "neauvia",
+    alt: "Logotipo de Neauvia",
+    kind: "logo",
+    src: "/images/marcas/neauvia.webp",
+    width: 2800,
+    height: 440,
+    box: "h-8 sm:h-12",
+  },
+  {
+    id: "reage",
+    alt: "Reage",
+    kind: "word",
+    label: "Reage",
+    font: reage.className,
+    tracking: "-0.03em",
+    box: "text-[1.7rem] sm:text-[2.35rem]",
+  },
+  {
+    id: "exel",
+    alt: "Logotipo de EXEL Professional Line",
+    kind: "logo",
+    src: "/images/marcas/exel.webp",
+    width: 800,
+    height: 244,
+    box: "h-10 sm:h-14",
+  },
+  {
+    id: "radiesse",
+    alt: "Logotipo de Radiesse",
+    kind: "logo",
+    src: "/images/marcas/radiesse.webp",
+    width: 1318,
+    height: 198,
+    box: "h-8 sm:h-11",
+  },
+  {
+    id: "avalon",
+    alt: "Avalon",
+    kind: "word",
+    label: "Avalon",
+    font: avalon.className,
+    tracking: "0.02em",
+    box: "text-[1.85rem] sm:text-[2.6rem]",
+  },
+  {
+    id: "sciela",
+    alt: "Sciela",
+    kind: "word",
+    label: "Sciela",
+    font: sciela.className,
+    tracking: "-0.04em",
+    box: "text-[1.7rem] sm:text-[2.3rem]",
+  },
+  {
+    id: "qf",
+    alt: "QF",
+    kind: "word",
+    label: "QF",
+    font: qf.className,
+    tracking: "0.04em",
+    box: "text-[1.9rem] sm:text-[2.5rem]",
+  },
+  {
+    id: "lolasting",
+    alt: "Lolasting",
+    kind: "word",
+    label: "Lolasting",
+    font: lolasting.className,
+    tracking: "-0.03em",
+    box: "text-[1.55rem] sm:text-[2.15rem]",
+  },
+];
+
+const INTERVAL_MS = 2800;
+const TRANSITION_MS = 500;
+
+function Mark({ brand }: { brand: Logo | Word }) {
+  const motion =
+    "origin-bottom transition duration-300 ease-out will-change-transform hover:scale-105";
+  if (brand.kind === "logo") {
+    return (
       <Image
-        src={src}
-        alt={name}
-        width={IMAGE_W}
-        height={IMAGE_H}
-        className="absolute max-w-none [filter:brightness(0)_invert(1)]"
-        style={{
-          width: `calc(${IMAGE_W} * ${fit})`,
-          height: `calc(${IMAGE_H} * ${fit})`,
-          left: "50%",
-          top: "50%",
-          transform: `translate(${-focusX * 100}%, ${-focusY * 100}%)`,
-        }}
+        src={brand.src}
+        alt={brand.alt}
+        width={brand.width}
+        height={brand.height}
+        className={`${brand.box} w-auto max-w-none ${motion}`}
       />
+    );
+  }
+  return (
+    <span
+      className={`${brand.font} ${brand.box} ${motion} inline-block whitespace-nowrap text-white leading-none`}
+      style={{ letterSpacing: brand.tracking, fontSynthesis: "none" }}
+    >
+      {brand.label}
     </span>
   );
 }
 
 /**
- * Carrusel de marcas sobre el video del hero. Sin fondo propio: el overlay
- * del hero da el contraste. Cuatro logos en tablet/desktop y tres en móvil.
+ * Carrusel infinito de marcas sobre el video. Logos a opacidad plena,
+ * más altos que en la versión anterior, con el mismo ritmo de desplazamiento.
  */
 export default function HomePartnerBrandsCarousel() {
   const frameRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
-  const [visible, setVisible] = useState(4);
+  const itemsRef = useRef<Array<HTMLLIElement | null>>([]);
+  const [gap, setGap] = useState(48);
+  const [widths, setWidths] = useState<number[]>([]);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -74,7 +162,7 @@ export default function HomePartnerBrandsCarousel() {
     const mobile = window.matchMedia("(max-width: 767px)");
     const apply = () => {
       setReduced(motion.matches);
-      setVisible(mobile.matches ? 3 : 4);
+      setGap(mobile.matches ? 32 : 48);
     };
     apply();
     motion.addEventListener("change", apply);
@@ -86,31 +174,39 @@ export default function HomePartnerBrandsCarousel() {
   }, []);
 
   useLayoutEffect(() => {
-    const el = frameRef.current;
-    if (!el) return;
-    const measure = () => setWidth(el.clientWidth);
+    if (reduced) return;
+    const measure = () => {
+      setWidths(
+        itemsRef.current.slice(0, brands.length).map((el) => el?.offsetWidth ?? 0),
+      );
+    };
     measure();
     const observer = new ResizeObserver(measure);
-    observer.observe(el);
+    itemsRef.current.forEach((el) => el && observer.observe(el));
+    if (frameRef.current) observer.observe(frameRef.current);
     return () => observer.disconnect();
-  }, [reduced]);
+  }, [reduced, gap]);
 
   useEffect(() => {
     setIndex(0);
-  }, [visible]);
+  }, [gap, reduced]);
 
   useEffect(() => {
-    if (reduced || paused) return;
+    if (reduced || paused || widths.length < brands.length) return;
     const id = window.setInterval(() => {
       setAnimate(true);
       setIndex((current) => current + 1);
     }, INTERVAL_MS);
     return () => window.clearInterval(id);
-  }, [reduced, paused]);
+  }, [reduced, paused, widths.length]);
 
-  const gap = visible === 3 ? 16 : 28;
-  const slide = width > 0 ? (width - gap * (visible - 1)) / visible : 0;
-  const loop = [...brands, ...brands.slice(0, visible)];
+  const loop = [...brands, ...brands];
+  const shift = widths.length
+    ? Array.from({ length: index }, (_, i) => (widths[i % brands.length] ?? 0) + gap).reduce(
+        (sum, n) => sum + n,
+        0,
+      )
+    : 0;
 
   function onTransitionEnd(event: TransitionEvent<HTMLUListElement>) {
     if (event.propertyName !== "transform") return;
@@ -123,43 +219,47 @@ export default function HomePartnerBrandsCarousel() {
   return (
     <div
       role="group"
-      aria-label="Marcas con las que trabajamos"
-      className="mt-12 w-full max-w-xl sm:mt-16"
+      aria-label="Marcas de los productos que utilizamos"
+      className="mt-12 w-full max-w-5xl sm:mt-16"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <p className="text-left font-serif text-[11px] uppercase leading-relaxed tracking-[0.22em] text-white sm:tracking-[0.28em]">
-        Trabajamos con las más reconocidas
+      <p className="text-left font-serif text-sm leading-relaxed tracking-[0.08em] text-white sm:text-base">
+        {partnerBrands.heading}
+      </p>
+      <p className="mt-3 max-w-lg text-sm leading-relaxed text-cream-50/90">
+        {partnerBrands.text}
       </p>
 
       {reduced ? (
-        <ul className="mt-4 flex flex-wrap items-center justify-start gap-4 sm:gap-7">
+        <ul className="mt-5 flex flex-wrap items-end gap-8 sm:gap-12">
           {brands.map((brand) => (
-            <li key={brand.name} className="flex h-7 w-[30%] items-center justify-center sm:h-9 sm:w-36">
-              <Logo name={brand.name} src={brand.src} crop={brand.crop} />
+            <li key={brand.id} className="flex items-end">
+              <Mark brand={brand} />
             </li>
           ))}
         </ul>
       ) : (
-        <div ref={frameRef} className="mt-4 overflow-hidden">
+        <div ref={frameRef} className="mt-5 overflow-hidden pb-1">
           <ul
-            className="flex items-center"
+            className="flex items-end"
             style={{
               gap,
-              transform:
-                slide > 0 ? `translateX(-${index * (slide + gap)}px)` : undefined,
+              transform: widths.length ? `translateX(-${shift}px)` : undefined,
               transition: animate ? `transform ${TRANSITION_MS}ms ease` : "none",
             }}
             onTransitionEnd={onTransitionEnd}
           >
             {loop.map((brand, itemIndex) => (
               <li
-                key={`${brand.src}-${itemIndex}`}
+                key={`${brand.id}-${itemIndex}`}
+                ref={(el) => {
+                  itemsRef.current[itemIndex] = el;
+                }}
                 aria-hidden={itemIndex >= brands.length ? true : undefined}
-                className="flex h-7 shrink-0 items-center justify-center sm:h-9"
-                style={{ width: slide > 0 ? slide : undefined }}
+                className="flex shrink-0 items-end"
               >
-                <Logo name={brand.name} src={brand.src} crop={brand.crop} />
+                <Mark brand={brand} />
               </li>
             ))}
           </ul>

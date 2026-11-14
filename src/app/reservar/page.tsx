@@ -6,8 +6,8 @@ import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import BookingWizard from "~/components/BookingWizard";
 import WhatsAppLink from "~/components/WhatsAppLink";
-import { bookingCopy, bookingWhatsAppHref } from "~/data/content";
-import { attendNeighbors, supportSeo } from "~/data/seo-copy";
+import { bookingWhatsAppHref, freeConsult, site } from "~/data/content";
+import { supportSeo } from "~/data/seo-copy";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
@@ -32,27 +32,21 @@ export default function ReservarPage() {
           { label: "Reservar cita" },
         ]}
       />
-      <PageHero
-        title={bookingCopy.title}
-        subtitle={bookingCopy.callFormLead}
-      >
+      <PageHero eyebrow={freeConsult.eyebrow} title={freeConsult.title} subtitle={freeConsult.subtitle}>
         <p className="body-copy mt-4 max-w-2xl text-base leading-relaxed text-ink-700">
-          {attendNeighbors}
+          {site.address}
         </p>
       </PageHero>
       <section className="container-x">
         <div className="mx-auto flex max-w-md flex-col items-center rounded-3xl border border-gold/40 bg-white px-6 py-8 text-center shadow-soft">
-          <p className="font-serif text-xl text-ink-900">
-            Reserva más rápido por WhatsApp
-          </p>
           <WhatsAppLink
             href={bookingWhatsAppHref()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary mt-5"
+            className="btn-primary uppercase tracking-[0.12em]"
             linkLocation="booking"
           >
-            Reservar por WhatsApp
+            {freeConsult.whatsappCta}
           </WhatsAppLink>
         </div>
       </section>

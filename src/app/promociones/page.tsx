@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
-import { catalogDisclaimer, promos, site } from "~/data/content";
+import WhatsAppLink from "~/components/WhatsAppLink";
+import { bookingWhatsAppHref, catalogDisclaimer, promoPage, site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Promociones",
-  description: `Promoción publicada por ${site.brand}: toxina botulínica facial 2x1 para los primeros 50 clientes, a S/ 1,300.`,
+  description: `Promociones de ${site.brand}: 2x1 en toxina botulínica facial para los primeros 50 pacientes, previa evaluación médica.`,
   alternates: { canonical: `${getSiteUrl()}/promociones` },
   openGraph: {
     title: `Promociones | ${site.brand}`,
-    description: "Toxina botulínica facial 2x1 para los primeros 50 clientes.",
+    description:
+      "2x1 en toxina botulínica facial para los primeros 50 pacientes, previa evaluación médica.",
     url: `${getSiteUrl()}/promociones`,
   },
 };
@@ -31,47 +32,35 @@ export default function PromocionesPage() {
         ]}
       />
       <PageHero
-        eyebrow="Promociones"
-        title="Lo que está publicado"
-        subtitle="No hay paquetes ni descuentos de ejemplo. La única promoción del listado es la toxina botulínica facial."
+        eyebrow={promoPage.eyebrow}
+        title={promoPage.title}
+        subtitle={promoPage.intro}
       />
 
       <section className="section pt-4">
         <div className="container-x">
-          <ul className="grid gap-6 md:grid-cols-2">
-            {promos.map((p) => (
-              <li key={p.title}>
-                <article className="relative h-full overflow-hidden rounded-2xl bg-ink-900 p-6 text-cream-50 shadow-soft">
-                  <span className="relative inline-flex rounded-full bg-gold px-3 py-1 text-xs uppercase tracking-wider text-ink-900">
-                    {p.tag}
-                  </span>
-                  <h2 className="heading relative mt-4 font-serif text-2xl leading-snug">{p.title}</h2>
-                  {p.priceNow && (
-                    <p className="price relative mt-3 text-3xl text-gold">{p.priceNow}</p>
-                  )}
-                  {p.sessionInfo && (
-                    <p className="relative mt-2 text-xs uppercase tracking-wider text-cream-100/70">
-                      {p.sessionInfo}
-                    </p>
-                  )}
-                  <p className="relative mt-3 body-copy text-sm leading-relaxed text-cream-100/85">
-                    {p.description}
-                  </p>
-                  <div className="relative mt-6">
-                    <Link href={p.href} className="btn-rose">
-                      {p.cta}
-                    </Link>
-                  </div>
-                </article>
-              </li>
-            ))}
-          </ul>
+          <article className="max-w-xl rounded-2xl bg-ink-900 p-6 text-cream-50 shadow-soft sm:p-8">
+            <p className="text-xs uppercase tracking-[0.16em] text-gold">{promoPage.badge}</p>
+            <h2 className="heading mt-4 font-serif text-2xl leading-snug sm:text-3xl">
+              {promoPage.offerTitle}
+            </h2>
+            <div className="mt-4 space-y-2 text-sm leading-relaxed text-cream-100/90">
+              {promoPage.lines.map((line) => (
+                <p key={line}>{line}</p>
+              ))}
+            </div>
+            <WhatsAppLink
+              href={bookingWhatsAppHref()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-rose mt-6 uppercase tracking-[0.12em]"
+              linkLocation="promociones"
+            >
+              {promoPage.cta}
+            </WhatsAppLink>
+          </article>
 
           <p className="mt-10 max-w-2xl text-sm text-ink-700">{catalogDisclaimer}</p>
-          <p className="mt-3 max-w-2xl text-sm text-ink-700">
-            La política de reembolso del 10% con el que se separan algunas citas
-            aún no está publicada.
-          </p>
         </div>
       </section>
 

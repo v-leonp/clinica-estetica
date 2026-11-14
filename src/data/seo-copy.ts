@@ -40,44 +40,6 @@ export const homeSeo = {
   h1: "Medicina estética en San Miguel",
   h2Location: "Cómo llegar a San Miguel",
   body: "El consultorio de la Dra. Melissa Vigo, médico cirujano (CMP 101245), está en Calle Manuel Pérez Oblitas 190, San Miguel, Lima, a pocos minutos de Magdalena del Mar y Pueblo Libre. En consulta se valoran opciones como toxina botulínica, ácido hialurónico, limpieza facial, cuidado de manchas y depilación, cuando están indicadas.",
-  whatsappCta:
-    "Escríbenos por WhatsApp para coordinar tu valoración en San Miguel",
-  faqs: [
-    {
-      q: "¿Dónde está el consultorio de medicina estética?",
-      a: "En Calle Manuel Pérez Oblitas 190, San Miguel, Lima, referencia cuadra 10 de la Av. La Marina, a pocos minutos de Magdalena del Mar y Pueblo Libre.",
-    },
-    {
-      q: "¿Qué tratamientos faciales se ofrecen?",
-      a: "En el catálogo hay toxina botulínica, ácido hialurónico, limpieza facial, cuidado de manchas y depilación, cuando están indicadas.",
-    },
-    {
-      q: "¿Atienden personas que viven en Magdalena del Mar o Pueblo Libre?",
-      a: "Sí. Se atienden en el consultorio de San Miguel, que queda a pocos minutos.",
-    },
-  ] satisfies FAQ[],
-  links: [
-    { href: tratamientos, label: "Tratamientos faciales en San Miguel" },
-    {
-      href: `${facial}/toxina-botulinica-facial`,
-      label: "Toxina botulínica (bótox) en San Miguel",
-    },
-    { href: facial, label: "Ácido hialurónico en San Miguel" },
-    {
-      href: `${piel}/limpieza-facial-profunda`,
-      label: "Limpieza facial profunda en San Miguel",
-    },
-    {
-      href: `${piel}/despigmentante`,
-      label: "Tratamiento facial para manchas en San Miguel",
-    },
-    {
-      href: `${laser}/depilacion-ipl-o-diodo`,
-      label: "Depilación IPL o diodo en San Miguel",
-    },
-    { href: "/nosotros", label: "Dra. Melissa Vigo" },
-    { href: reservar, label: "Reservar cita" },
-  ] satisfies InternalLink[],
 };
 
 export const tratamientosSeo = {
@@ -272,7 +234,7 @@ export const treatmentSeo: Record<string, TreatmentSeo> = {
     links: [
       hubLink,
       { href: tratamientos, label: "Tratamientos faciales en San Miguel" },
-      { href: "/promociones", label: "Promoción publicada" },
+      { href: "/promociones", label: "Promociones para ti" },
       { href: reservar, label: "Reservar cita" },
       { href: "/nosotros", label: "Dra. Melissa Vigo" },
     ],

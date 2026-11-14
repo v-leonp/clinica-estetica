@@ -10,7 +10,7 @@ import CategoryIcon from "~/components/CategoryIcon";
 import ClinicPhoto from "~/components/ClinicPhoto";
 import WhatsAppLink from "~/components/WhatsAppLink";
 import { RelatedLinks, VisibleFaq, WhatsAppCta } from "~/components/VisibleFaq";
-import { photoForCategory } from "~/data/clinic-photos";
+import { photoForTreatment } from "~/data/clinic-photos";
 import {
   bookingWhatsAppHref,
   catalogCardWhatsAppHref,
@@ -165,9 +165,9 @@ function TreatmentGrid({
               href={`/tratamientos/${categorySlug}/${t.slug}`}
               className="group block"
             >
-              {photoForCategory(categorySlug) && (
+              {photoForTreatment(t.slug, categorySlug) && (
                 <ClinicPhoto
-                  photo={photoForCategory(categorySlug)!}
+                  photo={photoForTreatment(t.slug, categorySlug)!}
                   sizes="(max-width: 640px) 100vw, 50vw"
                   className="mb-5 rounded-xl"
                 />
@@ -177,7 +177,7 @@ function TreatmentGrid({
               </h3>
             </Link>
             <p className="body-copy mt-2 flex-1 text-sm leading-relaxed text-ink-700">
-              {t.short}
+              {t.cardText}
             </p>
             <dl className="mt-4 grid grid-cols-2 gap-2 text-xs text-ink-500">
               <div>

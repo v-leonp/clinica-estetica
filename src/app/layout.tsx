@@ -3,13 +3,12 @@ import "~/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Cormorant_Garamond } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import CookieConsent from "~/components/CookieConsent";
 import { site } from "~/data/content";
 import { getSiteUrl } from "~/lib/site-url";
-
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID || "G-M8QMNVJ4GC";
 
 /**
  * Títulos: Nexa Bold. Cuerpo: Nexa Light. Licencia Fontfabric (free fonts)
@@ -104,8 +103,11 @@ export default function RootLayout({
       className={`${nexaBold.variable} ${nexaLight.variable} ${subtitle.variable}`}
     >
       <body>
+        <Script id="ga-consent-default" strategy="beforeInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});`}
+        </Script>
         <TRPCReactProvider>{children}</TRPCReactProvider>
-        <GoogleAnalytics gaId={gaMeasurementId} />
+        <CookieConsent />
       </body>
     </html>
   );

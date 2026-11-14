@@ -12,12 +12,12 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Sedes",
-  description: `Consultorio de ${site.brand} en ${site.address ?? "San Miguel, Lima"}.`,
+  description: `Consultorio de ${site.brand} en ${site.address}.`,
   robots: { index: false, follow: true },
   alternates: { canonical: `${getSiteUrl()}/sedes` },
   openGraph: {
     title: `Sedes | ${site.brand}`,
-    description: "Dirección y horario por confirmar.",
+    description: `Consultorio en ${site.address}.`,
     url: `${getSiteUrl()}/sedes`,
   },
 };
@@ -34,11 +34,7 @@ export default function SedesPage() {
       <PageHero
         eyebrow="Sedes"
         title={locations[0]?.name ?? "Consultorio San Miguel"}
-        subtitle={
-          site.address
-            ? `${site.address}. ${site.addressReference ?? ""} Horario por confirmar.`
-            : "Horario por confirmar."
-        }
+        subtitle={`${site.address}. ${site.addressReference ?? ""}`}
       />
 
       <section className="section pt-4">
@@ -59,7 +55,6 @@ export default function SedesPage() {
               >
                 Escríbenos por WhatsApp
               </WhatsAppLink>
-              <p className="mt-3 text-xs text-gold-ink">{site.whatsappNote}</p>
             </article>
           ) : (
             <ul className="grid gap-8 lg:grid-cols-3">
@@ -68,7 +63,6 @@ export default function SedesPage() {
                   <article className="card">
                     <h2 className="heading font-serif text-xl text-ink-900">{l.name}</h2>
                     <p className="mt-2 text-sm text-ink-700">{l.address}</p>
-                    <p className="mt-2 text-sm text-ink-700">{l.hours}</p>
                   </article>
                 </li>
               ))}
