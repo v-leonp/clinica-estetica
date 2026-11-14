@@ -1,10 +1,10 @@
 # Dra. Melissa Vigo – Médico Estético
 
 Sitio de la práctica de medicina estética de la **Dra. Melissa Vigo**,
-médico cirujano (CMP 101245), en Lima, Perú. El consultorio **aún no abre**:
-el catálogo y la identidad de marca son reales; sede, horario, razón social,
-RUC y canales oficiales que no están confirmados no se publican como si lo
-estuvieran.
+médico cirujano (CMP 101245), en San Miguel, Lima, Perú. El consultorio
+**está abierto** en Calle Manuel Pérez Oblitas 190. El contacto público es
+WhatsApp `+51 998 398 995` (`wa.me/51998398995`). El sitio no publica correo,
+horario de atención ni datos societarios.
 
 Construido con [create-t3-app](https://create.t3.gg/):
 
@@ -12,7 +12,7 @@ Construido con [create-t3-app](https://create.t3.gg/):
 - **Tailwind CSS v4**
 - **tRPC v11** para la mutación del formulario de contacto (sin batching,
   con `httpLink`)
-- **Prisma** (SQLite por defecto, Postgres/Neon en producción). Las
+- **Prisma** con **PostgreSQL** (Neon, Vercel Postgres u otro Postgres). Las
   migraciones se versionan en `prisma/migrations/`
 - **Zod** para validación de inputs
 - **Upstash Ratelimit** (opcional, con fallback en memoria) para proteger
@@ -44,27 +44,25 @@ Tipografía:
   (OFL, Google Fonts) como cursiva humanista. Para volver a Gabriola hace
   falta comprar licencia web y cambiar la fuente en `src/app/layout.tsx`.
 
-Logotipo en cabecera y pie (`public/brand/logo-dra-melissa-vigo.png`).
-Isotipo del loto VR como favicon (`public/favicon.svg`) y dentro de la imagen
-Open Graph (`public/og.png`).
+Logotipo en la cabecera (`public/brand/logo-dra-melissa-vigo.png`). El pie no
+lleva logotipo. Isotipo del loto VR como favicon (`public/favicon.svg`) y
+dentro de la imagen Open Graph (`public/og.png`).
 
-## Datos pendientes del consultorio
+## Datos del consultorio
 
-No inventar estos datos en el sitio. Hoy se ocultan o se dice “Próximamente”
-/ “Escríbenos por WhatsApp”:
+Publicados:
 
-- Dirección y sedes
-- Horario
-- Razón social y RUC
-- Teléfono y correo
-- Redes sociales
-- Testimonios con autorización
-- Biografía extendida de la doctora (la fotografía del consultorio ya está publicada)
-- Política de cancelación
-- Reembolso del 10% con el que se separan algunas citas
+- Dirección: Calle Manuel Pérez Oblitas 190, San Miguel, Lima
+- WhatsApp y teléfono de contacto: `+51 998 398 995`
+  (`whatsappContact` en `src/data/content.ts`, única copia del número)
+- Redes: Facebook, Instagram y TikTok de `dra.melissavigor` / `@dra.melissavigo`
+
+No se publican correo, horario de atención ni datos de la empresa. Siguen
+sin texto propio, y no hay que inventarlos:
+
+- Política de cancelación y reembolso del 10%
 - Medios de pago
-- Confirmación del WhatsApp `+51 981 237 361`
-  (`WHATSAPP_PENDIENTE_DE_CONFIRMAR` en `src/data/content.ts`, única copia del número)
+- Testimonios con autorización
 
 > **Accesibilidad:** verificamos ausencia de violaciones de contraste y de
 > ARIA críticos en las páginas principales con axe-core. Siempre revisa con
@@ -133,7 +131,10 @@ sedes, textos del hero y badges — vive en
 - Node.js **≥ 20** (declarado en `engines`)
 - npm **≥ 10**
 
-## Setup local (SQLite)
+## Setup local (PostgreSQL)
+
+Hace falta un Postgres accesible. En local puede ser Docker, Neon o cualquier
+instancia con una base vacía.
 
 ```bash
 # 1. Instalar dependencias
@@ -141,11 +142,11 @@ npm install
 
 # 2. Variables de entorno
 cp .env.example .env
-# .env trae DATABASE_URL="file:./db.sqlite" para desarrollo.
+# Edita DATABASE_URL con una URL postgresql://…
 # NEXT_PUBLIC_SITE_URL es opcional en local; se usa http://localhost:3000.
 # UPSTASH_* son opcionales; sin ellas el rate limit corre en memoria.
 
-# 3. Aplicar las migraciones (crea prisma/db.sqlite)
+# 3. Aplicar las migraciones
 npm run db:migrate       # alias de `prisma migrate deploy`
 
 # 4. Levantar el entorno de desarrollo
@@ -200,7 +201,7 @@ page.tsx define el suyo para que el 404 no herede uno.
 Todo en [`src/data/content.ts`](src/data/content.ts):
 
 - `site`, `nav`, `hero`, `trustBadges`, `freeConsult`
-- `WHATSAPP_PENDIENTE_DE_CONFIRMAR` (único número de WhatsApp)
+- `whatsappContact` (único número de WhatsApp)
 - `categoriesFull`, `allTreatments`, `getCategory`, `getTreatment`
 - `featured`, `promos`, `doctors`, `technology`, `testimonials`, `locations`
 - `allowedTratamientos`, `allowedSedes` (usados por los `z.enum` del backend)
@@ -250,24 +251,17 @@ El formulario `POST /api/trpc/contact.createLead` se protege en varias capas:
 
 ---
 
-## Base de datos: SQLite ↔ Postgres (Neon)
+## Base de datos: PostgreSQL
 
-El scaffold usa **SQLite** por defecto para desarrollo. Para producción se
-recomienda **Postgres** (p. ej. [Neon](https://neon.tech),
-[Vercel Postgres](https://vercel.com/storage/postgres) o
-[Supabase](https://supabase.com)).
+El proyecto usa **PostgreSQL** (`prisma/schema.prisma`). Sirve Neon,
+Vercel Postgres o Supabase. `DATABASE_URL` tiene que ser una URL
+`postgresql://…`.
 
-### Cambiar a Postgres
+En producción se corre `npm run db:migrate` (`prisma migrate deploy`), que es
+lo que hace `npm run vercel-build` antes de `next build`.
 
-1. En `prisma/schema.prisma` cambia el provider a `postgresql`.
-2. Pon `DATABASE_URL` apuntando a tu Postgres.
-3. Borra `prisma/migrations/` **o** mantenlas: si cambias de provider conviene
-   generar una migración inicial fresca con
-   `npx prisma migrate dev --name init_pg`. En producción se corre
-   `npm run db:migrate` (`prisma migrate deploy`).
-
-SQLite **no** funciona en el filesystem efímero de Vercel. Cualquier entorno
-hosteado necesita Postgres u otra base persistente.
+SQLite no está soportado: el provider del schema es `postgresql` y el
+filesystem de Vercel no serviría para un archivo local.
 
 ---
 
@@ -277,7 +271,7 @@ Ver `.env.example`.
 
 | Variable                  | Requerida | Descripción                                                              |
 | ------------------------- | --------- | ------------------------------------------------------------------------ |
-| `DATABASE_URL`            | ✅        | `file:./db.sqlite` en dev, Postgres URL en prod                          |
+| `DATABASE_URL`            | ✅        | URL `postgresql://…` en local y en producción                            |
 | `NEXT_PUBLIC_SITE_URL`    | prod*     | Origen canónico (`https://...`) usado por metadata, sitemap y robots     |
 | `UPSTASH_REDIS_REST_URL`  | opcional  | Si está, activa Upstash para rate limit distribuido                      |
 | `UPSTASH_REDIS_REST_TOKEN`| opcional  | Pareja de la anterior                                                    |

@@ -186,17 +186,11 @@ export default function ContactForm() {
               >
                 {site.whatsappDisplay}
               </a>
-              <p className="mt-1 text-xs text-gold-ink">{site.whatsappNote}</p>
             </li>
             <li>
               <span className="text-ink-500">Dirección: </span>
-              <span className="text-ink-900">
-                {site.address ?? "Próximamente. El consultorio aún no abre en Lima."}
-              </span>
+              <span className="text-ink-900">{site.address}</span>
             </li>
-            {!site.email && !site.phoneDisplay && (
-              <li className="text-ink-500">Teléfono y correo: próximamente.</li>
-            )}
           </ul>
         </div>
 

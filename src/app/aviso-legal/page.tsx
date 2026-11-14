@@ -26,15 +26,14 @@ export default function AvisoLegalPage() {
       <PageHero
         eyebrow="Legal"
         title="Aviso legal"
-        subtitle="La razón social y el RUC aún no están publicados."
+        subtitle={`Consultorio en ${site.address}.`}
       />
       <section className="section pt-4">
         <LegalProse>
           <p>
             Este sitio corresponde a la práctica de la Dra. Melissa Vigo, médico
             cirujano (CMP 101245), medicina estética, en {site.legal.jurisdiction}.
-            La razón social, el RUC y el domicilio fiscal se publicarán cuando la
-            consultorio los confirme.
+            El consultorio está en {site.address}.
           </p>
           <p>
             El contenido tiene fines informativos. No constituye consejo médico ni

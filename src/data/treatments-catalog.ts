@@ -5,6 +5,8 @@ export type FAQ = { q: string; a: string };
 export type Treatment = {
   slug: string;
   name: string;
+  /** Texto de la tarjeta. No reemplaza `short`, que sigue usándose como meta. */
+  cardText: string;
   short: string;
   long: string;
   benefits: string[];
@@ -51,7 +53,7 @@ function faqs(extra: FAQ[] = []): FAQ[] {
     },
     {
       q: "¿Hace falta valoración previa?",
-      a: "Sí. En la consulta, la doctora revisa tus necesidades, explica el procedimiento recomendado y confirma si es adecuado para ti.",
+      a: "Sí. Recibe una evaluación personalizada según tus necesidades y objetivos. En la consulta se explica el procedimiento recomendado y se confirma si es adecuado.",
     },
   ];
 }
@@ -68,6 +70,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "toxina-botulinica-facial",
         name: "Toxina botulínica facial",
+        cardText:
+          "Suaviza la apariencia de las líneas de expresión y ayuda a conseguir un rostro más relajado, fresco y natural.",
         short:
           "Evaluación de las líneas de expresión y, si está indicado, inyecciones en músculos seleccionados. El precio ya incluye la promoción 2x1 para los primeros 50 clientes.",
         long: `La doctora evalúa las líneas de expresión y, si está indicado, aplica pequeñas inyecciones en músculos seleccionados para suavizar su movimiento. El efecto del producto tarda en promedio 15 días. Promoción: los primeros 50 clientes obtienen 2x1. El precio de S/ 1,300 ya incluye esa promoción. ${SEPARA}`,
@@ -91,6 +95,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "acido-hialuronico-rinomodelacion-y-menton",
         name: "Ácido hialurónico: rinomodelación y mentón",
+        cardText:
+          "Armoniza tu perfil facial mediante técnicas de ácido hialurónico, respetando tus proporciones naturales.",
         short:
           "Relleno en puntos seleccionados de nariz o mentón, tras valorar el perfil facial. El efecto del producto es inmediato.",
         long: `Tras valorar el perfil facial, se puede aplicar relleno en puntos seleccionados de nariz o mentón para mejorar contorno y proporción según el procedimiento. El efecto del producto es inmediato. ${SEPARA}`,
@@ -109,6 +115,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "acido-hialuronico-labios",
         name: "Ácido hialurónico: labios",
+        cardText:
+          "Define, hidrata y aporta volumen a tus labios de manera equilibrada y personalizada.",
         short:
           "Conversación sobre el resultado deseado, evaluación de proporciones y relleno para definir o aportar volumen.",
         long: `La doctora conversa sobre el resultado deseado, evalúa proporciones y aplica el relleno para definir o aportar volumen de forma personalizada. ${SEPARA}`,
@@ -127,6 +135,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "marcaje-mandibular",
         name: "Marcaje mandibular con ácido hialurónico",
+        cardText:
+          "Realza la definición del contorno mandibular y favorece un perfil facial más armónico.",
         short:
           "Revisión del contorno facial y relleno en zonas seleccionadas de la mandíbula para mejorar su definición.",
         long: "Se revisa el contorno facial y se aplica relleno en zonas seleccionadas de la mandíbula para mejorar su definición.",
@@ -143,6 +153,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "hidratacion-profunda-acido-hialuronico",
         name: "Hidratación profunda con ácido hialurónico",
+        cardText:
+          "Mejora la hidratación de tu piel y recupera una apariencia más fresca, suave y luminosa.",
         short:
           "Valoración de la piel y pequeñas cantidades de producto en las zonas indicadas para hidratación y aspecto.",
         long: "Se valora la piel y se aplican pequeñas cantidades de producto en zonas indicadas para mejorar hidratación y aspecto de la piel.",
@@ -160,6 +172,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "puntos-de-anclaje",
         name: "Puntos de anclaje con ácido hialurónico",
+        cardText:
+          "Técnica de soporte facial orientada a mejorar la armonía y definición del rostro.",
         short:
           "Evaluación del soporte facial y producto en puntos seleccionados para dar apoyo y armonizar el contorno.",
         long: "La doctora evalúa el soporte facial y aplica producto en puntos seleccionados para dar apoyo y armonizar el contorno.",
@@ -177,6 +191,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "bioestimulador-de-colageno",
         name: "Bioestimulador de colágeno",
+        cardText:
+          "Estimula progresivamente la producción de colágeno para mejorar la firmeza y calidad de la piel.",
         short:
           "Tras evaluar la piel y el objetivo, aplicación en las zonas indicadas para una respuesta gradual de colágeno.",
         long: "Luego de evaluar la piel y el objetivo, se aplica el producto en las zonas indicadas para estimular una respuesta gradual de colágeno.",
@@ -194,6 +210,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "skinbooster",
         name: "Skinbooster",
+        cardText:
+          "Aporta hidratación y mejora la textura y luminosidad de la piel.",
         short:
           "Aplicaciones superficiales y distribuidas para hidratar la piel y mejorar su aspecto. Producto e indicación se definen en consulta.",
         long: "Se realizan aplicaciones superficiales y distribuidas para hidratar la piel y mejorar su aspecto. La indicación y el producto se definen en consulta.",
@@ -221,6 +239,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "limpieza-facial-profunda",
         name: "Limpieza facial profunda",
+        cardText:
+          "Elimina impurezas y ayuda a mantener una piel más limpia, fresca y saludable.",
         short:
           "Limpieza de la piel, exfoliación y extracción cuando corresponda, con productos calmantes e hidratantes.",
         long: "Se limpia la piel, se realiza exfoliación y extracción cuando corresponda, y se aplican productos calmantes e hidratantes.",
@@ -238,6 +258,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "peeling-enzimatico",
         name: "Peeling enzimático",
+        cardText:
+          "Renueva suavemente la superficie de la piel y favorece una textura más uniforme y luminosa.",
         short:
           "Limpieza de la piel, producto enzimático por el tiempo indicado, retiro y productos de cuidado.",
         long: "Se limpia la piel y se aplica un producto enzimático por el tiempo indicado; luego se retira y se colocan productos de cuidado.",
@@ -255,6 +277,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "despigmentante",
         name: "Despigmentante",
+        cardText:
+          "Atención personalizada para mejorar la apariencia de manchas y unificar el tono de la piel.",
         short:
           "Evaluación de la mancha y del tipo de piel. El protocolo puede incluir productos tópicos o tecnología, según indicación. Incluye mesoterapia.",
         long: "Se evalúa la mancha y el tipo de piel; el protocolo puede incluir productos tópicos o tecnología, según indicación. Incluye mesoterapia.",
@@ -271,6 +295,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "retiro-de-lesiones",
         name: "Retiro de acrocordones, verrugas, lunares o manchas pigmentadas",
+        cardText:
+          "Evaluación médica de lesiones de la piel para determinar el tratamiento más adecuado.",
         short:
           "Examen de la lesión para ver si puede tratarse en consulta o si requiere evaluación adicional. Láser con anestesia local.",
         long: "Primero se examina la lesión para determinar si puede tratarse en consulta o requiere evaluación adicional. El método depende del diagnóstico. En el listado figura láser con anestesia local.",
@@ -302,6 +328,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "enzimas-recombinantes-corporales",
         name: "Enzimas recombinantes corporales",
+        cardText:
+          "Tratamiento corporal personalizado según las características de la zona y los objetivos de cada paciente.",
         short:
           "Evaluación de la zona y del objetivo. Si es apropiado, aplicación del producto y explicación del seguimiento.",
         long: "Se evalúa la zona y el objetivo. Si es apropiado, la doctora aplica el producto en el área indicada y explica el seguimiento.",
@@ -319,6 +347,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "estrias-dermapen",
         name: "Tratamiento de estrías con Dermapen por zonas",
+        cardText:
+          "Favorece la renovación cutánea para mejorar progresivamente la apariencia y textura de las estrías.",
         short:
           "Limpieza de la zona, microcanales controlados con Dermapen, productos indicados y cuidados posteriores. Estrías hipertróficas e hipotróficas.",
         long: "Se limpia la zona y se realizan microcanales controlados con Dermapen; después se aplican productos indicados y cuidados posteriores. Aplica a estrías hipertróficas e hipotróficas.",
@@ -341,6 +371,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "estrias-fibroblast",
         name: "Tratamiento de estrías con Fibroblast por zonas",
+        cardText:
+          "Procedimiento dirigido a mejorar la apariencia de determinadas estrías, previa evaluación médica.",
         short:
           "Evaluación de la zona y procedimiento con equipo de plasma superficial si la doctora confirma que es adecuado.",
         long: "Se evalúa la zona y se realiza el procedimiento con equipo de plasma superficial si la doctora confirma que es adecuado. La técnica indicada es Fibroblast; el equipo y la marca concreta no están especificados en el listado.",
@@ -368,6 +400,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "atenuacion-de-tatuajes-nd-yag",
         name: "Atenuación de tatuajes con láser ND:YAG por zona",
+        cardText:
+          "Tecnología láser que ayuda a disminuir progresivamente la visibilidad de tatuajes en sesiones personalizadas.",
         short:
           "Protección de la piel y láser sobre la zona del tatuaje. Tamaño máximo de 5 centímetros. Sesiones y respuesta según valoración.",
         long: "Se protege la piel y se dirige el láser a la zona del tatuaje. El número de sesiones y la respuesta dependen de la valoración. El listado considera un tamaño máximo de 5 centímetros. El equipo y la marca del láser no están especificados.",
@@ -389,6 +423,8 @@ export const categoriesFull: Category[] = [
       {
         slug: "depilacion-ipl-o-diodo",
         name: "Depilación IPL o diodo, por zona",
+        cardText:
+          "Reduce progresivamente el crecimiento del vello para disfrutar de una piel más suave.",
         short:
           "Limpieza, protección y aplicación de IPL o diodo en la zona acordada. Incluye depilación facial (bozo, patillas y zona mandibular) y zona bikini anterior.",
         long: "Se limpia y protege el área; se aplica IPL o diodo en la zona acordada para reducir progresivamente el vello. Incluye depilación facial (bozo, patillas y zona mandibular) y depilación de zona bikini (zona anterior).",

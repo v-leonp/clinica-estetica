@@ -54,6 +54,9 @@ export default function NosotrosPage() {
         <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
             <h2 className="heading font-serif text-2xl text-ink-900">{doctorProfile.name}</h2>
+            <blockquote className="credential normal-case mt-4 text-xl text-ink-900 sm:text-2xl">
+              “{doctorProfile.quote}”
+            </blockquote>
             <div className="mt-6 space-y-4">
               <p className="text-base leading-relaxed text-ink-700">
                 <Emphasis>{doctorProfile.lead}</Emphasis>
@@ -73,7 +76,7 @@ export default function NosotrosPage() {
                 ))}
               </ul>
               <p className="body-copy text-base leading-relaxed text-ink-700">
-                Es un consultorio en {site.address}, Lima. {attendNeighbors}
+                Es un consultorio en {site.address}. {attendNeighbors}
               </p>
               <p className="body-copy text-base leading-relaxed text-ink-700">
                 {doctorProfile.closing.before}

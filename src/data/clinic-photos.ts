@@ -58,6 +58,51 @@ export const clinicPhotos = {
     alt: "Tratamiento con Dermapen en el brazo, sobre estrías.",
     ratio: "landscape",
   },
+  labiosTratamiento: {
+    src: "/fotos/tratamientos/acido-hialuronico-labios.webp",
+    alt: "Aplicación de ácido hialurónico en los labios, con guantes y jeringa, durante una consulta.",
+    ratio: "landscape",
+  },
+  rinomodelacion: {
+    src: "/fotos/tratamientos/rinomodelacion-menton.webp",
+    alt: "Valoración del perfil de nariz y mentón en camilla, con guantes, antes de una rinomodelación.",
+    ratio: "landscape",
+  },
+  toxinaFacial: {
+    src: "/fotos/tratamientos/toxina-botulinica-facial.webp",
+    alt: "Aplicación de toxina botulínica en la frente, con guantes, durante una consulta facial.",
+    ratio: "landscape",
+  },
+  limpiezaProfunda: {
+    src: "/fotos/tratamientos/limpieza-facial-profunda.webp",
+    alt: "Limpieza facial profunda: se retira un producto de la mejilla con una gasa.",
+    ratio: "landscape",
+  },
+  peelingEnzimatico: {
+    src: "/fotos/tratamientos/peeling-enzimatico.webp",
+    alt: "Aplicación de un peeling con brocha sobre el rostro, en consulta.",
+    ratio: "landscape",
+  },
+  depilacionIpl: {
+    src: "/fotos/tratamientos/depilacion-ipl-diodo.webp",
+    alt: "Depilación con luz en la axila. Profesional y paciente usan protección ocular.",
+    ratio: "landscape",
+  },
+  enzimasCorporales: {
+    src: "/fotos/tratamientos/enzimas-recombinantes-corporales.webp",
+    alt: "Aplicación de un tratamiento corporal con jeringa en el abdomen, con guantes.",
+    ratio: "landscape",
+  },
+  estriasDermapen: {
+    src: "/fotos/tratamientos/estrias-dermapen.webp",
+    alt: "Tratamiento de estrías en el abdomen con un dispositivo tipo Dermapen.",
+    ratio: "landscape",
+  },
+  estriasFibroblast: {
+    src: "/fotos/tratamientos/estrias-fibroblast.webp",
+    alt: "Tratamiento de estrías en el brazo con un dispositivo de plasma superficial.",
+    ratio: "landscape",
+  },
 } as const satisfies Record<string, ClinicPhoto>;
 
 const categoryPhoto: Record<string, ClinicPhoto> = {
@@ -68,14 +113,15 @@ const categoryPhoto: Record<string, ClinicPhoto> = {
 };
 
 const treatmentPhoto: Record<string, ClinicPhoto> = {
-  "toxina-botulinica-facial": clinicPhotos.frente,
-  "acido-hialuronico-labios": clinicPhotos.labios,
-  "acido-hialuronico-rinomodelacion-y-menton": clinicPhotos.perfilNariz,
-  "limpieza-facial-profunda": clinicPhotos.mascarilla,
-  "enzimas-recombinantes-corporales": clinicPhotos.consultaBrazo,
-  "depilacion-ipl-o-diodo": clinicPhotos.laserMandibula,
-  "estrias-dermapen": clinicPhotos.dermapen,
-  "estrias-fibroblast": clinicPhotos.dermapen,
+  "toxina-botulinica-facial": clinicPhotos.toxinaFacial,
+  "acido-hialuronico-labios": clinicPhotos.labiosTratamiento,
+  "acido-hialuronico-rinomodelacion-y-menton": clinicPhotos.rinomodelacion,
+  "limpieza-facial-profunda": clinicPhotos.limpiezaProfunda,
+  "peeling-enzimatico": clinicPhotos.peelingEnzimatico,
+  "enzimas-recombinantes-corporales": clinicPhotos.enzimasCorporales,
+  "depilacion-ipl-o-diodo": clinicPhotos.depilacionIpl,
+  "estrias-dermapen": clinicPhotos.estriasDermapen,
+  "estrias-fibroblast": clinicPhotos.estriasFibroblast,
   "atenuacion-de-tatuajes-nd-yag": clinicPhotos.laserTatuaje,
 };
 

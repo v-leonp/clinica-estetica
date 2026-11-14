@@ -52,6 +52,7 @@ export const doctorProfile = {
       text: " Actualizo mis conocimientos y técnicas para incorporar avances que aporten valor al cuidado de mis pacientes.",
     },
   ],
+  quote: "Creo en una medicina estética que realza tu belleza sin perder tu esencia.",
   closing: {
     before: "En este espacio comparto información sobre ",
     emphasis: "medicina estética, cuidado de la piel y bienestar integral",
@@ -60,16 +61,24 @@ export const doctorProfile = {
 } as const;
 
 /**
- * Única fuente del WhatsApp. El número todavía no está confirmado por el
- * consultorio: no lo copies en sedes, componentes ni textos sueltos.
+ * Única fuente del WhatsApp y del teléfono de contacto.
+ * wa.me/51998398995
  */
-export const WHATSAPP_PENDIENTE_DE_CONFIRMAR = {
-  confirmed: false as const,
-  display: "+51 981 237 361",
+export const whatsappContact = {
+  confirmed: true as const,
+  display: "+51 998 398 995",
   /** Dígitos para wa.me, sin + */
-  number: "51981237361",
-  note: "Número pendiente de confirmar por el consultorio.",
-};
+  number: "51998398995",
+} as const;
+
+/** Dirección visible en todo el sitio y base del JSON-LD. */
+export const clinicAddress = {
+  street: "Calle Manuel Pérez Oblitas 190",
+  locality: "San Miguel",
+  region: "Lima",
+  full: "Calle Manuel Pérez Oblitas 190, San Miguel, Lima",
+  reference: "Ref. cuadra 10 de la Av. La Marina",
+} as const;
 
 /** Mensaje de bienvenida del widget (documento cliente, petición 06). */
 export const whatsappWidget = {
@@ -101,17 +110,16 @@ export const site = {
   },
   phoneDisplay: null as string | null,
   phoneHref: null as string | null,
-  whatsappDisplay: WHATSAPP_PENDIENTE_DE_CONFIRMAR.display,
-  whatsappNumber: WHATSAPP_PENDIENTE_DE_CONFIRMAR.number,
-  whatsappNote: WHATSAPP_PENDIENTE_DE_CONFIRMAR.note,
+  whatsappDisplay: whatsappContact.display,
+  whatsappNumber: whatsappContact.number,
   email: null as string | null,
-  address: "Calle Manuel Pérez Oblitas 190, San Miguel",
-  addressReference: "Ref. cuadra 10 de la Av. La Marina",
-  socials: null as {
-    instagram: string;
-    facebook: string;
-    tiktok: string;
-  } | null,
+  address: clinicAddress.full,
+  addressReference: clinicAddress.reference,
+  socials: {
+    facebook: "https://www.facebook.com/dra.melissavigor",
+    instagram: "https://www.instagram.com/dra.melissavigor",
+    tiktok: "https://www.tiktok.com/@dra.melissavigo",
+  },
 };
 
 export const nav: Array<{ label: string; href: string }> = [
@@ -149,55 +157,66 @@ export function bookingWhatsAppHref(): string {
 }
 
 export const hero = {
-  eyebrow: "Medicina estética · Lima",
-  title: homeSeo.h1,
-  /** Bajada: el H1 anterior, para no perder el tono de la marca. */
-  bajada: "Realza tus rasgos con naturalidad",
-  /** Nombre en cursiva, el estilo del subtítulo anterior. Gabriola no tiene licencia web. */
-  name: "Dra. Melissa Vigo Ruiz",
-  credential: "Médico cirujano · CMP 101245",
-  support: "Tratamientos personalizados, previa evaluación médica.",
-  ctaPrimary: { label: "Solicitar cita", href: cta.book.href },
+  /** Visible dentro del H1, junto al titular emocional. */
+  eyebrow: `${homeSeo.h1} · Lima`,
+  title: "Tu belleza natural, nuestra inspiración",
+  support:
+    "Tratamientos estéticos personalizados que combinan ciencia, precisión médica y técnicas avanzadas para realzar tu belleza con armonía y naturalidad.",
+  ctaPrimary: { label: "Agenda tu evaluación", href: cta.book.href },
 };
 
-export const trustBadges = [
-  { title: "Médico cirujano", subtitle: "CMP 101245" },
-  { title: "Una sola profesional", subtitle: "Melissa Vigo" },
-  { title: "Catálogo publicado", subtitle: "17 tratamientos con tiempo publicado" },
-  { title: "Indicación en consulta", subtitle: "Nada se aplica sin valoración" },
-  { title: "San Miguel, Lima", subtitle: "Calle Manuel Pérez Oblitas 190" },
-  {
-    title: "Promoción publicada",
-    subtitle: "Toxina botulínica 2x1, primeros 50 clientes",
-  },
-];
+export const partnerBrands = {
+  heading: "Calidad y confianza en cada tratamiento",
+  text: "Seleccionamos productos de marcas internacionales reconocidas, priorizando su calidad, trazabilidad y respaldo técnico para cada procedimiento.",
+  names: [
+    "NEAUVIA",
+    "Reage",
+    "EXEL",
+    "RADIESSE",
+    "Avalon",
+    "Sciela",
+    "QF",
+    "Lolasting",
+  ],
+} as const;
 
-export const differentialBenefits = [
-  {
-    title: "Una profesional",
-    description:
-      "La atención del catálogo corresponde a la Dra. Melissa Vigo. No hay un equipo adicional publicado.",
-  },
-  {
-    title: "Listado concreto",
-    description:
-      "Tiempos y protocolos salen del documento de la doctora. No hay paquetes ni promociones de ejemplo.",
-  },
-  {
-    title: "Lo que falta, se dice",
-    description:
-      "Horario, razón social, RUC, teléfono, correo y redes se publicarán cuando existan.",
-  },
-] as const;
+export const whyUs = {
+  eyebrow: "¿Por qué elegirnos?",
+  title: "Tu bienestar, nuestra prioridad",
+  subtitle: "Medicina estética con ciencia, precisión y sensibilidad",
+  items: [
+    {
+      title: "Criterio médico",
+      description: "Cada procedimiento parte de una evaluación individual.",
+      icon: "stethoscope",
+    },
+    {
+      title: "Atención personalizada",
+      description: "Escuchamos tus objetivos y respetamos tu esencia.",
+      icon: "heart",
+    },
+    {
+      title: "Calidad y confianza",
+      description: "Priorizamos productos apropiados y protocolos responsables.",
+      icon: "shield",
+    },
+    {
+      title: "Armonía natural",
+      description: "Buscamos resultados equilibrados, sin exageraciones.",
+      icon: "spark",
+    },
+  ],
+} as const;
 
-export const successCases = {
-  title: "Resultados",
-  intro:
-    "Aún no hay casos publicados. Esta sección se activará solo con autorización expresa de cada paciente.",
-  disclaimer:
-    "Los resultados varían según cada persona. No se muestran imágenes comparativas sin consentimiento.",
-  items: [] as Array<{ tag: string; title: string; description: string }>,
-};
+export const doctorIntro = {
+  title: "Medicina estética y cuidado facial",
+  paragraphs: [
+    "Queremos acompañarte a sentirte bien contigo, respetando siempre tu esencia.",
+    "La Dra. Melissa Vigo te escucha y orienta sobre el cuidado de tu piel y tu imagen. En una evaluación presencial conversarán sobre lo que buscas, revisarán tus antecedentes y conocerás las opciones disponibles, sus cuidados y costos antes de decidir. La intención es que te sientas más a gusto y segura contigo misma, sin presiones y a tu propio ritmo.",
+  ],
+  quote: doctorProfile.quote,
+  cta: { label: "Conoce más sobre mí", href: "/nosotros" },
+} as const;
 
 export const allTreatments = categoriesFull.flatMap((c) =>
   c.treatments.map((t) => ({ category: c, treatment: t })),
@@ -225,32 +244,26 @@ export const categories = categoriesFull.map((c) => ({
   icon: c.icon,
 }));
 
-export const promos: Array<{
-  tag: string;
-  title: string;
-  description: string;
-  cta: string;
-  href: string;
-  sessionInfo?: string;
-  priceBefore?: string;
-  priceNow?: string;
-}> = [
-  {
-    tag: "2x1",
-    title: "Toxina botulínica facial",
-    sessionInfo: "15–20 min · primeros 50 clientes",
-    priceNow: "S/ 1,300",
-    description:
-      "Para los primeros 50 clientes, S/ 1,300 ya incluye la promoción 2x1. Si separas la cita con el 10% del procedimiento, la evaluación integral es gratuita. No hay otras promociones publicadas.",
-    cta: "Ver tratamiento",
-    href: "/tratamientos/medicina-estetica-facial/toxina-botulinica-facial",
-  },
-];
+export const promoPage = {
+  eyebrow: "Promociones",
+  title: "Promociones para ti",
+  intro:
+    "Descubre nuestras promociones y comienza a cuidar tu belleza con atención médica personalizada.",
+  badge: "Promoción de lanzamiento",
+  offerTitle: "2x1 en toxina botulínica facial",
+  lines: [
+    "Promoción para los primeros 50 pacientes, previa evaluación médica.",
+    "Zonas: frente, entrecejo, patas de gallo.",
+    "Separa tu cita con el 10% y accede a una evaluación integral gratuita.",
+  ],
+  cta: "Quiero aprovechar la promoción",
+} as const;
 
 export const homeEditorialIntro = {
-  eyebrow: "Tratamientos",
-  title: "Tratamientos de medicina estética",
-  description: "Faciales, corporales, cuidado de la piel y láser.",
+  eyebrow: "Explora nuestros tratamientos",
+  title: "Tratamientos diseñados para ti",
+  description:
+    "Cada piel y cada rostro son únicos. Descubre nuestros tratamientos faciales y corporales, diseñados para cuidar tu piel, armonizar tus rasgos y resaltar tu belleza natural.",
 } as const;
 
 export type TeamMember = {
@@ -281,7 +294,8 @@ export const careProcess = [
   {
     step: "01",
     title: "Valoración",
-    description: "La doctora revisa tus necesidades.",
+    description:
+      "Recibe una evaluación personalizada según tus necesidades y objetivos.",
   },
   {
     step: "02",
@@ -331,8 +345,8 @@ export const globalFAQ: FAQ[] = [
     a: "Los medios de pago aún no están publicados.",
   },
   {
-    q: "¿Dónde quedan y en qué horario atienden?",
-    a: `Consultorio en ${site.address}. ${site.addressReference}. El horario de atención aún no está publicado.`,
+    q: "¿Dónde queda el consultorio?",
+    a: `En ${site.address}. ${site.addressReference}.`,
   },
 ];
 
@@ -354,8 +368,6 @@ export const legalLinks = [
   { label: "Aviso legal", href: "/aviso-legal" },
   { label: "Condiciones de reserva", href: "/condiciones-reserva" },
 ] as const;
-
-export const promosDisclaimer = catalogDisclaimer;
 
 export const technology = [
   {
@@ -380,12 +392,6 @@ export const technology = [
   },
 ];
 
-export const testimonials: Array<{
-  name: string;
-  treatment: string;
-  quote: string;
-}> = [];
-
 export const locations: Array<{
   slug: string;
   name: string;
@@ -394,34 +400,31 @@ export const locations: Array<{
   phoneHref: string;
   whatsapp: string;
   whatsappHref: string;
-  hours: string;
   mapHref: string;
 }> = [
   {
     slug: "san-miguel",
     name: "Consultorio San Miguel",
-    address: "Calle Manuel Pérez Oblitas 190, San Miguel",
+    address: clinicAddress.full,
     phone: site.whatsappDisplay,
     phoneHref: site.whatsappNumber ? `tel:+${site.whatsappNumber}` : "",
     whatsapp: site.whatsappDisplay,
     whatsappHref: `https://wa.me/${site.whatsappNumber}`,
-    hours: "Horario por confirmar",
     mapHref:
       "https://www.google.com/maps/search/?api=1&query=Calle+Manuel+Pérez+Oblitas+190,+San+Miguel,+Lima",
   },
 ];
 
 export const footer = {
-  hours: "Horario por confirmar",
-  hoursNote: "El horario de atención aún no está publicado.",
-  legal: `© ${new Date().getFullYear()} Dra. Melissa Vigo. Medicina estética en San Miguel, Lima. Razón social, RUC y horario pendientes de publicación.`,
+  legal: `© ${new Date().getFullYear()} Dra. Melissa Vigo. Medicina estética en San Miguel, Lima.`,
 };
 
 export const freeConsult = {
-  eyebrow: "Siguiente paso",
-  title: "Reserva tu cita",
+  eyebrow: "Comienza tu experiencia",
+  title: "Tu mejor versión comienza con una decisión",
   subtitle:
-    "La doctora revisa tus necesidades en consulta. Escríbenos por WhatsApp y te respondemos para coordinar tu cita, o déjanos tus datos.",
+    "Descubre cómo podemos ayudarte a realzar tu belleza natural. Agenda tu evaluación y recibe una atención diseñada especialmente para ti.",
+  whatsappCta: "Agenda tu cita por WhatsApp",
 };
 
 const extraTreatmentOptions = [

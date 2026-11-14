@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 
 import SiteShell from "~/components/SiteShell";
+import FreeConsult from "~/components/FreeConsult";
 import HomeVideoHero from "~/components/home/HomeVideoHero";
+import HomeDoctorIntro from "~/components/home/HomeDoctorIntro";
 import HomeTreatmentsCatalog from "~/components/home/HomeTreatmentsCatalog";
-import HomePromoOffers from "~/components/home/HomePromoOffers";
+import HomeWhyUs from "~/components/home/HomeWhyUs";
 import HomeLocation from "~/components/home/HomeLocation";
 import { homeSeo } from "~/data/seo-copy";
-import { faqPageJsonLd, medicalClinicJsonLd } from "~/lib/json-ld";
+import { medicalClinicJsonLd } from "~/lib/json-ld";
 
 export const dynamic = "force-static";
 
@@ -31,18 +33,14 @@ export default function HomePage() {
   return (
     <SiteShell>
       <HomeVideoHero />
+      <HomeDoctorIntro />
       <HomeTreatmentsCatalog />
-      <HomePromoOffers />
+      <HomeWhyUs />
       <HomeLocation />
+      <FreeConsult />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqPageJsonLd(homeSeo.faqs)),
-        }}
       />
     </SiteShell>
   );

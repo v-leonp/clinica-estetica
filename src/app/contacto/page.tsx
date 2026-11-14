@@ -37,7 +37,7 @@ export default function ContactoPage() {
       <PageHero
         eyebrow="Contacto"
         title="Contacto"
-        subtitle={`Teléfono y correo aún no están publicados. El consultorio está en ${site.address}, ${neighborPhrase}. Puedes usar el formulario o escribir por WhatsApp.`}
+        subtitle={`El consultorio está en ${site.address}, ${neighborPhrase}. Escribe por WhatsApp o usa el formulario.`}
       />
       <Suspense fallback={null}>
         <ContactForm />
