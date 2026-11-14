@@ -5,11 +5,9 @@ import { notFound } from "next/navigation";
 import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
-import ClinicPhoto from "~/components/ClinicPhoto";
 import TreatmentLeadCta from "~/components/TreatmentLeadCta";
 import WhatsAppLink from "~/components/WhatsAppLink";
 import { RelatedLinks, VisibleFaq } from "~/components/VisibleFaq";
-import { photoForTreatment } from "~/data/clinic-photos";
 import {
   allTreatments,
   careProcess,
@@ -143,13 +141,6 @@ export default async function TreatmentPage({
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
-            {photoForTreatment(treatment.slug, category.slug) && (
-              <ClinicPhoto
-                photo={photoForTreatment(treatment.slug, category.slug)!}
-                sizes="(max-width: 768px) 100vw, 60vw"
-                className="mb-8 rounded-2xl"
-              />
-            )}
             <h2 className="heading font-serif text-2xl text-ink-900">
               Sobre el tratamiento
             </h2>
