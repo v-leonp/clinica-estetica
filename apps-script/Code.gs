@@ -5,8 +5,10 @@
  * vigomedicalestetic@gmail.com. Comprueba la firma, agrega una fila y
  * manda un correo.
  *
- * Propiedad del script (Configuración del proyecto → Propiedades del script):
+ * Propiedades del script (Configuración del proyecto → Propiedades del script):
  *   APPS_SCRIPT_SECRET  el mismo valor que en Vercel.
+ *   SHEET_ID            el id del Google Sheet (el tramo de la URL entre /d/ y /edit).
+ * En una aplicación web, getActiveSpreadsheet() puede fallar. Si pasa, se abre SHEET_ID.
  *
  * Apps Script no entrega cabeceras propias. La firma y el timestamp llegan
  * en la query (?timestamp=&signature=) y el JSON va en el cuerpo.
@@ -173,7 +175,12 @@ function agregarFila_(solicitud) {
 }
 
 function obtenerHoja_() {
-  var libro = SpreadsheetApp.getActiveSpreadsheet();
+  var libro = null;
+  try {
+    libro = SpreadsheetApp.getActiveSpreadsheet();
+  } catch (err) {
+    libro = null;
+  }
   if (!libro) {
     var id = PropertiesService.getScriptProperties().getProperty("SHEET_ID");
     if (!id) throw new Error("sin-hoja");

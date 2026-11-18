@@ -25,15 +25,28 @@ El código que hay que pegar está al final de esta página y también en `apps-
 4. Pulsa **Guardar** (el icono del disquete, o Ctrl+S).
 5. Si pregunta el nombre del proyecto, escribe **Aviso de solicitudes**.
 
-## 3. Guarda el secreto
+## 3. Guarda el secreto y el id del Sheet
 
-El secreto es una frase larga que solo conocen el sitio y este script. No es la contraseña del correo. No la escribas dentro de las celdas del Sheet.
+Hay que guardar **dos** propiedades. No son la contraseña del correo. No las escribas dentro de las celdas del Sheet.
+
+### El secreto
 
 1. Inventa una frase de al menos 24 caracteres. Puede ser cuatro palabras raras y un número, por ejemplo una que solo tú entiendas. Anótala en un lugar seguro: la vas a pegar otra vez en Vercel.
 2. En el editor de Apps Script, a la izquierda, pulsa el **engranaje** (Configuración del proyecto).
 3. Baja hasta **Propiedades del script** y pulsa **Añadir propiedad de script**.
 4. En **Propiedad** escribe exactamente: `APPS_SCRIPT_SECRET`
 5. En **Valor** pega tu frase.
+6. Guarda la propiedad.
+
+### El id del Sheet (obligatorio)
+
+La aplicación web no siempre encuentra sola la hoja. Por eso el script necesita el id.
+
+1. Abre el Sheet en el navegador. La dirección se parece a `https://docs.google.com/spreadsheets/d/ESTE_ES_EL_ID/edit`.
+2. Copia solo el tramo que está entre `/d/` y `/edit`. Es una cadena larga de letras y números. No copies la dirección entera.
+3. Vuelve a **Propiedades del script** y pulsa **Añadir propiedad de script**.
+4. En **Propiedad** escribe exactamente: `SHEET_ID`
+5. En **Valor** pega ese id.
 6. Guarda la propiedad.
 
 ## 4. Publícalo como aplicación web
@@ -46,7 +59,8 @@ El secreto es una frase larga que solo conocen el sitio y este script. No es la 
    Tiene que ser «Cualquier persona». Si no, el sitio no puede avisarte. La frase secreta impide que un desconocido agregue filas: sin la frase, el script ignora el mensaje.
 6. Pulsa **Implementar**.
 7. Google pide permiso. Elige la cuenta de la clínica y permite **ver y editar hojas de cálculo** y **enviar correo**.
-8. Copia la **URL de la aplicación web**. Termina en `/exec`. No uses la que termina en `/dev`.
+8. Puede aparecer **«Google no ha verificado esta app»**. Es normal: el script es tuyo y todavía no pasó por la revisión pública de Google. Pulsa **Configuración avanzada** (o **Avanzado**) y luego **Ir a Aviso de solicitudes (no seguro)**. Después pulsa **Permitir**.
+9. Copia la **URL de la aplicación web**. Termina en `/exec`. No uses la que termina en `/dev`.
 
 Si más adelante cambias el código, hay que hacer **Implementar → Gestionar implementaciones → lápiz → Nueva versión**. Si no, sigue activo el código viejo.
 
@@ -82,8 +96,9 @@ En la página de confirmación del sitio, la persona ve el texto que se abrirá 
 
 ## Si no llega nada
 
-- Las dos variables tienen que existir y el sitio tiene que haberse vuelto a desplegar después de guardarlas.
+- Las dos variables de Vercel tienen que existir y el sitio tiene que haberse vuelto a desplegar después de guardarlas.
 - La frase secreta de Vercel y la de las propiedades del script tienen que ser idénticas.
+- La propiedad `SHEET_ID` tiene que estar guardada. Sin ella, una prueba firmada puede responder `{ok:false, error:"interno"}` porque la aplicación web no encuentra la hoja.
 - La URL tiene que ser la de `/exec`, con acceso **Cualquier persona** y ejecución **como yo**.
 - El script tiene que estar guardado en la misma cuenta que abre el Sheet.
 - Revisa que el despliegue de Apps Script sea una versión nueva si cambiaste el código.
@@ -114,8 +129,10 @@ Pega todo el bloque siguiente en `Code.gs`, sin quitar ni añadir líneas.
  * vigomedicalestetic@gmail.com. Comprueba la firma, agrega una fila y
  * manda un correo.
  *
- * Propiedad del script (Configuración del proyecto → Propiedades del script):
+ * Propiedades del script (Configuración del proyecto → Propiedades del script):
  *   APPS_SCRIPT_SECRET  el mismo valor que en Vercel.
+ *   SHEET_ID            el id del Google Sheet (el tramo de la URL entre /d/ y /edit).
+ * En una aplicación web, getActiveSpreadsheet() puede fallar. Si pasa, se abre SHEET_ID.
  *
  * Apps Script no entrega cabeceras propias. La firma y el timestamp llegan
  * en la query (?timestamp=&signature=) y el JSON va en el cuerpo.
@@ -282,7 +299,12 @@ function agregarFila_(solicitud) {
 }
 
 function obtenerHoja_() {
-  var libro = SpreadsheetApp.getActiveSpreadsheet();
+  var libro = null;
+  try {
+    libro = SpreadsheetApp.getActiveSpreadsheet();
+  } catch (err) {
+    libro = null;
+  }
   if (!libro) {
     var id = PropertiesService.getScriptProperties().getProperty("SHEET_ID");
     if (!id) throw new Error("sin-hoja");
