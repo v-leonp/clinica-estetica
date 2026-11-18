@@ -5,6 +5,11 @@ import {
   allowedSedes,
   allowedTratamientos,
 } from "~/data/content";
+import { isDiaHoraPreferida } from "~/lib/dia-hora-preferida";
+import {
+  buildLeadWebhookPayload,
+  notifyNewLead,
+} from "~/server/booking/notify-lead";
 import {
   createTRPCRouter,
   publicProcedure,
@@ -52,6 +57,15 @@ export const contactInputSchema = z
       .min(6, "Ingresa un número de teléfono válido")
       .max(40),
     tratamiento: z.string().trim().max(160).optional().default(""),
+    diaHoraPreferida: z
+      .string()
+      .trim()
+      .max(80, "La preferencia de día y hora es demasiado larga")
+      .refine(isDiaHoraPreferida, {
+        message: "Revisa el día y la franja preferida.",
+      })
+      .optional()
+      .default(""),
     mensaje: z.string().trim().max(2000).optional().default(""),
     sede: sedeEnum.optional(),
     acepto: z.literal(true, {
@@ -132,6 +146,8 @@ export const contactRouter = createTRPCRouter({
           email: emailForDb,
           telefono: input.telefono,
           tratamiento: input.tratamiento.length > 0 ? input.tratamiento : null,
+          diaHoraPreferida:
+            input.diaHoraPreferida.length > 0 ? input.diaHoraPreferida : null,
           mensaje: input.mensaje.length > 0 ? input.mensaje : null,
           sede: input.sede,
           source: input.origen === "reserva" ? "reserva" : "contact-form",
@@ -141,6 +157,25 @@ export const contactRouter = createTRPCRouter({
         },
         select: { id: true, createdAt: true },
       });
+
+      // El aviso es best-effort: un fallo del webhook no deshace la reserva.
+      try {
+        await notifyNewLead(
+          buildLeadWebhookPayload({
+            id: lead.id,
+            createdAt: lead.createdAt,
+            nombre: input.nombre,
+            telefono: input.telefono,
+            tratamiento: input.tratamiento,
+            diaHoraPreferida: input.diaHoraPreferida,
+            origen: input.origen === "reserva" ? "reserva" : "contacto",
+          }),
+        );
+      } catch {
+        console.error(
+          "[reservas] Error inesperado al avisar. La solicitud sí quedó guardada.",
+        );
+      }
 
       return { ok: true as const, id: lead.id, createdAt: lead.createdAt };
     }),

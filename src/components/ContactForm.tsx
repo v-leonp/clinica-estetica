@@ -8,7 +8,7 @@ import {
   categories,
   locations,
   allTreatments,
-  categoriesFull,
+  resolveTratamientoFromSlug,
 } from "~/data/content";
 import { trackWhatsAppClick } from "~/lib/analytics";
 import { api } from "~/trpc/react";
@@ -23,19 +23,6 @@ type FieldName =
 
 type FieldErrors = Partial<Record<FieldName, string>>;
 
-function resolvePrefill(slug: string): string {
-  if (!slug) return "";
-  // Check categories FIRST so category slugs don't accidentally match the
-  // first treatment inside a category.
-  const cat = categoriesFull.find((c) => c.slug === slug);
-  if (cat) return cat.title;
-  const match = allTreatments.find(
-    ({ treatment }) => treatment.slug === slug,
-  );
-  if (match) return match.treatment.name;
-  return "";
-}
-
 export default function ContactForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitted, setSubmitted] = useState(false);
@@ -49,7 +36,7 @@ export default function ContactForm() {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     const slug = params.get("tratamiento") ?? "";
-    setPrefill(resolvePrefill(slug));
+    setPrefill(resolveTratamientoFromSlug(slug));
   }, []);
 
   // Timestamp of when the form mounted — used server-side to detect bots
