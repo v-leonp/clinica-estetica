@@ -2,6 +2,8 @@
 
 import { sendGAEvent } from "@next/third-parties/google";
 
+import { isFuenteReserva } from "~/lib/fuente-reserva";
+
 /** Where the visitor clicked. Never a name, phone, message, or treatment. */
 export type WhatsAppLinkLocation =
   | "floating"
@@ -87,5 +89,24 @@ export function trackWhatsAppClick(linkLocation: WhatsAppLinkLocation): void {
     sendGAEvent("event", "whatsapp_click", payload);
   } catch {
     readGtag()?.("event", "whatsapp_click", payload);
+  }
+}
+
+/**
+ * GA4 `reserva_fuente`. Solo el valor de la opción (TikTok, Google, …).
+ * No envía nombre, teléfono, mensaje ni tratamiento. No hace nada si no eligió
+ * o si las cookies no están aceptadas.
+ */
+export function trackReservaFuente(fuente: string): void {
+  if (typeof window === "undefined") return;
+  if (readConsent() !== "accepted") return;
+  if (!isFuenteReserva(fuente)) return;
+
+  const payload = { fuente };
+
+  try {
+    sendGAEvent("event", "reserva_fuente", payload);
+  } catch {
+    readGtag()?.("event", "reserva_fuente", payload);
   }
 }

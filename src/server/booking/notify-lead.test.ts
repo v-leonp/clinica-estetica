@@ -20,6 +20,7 @@ function payload(origen: "reserva" | "contacto" = "reserva"): LeadWebhookPayload
     telefono: "999000111",
     tratamiento: "Limpieza facial profunda",
     diaHoraPreferida: "20/11/2026 · Tarde",
+    comoSeEntero: "TikTok",
     origen,
   });
 }
@@ -64,6 +65,7 @@ describe("payload del aviso", () => {
       celular: "999000111",
       tratamiento: "Limpieza facial profunda",
       diaHoraPreferida: "20/11/2026 · Tarde",
+      comoSeEntero: "TikTok",
       origen: "Reserva",
     });
     expect(body).not.toContain("email");

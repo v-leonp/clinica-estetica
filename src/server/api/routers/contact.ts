@@ -6,6 +6,7 @@ import {
   allowedTratamientos,
 } from "~/data/content";
 import { isDiaHoraPreferida } from "~/lib/dia-hora-preferida";
+import { FUENTES_RESERVA } from "~/lib/fuente-reserva";
 import {
   buildLeadWebhookPayload,
   notifyNewLead,
@@ -64,6 +65,10 @@ export const contactInputSchema = z
       .refine(isDiaHoraPreferida, {
         message: "Revisa el día y la franja preferida.",
       })
+      .optional()
+      .default(""),
+    comoSeEntero: z
+      .union([z.enum(FUENTES_RESERVA), z.literal("")])
       .optional()
       .default(""),
     mensaje: z.string().trim().max(2000).optional().default(""),
@@ -148,6 +153,7 @@ export const contactRouter = createTRPCRouter({
           tratamiento: input.tratamiento.length > 0 ? input.tratamiento : null,
           diaHoraPreferida:
             input.diaHoraPreferida.length > 0 ? input.diaHoraPreferida : null,
+          comoSeEntero: input.comoSeEntero.length > 0 ? input.comoSeEntero : null,
           mensaje: input.mensaje.length > 0 ? input.mensaje : null,
           sede: input.sede,
           source: input.origen === "reserva" ? "reserva" : "contact-form",
@@ -168,6 +174,7 @@ export const contactRouter = createTRPCRouter({
             telefono: input.telefono,
             tratamiento: input.tratamiento,
             diaHoraPreferida: input.diaHoraPreferida,
+            comoSeEntero: input.comoSeEntero,
             origen: input.origen === "reserva" ? "reserva" : "contacto",
           }),
         );

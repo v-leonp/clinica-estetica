@@ -25,6 +25,8 @@ model Lead {
     mensaje          String?
     /// Día y franja que la persona prefiere. Opcional. No confirma la cita.
     diaHoraPreferida String?
+    /// TikTok, Facebook, Instagram, recomendación, Google u otro. Opcional.
+    comoSeEntero     String?
     sede             String?
     source           String   @default("contact-form")
     ip               String?

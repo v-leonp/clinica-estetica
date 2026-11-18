@@ -66,12 +66,14 @@ Hasta que las dos variables existan, el formulario guarda la solicitud y no env�
 
 El Sheet, en la pestaña **Solicitudes**, queda con estas columnas:
 
-| Fecha y hora de registro | Nombre | Celular | Tratamiento | Día y hora preferida | Origen | Estado |
-| --- | --- | --- | --- | --- | --- | --- |
+| Fecha y hora de registro | Nombre | Celular | Tratamiento | Día y hora preferida | Cómo se enteró | Origen | Estado |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
 - La hora de registro se muestra en hora de Lima.
 - **Estado** empieza en **Nuevo**. La celda solo acepta: Nuevo, Contactado, Agendado o Cancelado.
 - **Origen** dice Reserva o Contacto.
+- **Cómo se enteró** es opcional: TikTok, Facebook, Instagram, Recomendación de alguien, Google u Otro. Si no eligió, la celda muestra un guion.
+- Si el Sheet ya existía y no tiene esa cabecera, el script la agrega al final de la fila de títulos. No borra las columnas que ya están.
 - Si la persona no eligió tratamiento o día, la celda muestra un guion.
 
 El correo llega a **vigomedicalestetic@gmail.com**. El asunto es `Nueva solicitud de cita – ` seguido del nombre. El cuerpo trae los datos y un botón **Escribir por WhatsApp**, que abre un chat con el celular de esa persona. La primera vez, mira también spam o promociones.
@@ -92,13 +94,13 @@ Enviar el formulario crea una fila de verdad en la base del sitio. Si la vista p
 
 ## Para quien mantiene el código
 
-El sitio hace `POST` con cuerpo JSON UTF-8 y estos campos, en este orden: `id`, `registradoEn` (ISO), `nombre`, `celular`, `tratamiento`, `diaHoraPreferida`, `origen` (`Reserva` o `Contacto`). No manda correo, mensaje libre, IP ni notas.
+El sitio hace `POST` con cuerpo JSON UTF-8 y estos campos, en este orden: `id`, `registradoEn` (ISO), `nombre`, `celular`, `tratamiento`, `diaHoraPreferida`, `comoSeEntero`, `origen` (`Reserva` o `Contacto`). `comoSeEntero` es la opción elegida o una cadena vacía. No manda correo, mensaje libre, IP ni notas.
 
 La firma es HMAC-SHA256 en hexadecimal de `timestamp + "." + cuerpo`, con `APPS_SCRIPT_SECRET`. `timestamp` son milisegundos. Viajan en la query (`timestamp` y `signature`) porque Apps Script no entrega cabeceras propias, y también en las cabeceras `X-VME-Timestamp` y `X-VME-Signature`. El script rechaza relojes a más de 5 minutos y una firma repetida dentro de esa ventana.
 
 El envío espera como máximo 2,5 segundos. Si faltan las variables, la URL no es `https`, el secreto tiene menos de 16 caracteres, o el aviso falla, `createLead` igual responde que la solicitud quedó guardada.
 
-Los eventos de analítica del sitio no incluyen nombre, teléfono ni el texto del mensaje.
+Los eventos de analítica del sitio no incluyen nombre, teléfono ni el texto del mensaje. Si la persona elige cómo se enteró y aceptó cookies, el evento `reserva_fuente` lleva solo ese valor (`TikTok`, `Facebook`, `Instagram`, `Recomendación de alguien`, `Google` u `Otro`).
 
 ## Código completo
 
@@ -132,6 +134,7 @@ var ENCABEZADOS = [
   "Celular",
   "Tratamiento",
   "Día y hora preferida",
+  "Cómo se enteró",
   "Origen",
   "Estado",
 ];
@@ -240,6 +243,7 @@ function leerSolicitud_(cuerpo) {
       celular: celular,
       tratamiento: texto_(data.tratamiento, 160),
       diaHoraPreferida: texto_(data.diaHoraPreferida, 80),
+      comoSeEntero: texto_(data.comoSeEntero, 80),
       origen: origen,
     };
   } catch (err) {
@@ -258,15 +262,23 @@ function agregarFila_(solicitud) {
   var hoja = obtenerHoja_();
   asegurarEncabezados_(hoja);
   asegurarEstados_(hoja);
-  hoja.appendRow([
-    fechaRegistro_(solicitud.registradoEn),
-    solicitud.nombre,
-    solicitud.celular,
-    solicitud.tratamiento || "—",
-    solicitud.diaHoraPreferida || "—",
-    solicitud.origen,
-    "Nuevo",
-  ]);
+  var ultima = Math.max(hoja.getLastColumn(), 1);
+  var encabezados = hoja.getRange(1, 1, 1, ultima).getValues()[0];
+  var valores = {};
+  valores["Fecha y hora de registro"] = fechaRegistro_(solicitud.registradoEn);
+  valores["Nombre"] = solicitud.nombre;
+  valores["Celular"] = solicitud.celular;
+  valores["Tratamiento"] = solicitud.tratamiento || "—";
+  valores["Día y hora preferida"] = solicitud.diaHoraPreferida || "—";
+  valores["Cómo se enteró"] = solicitud.comoSeEntero || "—";
+  valores["Origen"] = solicitud.origen;
+  valores["Estado"] = "Nuevo";
+  var fila = [];
+  for (var i = 0; i < encabezados.length; i++) {
+    var clave = String(encabezados[i] || "");
+    fila.push(Object.prototype.hasOwnProperty.call(valores, clave) ? valores[clave] : "");
+  }
+  hoja.appendRow(fila);
 }
 
 function obtenerHoja_() {
@@ -285,10 +297,21 @@ function obtenerHoja_() {
 }
 
 function asegurarEncabezados_(hoja) {
-  if (hoja.getLastRow() > 0 && hoja.getRange(1, 1).getValue()) return;
-  hoja.getRange(1, 1, 1, ENCABEZADOS.length).setValues([ENCABEZADOS]);
-  hoja.getRange(1, 1, 1, ENCABEZADOS.length).setFontWeight("bold");
-  hoja.setFrozenRows(1);
+  if (hoja.getLastRow() === 0 || !hoja.getRange(1, 1).getValue()) {
+    hoja.getRange(1, 1, 1, ENCABEZADOS.length).setValues([ENCABEZADOS]);
+    hoja.getRange(1, 1, 1, ENCABEZADOS.length).setFontWeight("bold");
+    hoja.setFrozenRows(1);
+    return;
+  }
+  var ultima = Math.max(hoja.getLastColumn(), 1);
+  var actuales = hoja.getRange(1, 1, 1, ultima).getValues()[0];
+  var faltan = [];
+  for (var i = 0; i < ENCABEZADOS.length; i++) {
+    if (actuales.indexOf(ENCABEZADOS[i]) === -1) faltan.push(ENCABEZADOS[i]);
+  }
+  if (faltan.length === 0) return;
+  hoja.getRange(1, ultima + 1, 1, faltan.length).setValues([faltan]);
+  hoja.getRange(1, ultima + 1, 1, faltan.length).setFontWeight("bold");
 }
 
 function asegurarEstados_(hoja) {
@@ -297,7 +320,17 @@ function asegurarEstados_(hoja) {
     .setAllowInvalid(false)
     .build();
   var filas = Math.max(hoja.getMaxRows() - 1, 50);
-  hoja.getRange(2, 7, filas, 1).setDataValidation(regla);
+  var columna = columnaPorNombre_(hoja, "Estado") || 8;
+  hoja.getRange(2, columna, filas, 1).setDataValidation(regla);
+}
+
+function columnaPorNombre_(hoja, nombre) {
+  var ultima = Math.max(hoja.getLastColumn(), 1);
+  var encabezados = hoja.getRange(1, 1, 1, ultima).getValues()[0];
+  for (var i = 0; i < encabezados.length; i++) {
+    if (encabezados[i] === nombre) return i + 1;
+  }
+  return 0;
 }
 
 function fechaRegistro_(iso) {
@@ -333,6 +366,7 @@ function htmlAviso_(solicitud, enlace) {
     ["Celular", solicitud.celular],
     ["Tratamiento", solicitud.tratamiento || "—"],
     ["Día y hora preferida", solicitud.diaHoraPreferida || "—"],
+    ["Cómo se enteró", solicitud.comoSeEntero || "—"],
     ["Origen", solicitud.origen || "Reserva"],
     ["Registro", fechaRegistro_(solicitud.registradoEn)],
   ];
@@ -383,6 +417,7 @@ function textoAviso_(solicitud, enlace) {
     "Celular: " + solicitud.celular,
     "Tratamiento: " + (solicitud.tratamiento || "—"),
     "Día y hora preferida: " + (solicitud.diaHoraPreferida || "—"),
+    "Cómo se enteró: " + (solicitud.comoSeEntero || "—"),
     "Origen: " + (solicitud.origen || "Reserva"),
     "Registro: " + fechaRegistro_(solicitud.registradoEn),
   ];

@@ -25,6 +25,7 @@ var ENCABEZADOS = [
   "Celular",
   "Tratamiento",
   "Día y hora preferida",
+  "Cómo se enteró",
   "Origen",
   "Estado",
 ];
@@ -133,6 +134,7 @@ function leerSolicitud_(cuerpo) {
       celular: celular,
       tratamiento: texto_(data.tratamiento, 160),
       diaHoraPreferida: texto_(data.diaHoraPreferida, 80),
+      comoSeEntero: texto_(data.comoSeEntero, 80),
       origen: origen,
     };
   } catch (err) {
@@ -151,15 +153,23 @@ function agregarFila_(solicitud) {
   var hoja = obtenerHoja_();
   asegurarEncabezados_(hoja);
   asegurarEstados_(hoja);
-  hoja.appendRow([
-    fechaRegistro_(solicitud.registradoEn),
-    solicitud.nombre,
-    solicitud.celular,
-    solicitud.tratamiento || "—",
-    solicitud.diaHoraPreferida || "—",
-    solicitud.origen,
-    "Nuevo",
-  ]);
+  var ultima = Math.max(hoja.getLastColumn(), 1);
+  var encabezados = hoja.getRange(1, 1, 1, ultima).getValues()[0];
+  var valores = {};
+  valores["Fecha y hora de registro"] = fechaRegistro_(solicitud.registradoEn);
+  valores["Nombre"] = solicitud.nombre;
+  valores["Celular"] = solicitud.celular;
+  valores["Tratamiento"] = solicitud.tratamiento || "—";
+  valores["Día y hora preferida"] = solicitud.diaHoraPreferida || "—";
+  valores["Cómo se enteró"] = solicitud.comoSeEntero || "—";
+  valores["Origen"] = solicitud.origen;
+  valores["Estado"] = "Nuevo";
+  var fila = [];
+  for (var i = 0; i < encabezados.length; i++) {
+    var clave = String(encabezados[i] || "");
+    fila.push(Object.prototype.hasOwnProperty.call(valores, clave) ? valores[clave] : "");
+  }
+  hoja.appendRow(fila);
 }
 
 function obtenerHoja_() {
@@ -178,10 +188,21 @@ function obtenerHoja_() {
 }
 
 function asegurarEncabezados_(hoja) {
-  if (hoja.getLastRow() > 0 && hoja.getRange(1, 1).getValue()) return;
-  hoja.getRange(1, 1, 1, ENCABEZADOS.length).setValues([ENCABEZADOS]);
-  hoja.getRange(1, 1, 1, ENCABEZADOS.length).setFontWeight("bold");
-  hoja.setFrozenRows(1);
+  if (hoja.getLastRow() === 0 || !hoja.getRange(1, 1).getValue()) {
+    hoja.getRange(1, 1, 1, ENCABEZADOS.length).setValues([ENCABEZADOS]);
+    hoja.getRange(1, 1, 1, ENCABEZADOS.length).setFontWeight("bold");
+    hoja.setFrozenRows(1);
+    return;
+  }
+  var ultima = Math.max(hoja.getLastColumn(), 1);
+  var actuales = hoja.getRange(1, 1, 1, ultima).getValues()[0];
+  var faltan = [];
+  for (var i = 0; i < ENCABEZADOS.length; i++) {
+    if (actuales.indexOf(ENCABEZADOS[i]) === -1) faltan.push(ENCABEZADOS[i]);
+  }
+  if (faltan.length === 0) return;
+  hoja.getRange(1, ultima + 1, 1, faltan.length).setValues([faltan]);
+  hoja.getRange(1, ultima + 1, 1, faltan.length).setFontWeight("bold");
 }
 
 function asegurarEstados_(hoja) {
@@ -190,7 +211,17 @@ function asegurarEstados_(hoja) {
     .setAllowInvalid(false)
     .build();
   var filas = Math.max(hoja.getMaxRows() - 1, 50);
-  hoja.getRange(2, 7, filas, 1).setDataValidation(regla);
+  var columna = columnaPorNombre_(hoja, "Estado") || 8;
+  hoja.getRange(2, columna, filas, 1).setDataValidation(regla);
+}
+
+function columnaPorNombre_(hoja, nombre) {
+  var ultima = Math.max(hoja.getLastColumn(), 1);
+  var encabezados = hoja.getRange(1, 1, 1, ultima).getValues()[0];
+  for (var i = 0; i < encabezados.length; i++) {
+    if (encabezados[i] === nombre) return i + 1;
+  }
+  return 0;
 }
 
 function fechaRegistro_(iso) {
@@ -226,6 +257,7 @@ function htmlAviso_(solicitud, enlace) {
     ["Celular", solicitud.celular],
     ["Tratamiento", solicitud.tratamiento || "—"],
     ["Día y hora preferida", solicitud.diaHoraPreferida || "—"],
+    ["Cómo se enteró", solicitud.comoSeEntero || "—"],
     ["Origen", solicitud.origen || "Reserva"],
     ["Registro", fechaRegistro_(solicitud.registradoEn)],
   ];
@@ -276,6 +308,7 @@ function textoAviso_(solicitud, enlace) {
     "Celular: " + solicitud.celular,
     "Tratamiento: " + (solicitud.tratamiento || "—"),
     "Día y hora preferida: " + (solicitud.diaHoraPreferida || "—"),
+    "Cómo se enteró: " + (solicitud.comoSeEntero || "—"),
     "Origen: " + (solicitud.origen || "Reserva"),
     "Registro: " + fechaRegistro_(solicitud.registradoEn),
   ];

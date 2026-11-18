@@ -17,13 +17,27 @@ function caller() {
   });
 }
 
-function reservaInput(overrides: Record<string, unknown> = {}) {
+function reservaInput(
+  overrides: Partial<{
+    diaHoraPreferida: string;
+    website: string;
+    comoSeEntero:
+      | ""
+      | "TikTok"
+      | "Facebook"
+      | "Instagram"
+      | "Recomendación de alguien"
+      | "Google"
+      | "Otro";
+  }> = {},
+) {
   return {
     nombre: "Ana Ejemplo",
     email: "",
     telefono: "999000111",
     tratamiento: "Limpieza facial profunda",
     diaHoraPreferida: "20/11/2026 · Tarde",
+    comoSeEntero: "TikTok" as const,
     mensaje: "",
     acepto: true as const,
     website: "",
@@ -64,6 +78,7 @@ describe("createLead y el aviso", () => {
       expect.objectContaining({
         data: expect.objectContaining({
           diaHoraPreferida: "20/11/2026 · Tarde",
+          comoSeEntero: "TikTok",
           source: "reserva",
         }),
       }),
@@ -135,6 +150,7 @@ describe("createLead y el aviso", () => {
       celular: "999000111",
       tratamiento: "Limpieza facial profunda",
       diaHoraPreferida: "20/11/2026 · Tarde",
+      comoSeEntero: "TikTok",
       origen: "Reserva",
     });
     expect(body).not.toContain("@");
@@ -149,6 +165,13 @@ describe("createLead y el aviso", () => {
 
     await expect(
       caller().contact.createLead(reservaInput({ diaHoraPreferida: "32/13/2026" })),
+    ).rejects.toThrow();
+
+    await expect(
+      caller().contact.createLead({
+        ...reservaInput(),
+        comoSeEntero: "Radio",
+      } as never),
     ).rejects.toThrow();
 
     await caller().contact.createLead(reservaInput({ website: "https://spam.example" }));

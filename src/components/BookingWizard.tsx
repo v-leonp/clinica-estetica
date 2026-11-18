@@ -10,8 +10,9 @@ import {
   bookingCopy,
   resolveTratamientoFromSlug,
 } from "~/data/content";
-import { trackWhatsAppClick } from "~/lib/analytics";
+import { trackReservaFuente, trackWhatsAppClick } from "~/lib/analytics";
 import { formatDiaHoraPreferida } from "~/lib/dia-hora-preferida";
+import { FUENTES_RESERVA, isFuenteReserva } from "~/lib/fuente-reserva";
 import { buildReservaWhatsAppHref } from "~/lib/whatsapp-reserva";
 import { api } from "~/trpc/react";
 
@@ -20,6 +21,7 @@ type ReservaGuardada = {
   telefono: string;
   tratamiento?: string;
   diaHoraPreferida?: string;
+  comoSeEntero?: string;
 };
 
 export default function BookingWizard() {
@@ -32,6 +34,7 @@ export default function BookingWizard() {
   const [tratamiento, setTratamiento] = useState("");
   const [fecha, setFecha] = useState("");
   const [franja, setFranja] = useState("");
+  const [fuente, setFuente] = useState("");
   const [acepto, setAcepto] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -48,10 +51,17 @@ export default function BookingWizard() {
 
   const createLead = api.contact.createLead.useMutation({
     onSuccess: () => {
-      if (guardada.current) {
+      const actual = guardada.current;
+      if (actual?.comoSeEntero) trackReservaFuente(actual.comoSeEntero);
+      if (actual) {
         sessionStorage.setItem(
           BOOKING_STORAGE_KEY,
-          JSON.stringify(guardada.current),
+          JSON.stringify({
+            nombre: actual.nombre,
+            telefono: actual.telefono,
+            tratamiento: actual.tratamiento,
+            diaHoraPreferida: actual.diaHoraPreferida,
+          }),
         );
       }
       router.push("/reservar/confirmacion");
@@ -84,6 +94,7 @@ export default function BookingWizard() {
       telefono: telefonoLimpio,
       tratamiento: tratamiento || undefined,
       diaHoraPreferida: diaHoraPreferida || undefined,
+      comoSeEntero: fuente || undefined,
     };
 
     createLead.mutate({
@@ -92,6 +103,7 @@ export default function BookingWizard() {
       telefono: telefonoLimpio,
       tratamiento,
       diaHoraPreferida,
+      comoSeEntero: isFuenteReserva(fuente) ? fuente : "",
       mensaje: "",
       acepto: true,
       website: "",
@@ -205,6 +217,25 @@ export default function BookingWizard() {
                 <p className="text-xs text-red-700">{errors.preferencia}</p>
               )}
             </fieldset>
+            <div>
+              <label htmlFor="bk-fuente" className="mb-1 block text-xs text-ink-700">
+                ¿Cómo te enteraste de nosotros?{" "}
+                <span className="text-ink-500">(opcional)</span>
+              </label>
+              <select
+                id="bk-fuente"
+                value={fuente}
+                onChange={(e) => setFuente(e.target.value)}
+                className="w-full rounded-xl border border-cream-200 bg-white px-4 py-3 text-sm text-ink-900"
+              >
+                <option value="">Elige una opción</option>
+                {FUENTES_RESERVA.map((opcion) => (
+                  <option key={opcion} value={opcion}>
+                    {opcion}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <label className="mt-6 flex items-start gap-3 text-xs text-ink-700">

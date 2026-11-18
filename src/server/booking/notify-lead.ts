@@ -23,6 +23,7 @@ export type LeadWebhookPayload = {
   celular: string;
   tratamiento: string;
   diaHoraPreferida: string;
+  comoSeEntero: string;
   origen: "Reserva" | "Contacto";
 };
 
@@ -33,6 +34,7 @@ type LeadWebhookSource = {
   telefono: string;
   tratamiento: string;
   diaHoraPreferida: string;
+  comoSeEntero: string;
   origen?: "reserva" | "contacto";
 };
 
@@ -44,6 +46,7 @@ export function buildLeadWebhookPayload(input: LeadWebhookSource): LeadWebhookPa
     celular: input.telefono,
     tratamiento: input.tratamiento,
     diaHoraPreferida: input.diaHoraPreferida,
+    comoSeEntero: input.comoSeEntero,
     origen: input.origen === "reserva" ? "Reserva" : "Contacto",
   };
 }
@@ -57,6 +60,7 @@ export function serializeLeadWebhook(payload: LeadWebhookPayload): string {
     celular: payload.celular,
     tratamiento: payload.tratamiento,
     diaHoraPreferida: payload.diaHoraPreferida,
+    comoSeEntero: payload.comoSeEntero,
     origen: payload.origen,
   });
 }
