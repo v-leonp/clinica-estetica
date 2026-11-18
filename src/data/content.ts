@@ -222,6 +222,19 @@ export const allTreatments = categoriesFull.flatMap((c) =>
   c.treatments.map((t) => ({ category: c, treatment: t })),
 );
 
+/**
+ * `?tratamiento=<slug>` usa el slug del catálogo. El formulario guarda el nombre.
+ * Las categorías se miran antes que los tratamientos: un slug de categoría
+ * no debe caer en el primer tratamiento de esa categoría.
+ */
+export function resolveTratamientoFromSlug(slug: string): string {
+  if (!slug) return "";
+  const category = categoriesFull.find((item) => item.slug === slug);
+  if (category) return category.title;
+  const match = allTreatments.find(({ treatment }) => treatment.slug === slug);
+  return match?.treatment.name ?? "";
+}
+
 export function getCategory(slug: string): Category | undefined {
   return categoriesFull.find((c) => c.slug === slug);
 }

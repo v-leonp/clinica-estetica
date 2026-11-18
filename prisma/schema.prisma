@@ -17,18 +17,22 @@ datasource db {
 
 /// Lead captured from the public contact form.
 model Lead {
-    id          String   @id @default(cuid())
-    nombre      String
-    email       String
-    telefono    String
-    tratamiento String?
-    mensaje     String?
-    sede        String?
-    source      String   @default("contact-form")
-    ip          String?
-    userAgent   String?
-    consentAt   DateTime
-    createdAt   DateTime @default(now())
+    id               String   @id @default(cuid())
+    nombre           String
+    email            String
+    telefono         String
+    tratamiento      String?
+    mensaje          String?
+    /// Día y franja que la persona prefiere. Opcional. No confirma la cita.
+    diaHoraPreferida String?
+    /// TikTok, Facebook, Instagram, recomendación, Google u otro. Opcional.
+    comoSeEntero     String?
+    sede             String?
+    source           String   @default("contact-form")
+    ip               String?
+    userAgent        String?
+    consentAt        DateTime
+    createdAt        DateTime @default(now())
 
     @@index([createdAt])
     @@index([email])
