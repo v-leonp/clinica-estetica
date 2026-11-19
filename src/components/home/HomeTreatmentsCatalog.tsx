@@ -1,6 +1,8 @@
 import Link from "next/link";
 
+import ClinicPhoto from "~/components/ClinicPhoto";
 import WhatsAppLink from "~/components/WhatsAppLink";
+import { photoForTreatment } from "~/data/clinic-photos";
 import {
   allTreatments,
   catalogCardWhatsAppHref,
@@ -8,6 +10,8 @@ import {
   homeEditorialIntro,
   treatmentPromoBadge,
 } from "~/data/content";
+
+const cardImageSizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
 
 export default function HomeTreatmentsCatalog() {
   return (
@@ -26,7 +30,17 @@ export default function HomeTreatmentsCatalog() {
 
             return (
               <li key={href}>
-                <article className="card flex h-full flex-col">
+                <article className="card flex h-full flex-col overflow-hidden !p-0">
+                  {photoForTreatment(treatment.slug) ? (
+                    <Link href={href} className="block">
+                      <ClinicPhoto
+                        photo={photoForTreatment(treatment.slug)!}
+                        sizes={cardImageSizes}
+                        className="rounded-none"
+                      />
+                    </Link>
+                  ) : null}
+                  <div className="flex flex-1 flex-col p-5 sm:p-6">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-gold-ink">
                     {category.title}
                   </p>
@@ -35,7 +49,7 @@ export default function HomeTreatmentsCatalog() {
                       {treatment.name}
                     </Link>
                   </h3>
-                  <p className="body-copy mt-2 flex-1 text-sm leading-relaxed text-ink-700">
+                  <p className="body-copy mt-2 flex-1 text-start text-sm leading-relaxed text-ink-700 hyphens-manual">
                     {treatment.cardText}
                   </p>
                   {promo ? (
@@ -57,6 +71,7 @@ export default function HomeTreatmentsCatalog() {
                     >
                       {cta.book.label}
                     </WhatsAppLink>
+                  </div>
                   </div>
                 </article>
               </li>

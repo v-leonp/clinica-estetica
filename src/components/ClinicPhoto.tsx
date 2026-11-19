@@ -34,6 +34,7 @@ export default function ClinicPhoto({
         fill
         sizes={sizes}
         priority={priority}
+        loading={priority ? "eager" : "lazy"}
         quality={80}
         className={`object-cover ${position}`}
       />

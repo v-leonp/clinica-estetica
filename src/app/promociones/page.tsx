@@ -12,12 +12,12 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Promociones",
-  description: `Promociones de ${site.brand}: 2x1 en toxina botulínica facial para los primeros 50 pacientes, previa evaluación médica.`,
+  description: `Promociones de ${site.brand}: 2x1 en toxina botulínica facial, el dúo perfecto para ti y tu acompañante, previa evaluación médica.`,
   alternates: { canonical: `${getSiteUrl()}/promociones` },
   openGraph: {
     title: `Promociones | ${site.brand}`,
     description:
-      "2x1 en toxina botulínica facial para los primeros 50 pacientes, previa evaluación médica.",
+      "2x1 en toxina botulínica facial: dúo perfecto para ti y tu acompañante, previa evaluación médica.",
     url: `${getSiteUrl()}/promociones`,
   },
 };

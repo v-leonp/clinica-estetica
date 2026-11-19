@@ -22,7 +22,7 @@ export const BOTOX_TREATMENT_SLUG = "toxina-botulinica-facial";
 
 export function treatmentPromoBadge(treatmentSlug: string): string | null {
   if (treatmentSlug === BOTOX_TREATMENT_SLUG) {
-    return "PROMOCION 2x1 a los primeros 50 pacientes";
+    return "Promoción 2x1";
   }
   return null;
 }
@@ -265,9 +265,9 @@ export const promoPage = {
   badge: "Promoción de lanzamiento",
   offerTitle: "2x1 en toxina botulínica facial",
   lines: [
-    "Promoción para los primeros 50 pacientes, previa evaluación médica.",
-    "Zonas: frente, entrecejo, patas de gallo.",
-    "Separa tu cita con el 10% y accede a una evaluación integral gratuita.",
+    "Experiencia exclusiva: Dúo perfecto, toxina botulínica para ti y tu acompañante, previa evaluación médica.",
+    "El efecto del producto tarda en promedio 15 días.",
+    "La cita se confirma con el anticipo del 20%. Ese monto se descuenta del total del procedimiento, que incluye la evaluación especializada y la aplicación.",
   ],
   cta: "Quiero aprovechar la promoción",
 } as const;
@@ -331,7 +331,7 @@ export const careProcess = [
 export const globalFAQ: FAQ[] = [
   {
     q: "¿La valoración tiene costo?",
-    a: "En toxina botulínica facial y en ácido hialurónico de rinomodelación y mentón y de labios, al separar la cita con el 10% del procedimiento la evaluación integral es gratuita. No hay una tarifa general de valoración publicada para el resto de tratamientos.",
+    a: "En toxina botulínica facial y en ácido hialurónico de rinomodelación y mentón, labios y marcaje mandibular, la cita se confirma con el anticipo del 20%. Ese monto se descuenta del total del procedimiento, que incluye la evaluación especializada y la aplicación. No hay una tarifa general de valoración publicada para el resto de tratamientos.",
   },
   {
     q: "¿Puedo reservar sin saber qué tratamiento necesito?",
@@ -347,7 +347,7 @@ export const globalFAQ: FAQ[] = [
   },
   {
     q: "¿Puedo cancelar o reprogramar?",
-    a: "La política de cancelación aún no está publicada. Tampoco hay una regla publicada sobre el reembolso del 10% con el que se separan algunas citas.",
+    a: "La política de cancelación aún no está publicada. Tampoco hay una regla publicada sobre el reembolso del anticipo del 20% con el que se confirman algunas citas.",
   },
   {
     q: "¿Atienden urgencias médicas?",
@@ -370,9 +370,9 @@ export const bookingCopy = {
   callFormTitle: "Déjanos tus datos",
   callFormLead: "La cita se confirma cuando te escribamos.",
   valuationCost:
-    "La evaluación integral gratuita aplica al separar la cita con el 10% del procedimiento en los tratamientos del listado que lo indican. La política de reembolso de ese 10% aún no está publicada.",
+    "En los tratamientos del listado que lo indican, la cita se confirma con el anticipo del 20%. Ese monto se descuenta del total del procedimiento, que incluye la evaluación especializada y la aplicación. La política de reembolso de ese anticipo aún no está publicada.",
   cancellation:
-    "La política de cancelación y el reembolso del 10% aún no están publicados.",
+    "La política de cancelación y el reembolso del anticipo del 20% aún no están publicados.",
   fallback: "Si el formulario falla, escríbenos por WhatsApp.",
 } as const;
 
@@ -402,6 +402,11 @@ export const technology = [
     name: "Fibroblast",
     description:
       "Se usa en estrías por zonas, con plasma superficial. El equipo concreto no está especificado.",
+  },
+  {
+    name: "PlasmaPen",
+    description:
+      "Se nombra en el retiro de acrocordones, verrugas, lunares o manchas pigmentadas. El listado también indica láser con anestesia local; el método depende del diagnóstico.",
   },
 ];
 

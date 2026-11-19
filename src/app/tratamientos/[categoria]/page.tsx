@@ -158,25 +158,26 @@ function TreatmentGrid({
 }) {
   return (
     <ul className="mt-8 grid gap-6 sm:grid-cols-2">
-      {treatments.map((t) => (
+      {treatments.map((t) => {
+        const photo = photoForTreatment(t.slug, categorySlug);
+        const href = `/tratamientos/${categorySlug}/${t.slug}`;
+        return (
         <li key={t.slug}>
-          <article className="card flex h-full flex-col">
-            <Link
-              href={`/tratamientos/${categorySlug}/${t.slug}`}
-              className="group block"
-            >
-              {photoForTreatment(t.slug, categorySlug) && (
+          <article className="card flex h-full flex-col overflow-hidden !p-0">
+            <Link href={href} className="group block">
+              {photo ? (
                 <ClinicPhoto
-                  photo={photoForTreatment(t.slug, categorySlug)!}
+                  photo={photo}
                   sizes="(max-width: 640px) 100vw, 50vw"
-                  className="mb-5 rounded-xl"
+                  className="rounded-none"
                 />
-              )}
-              <h3 className="heading mt-5 font-serif text-xl leading-snug text-ink-900 group-hover:text-rose-gold">
+              ) : null}
+              <h3 className="heading px-5 pt-5 font-serif text-xl leading-snug text-ink-900 group-hover:text-rose-gold sm:px-6 sm:pt-6">
                 {t.name}
               </h3>
             </Link>
-            <p className="body-copy mt-2 flex-1 text-sm leading-relaxed text-ink-700">
+            <div className="flex flex-1 flex-col px-5 pb-5 sm:px-6 sm:pb-6">
+            <p className="body-copy mt-2 flex-1 text-start text-sm leading-relaxed text-ink-700 hyphens-manual">
               {t.cardText}
             </p>
             <dl className="mt-4 grid grid-cols-2 gap-2 text-xs text-ink-500">
@@ -217,9 +218,11 @@ function TreatmentGrid({
                 {cta.book.label}
               </WhatsAppLink>
             </div>
+            </div>
           </article>
         </li>
-      ))}
+        );
+      })}
     </ul>
   );
 }
