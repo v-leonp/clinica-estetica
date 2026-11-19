@@ -5,9 +5,11 @@ import { notFound } from "next/navigation";
 import SiteShell from "~/components/SiteShell";
 import PageHero from "~/components/PageHero";
 import Breadcrumbs from "~/components/Breadcrumbs";
+import ClinicPhoto from "~/components/ClinicPhoto";
 import TreatmentLeadCta from "~/components/TreatmentLeadCta";
 import WhatsAppLink from "~/components/WhatsAppLink";
 import { RelatedLinks, VisibleFaq } from "~/components/VisibleFaq";
+import { photoForTreatment } from "~/data/clinic-photos";
 import {
   allTreatments,
   careProcess,
@@ -80,6 +82,7 @@ export default async function TreatmentPage({
   if (!match) notFound();
 
   const { category, treatment } = match;
+  const photo = photoForTreatment(treatment.slug, category.slug);
   const seo = treatmentSeo[treatment.slug];
   const faqs = [...(seo?.faqs ?? []), ...treatment.faq];
   const whatsappLabel = seo?.whatsappCta ?? "Consultar por WhatsApp";
@@ -141,6 +144,13 @@ export default async function TreatmentPage({
       <section className="section pt-4">
         <div className="container-x grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
+            {photo ? (
+              <ClinicPhoto
+                photo={photo}
+                sizes="(max-width: 768px) 100vw, 640px"
+                className="mb-8 rounded-2xl"
+              />
+            ) : null}
             <h2 className="heading font-serif text-2xl text-ink-900">
               Sobre el tratamiento
             </h2>
@@ -160,6 +170,29 @@ export default async function TreatmentPage({
             <p className="body-copy mt-3 text-base leading-relaxed text-ink-700">
               {treatment.long}
             </p>
+            {treatment.followUp?.length ? (
+              <>
+                <h3 className="heading mt-10 font-serif text-xl text-ink-900">
+                  Seguimiento
+                </h3>
+                <ul className="mt-4 grid gap-3">
+                  {treatment.followUp.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 rounded-xl border border-cream-200 bg-white p-4 text-sm text-ink-700"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-blush text-rose-gold"
+                      >
+                        ✓
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
             {seo?.notes?.map((note) => (
               <div key={note.heading}>
                 <h3 className="heading mt-10 font-serif text-xl text-ink-900">
@@ -279,22 +312,34 @@ export default async function TreatmentPage({
             {category.treatments
               .filter((t) => t.slug !== treatment.slug)
               .slice(0, 3)
-              .map((t) => (
+              .map((t) => {
+                const related = photoForTreatment(t.slug, category.slug);
+                return (
                 <li key={t.slug}>
                   <Link
                     href={`/tratamientos/${category.slug}/${t.slug}`}
-                    className="card block h-full"
+                    className="card block h-full overflow-hidden !p-0"
                   >
+                    {related ? (
+                      <ClinicPhoto
+                        photo={related}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="rounded-none"
+                      />
+                    ) : null}
+                    <div className="p-5 sm:p-6">
                     <h3 className="heading font-serif text-lg leading-snug text-ink-900">
                       {t.name}
                     </h3>
-                    <p className="mt-2 text-sm text-ink-700">{t.short}</p>
+                    <p className="mt-2 text-start text-sm leading-relaxed text-ink-700">{t.cardText}</p>
                     <p className="mt-3 text-sm font-medium text-rose-gold">
                       Ver más →
                     </p>
+                    </div>
                   </Link>
                 </li>
-              ))}
+                );
+              })}
           </ul>
         </div>
       </section>

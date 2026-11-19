@@ -60,7 +60,7 @@ Publicados:
 No se publican correo, horario de atención ni datos de la empresa. Siguen
 sin texto propio, y no hay que inventarlos:
 
-- Política de cancelación y reembolso del 10%
+- Política de cancelación y reembolso del anticipo del 20%
 - Medios de pago
 - Testimonios con autorización
 

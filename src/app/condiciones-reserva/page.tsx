@@ -26,7 +26,7 @@ export default function CondicionesReservaPage() {
       <PageHero
         eyebrow="Legal"
         title="Condiciones de reserva"
-        subtitle="Cancelación, reembolso del 10% y medios de pago todavía no están publicados."
+        subtitle="Cancelación, reembolso del anticipo del 20% y medios de pago todavía no están publicados."
       />
       <section className="section pt-4">
         <LegalProse>

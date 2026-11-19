@@ -157,69 +157,70 @@ function TreatmentGrid({
   treatments: Treatment[];
 }) {
   return (
-    <ul className="mt-8 grid gap-6 sm:grid-cols-2">
-      {treatments.map((t) => (
-        <li key={t.slug}>
-          <article className="card flex h-full flex-col">
-            <Link
-              href={`/tratamientos/${categorySlug}/${t.slug}`}
-              className="group block"
-            >
-              {photoForTreatment(t.slug, categorySlug) && (
-                <ClinicPhoto
-                  photo={photoForTreatment(t.slug, categorySlug)!}
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  className="mb-5 rounded-xl"
-                />
-              )}
-              <h3 className="heading mt-5 font-serif text-xl leading-snug text-ink-900 group-hover:text-rose-gold">
-                {t.name}
-              </h3>
-            </Link>
-            <p className="body-copy mt-2 flex-1 text-sm leading-relaxed text-ink-700">
-              {t.cardText}
-            </p>
-            <dl className="mt-4 grid grid-cols-2 gap-2 text-xs text-ink-500">
-              <div>
-                <dt className="uppercase tracking-wider">Duración</dt>
-                <dd className="text-ink-900">{t.duration}</dd>
-              </div>
-              {t.sessions ? (
-                <div>
-                  <dt className="uppercase tracking-wider">Sesiones</dt>
-                  <dd className="text-ink-900">{t.sessions}</dd>
-                </div>
+    <ul className="mt-8 grid items-stretch gap-6 sm:grid-cols-2">
+      {treatments.map((t) => {
+        const photo = photoForTreatment(t.slug, categorySlug);
+        const href = `/tratamientos/${categorySlug}/${t.slug}`;
+        const promo = treatmentPromoBadge(t.slug);
+        return (
+          <li key={t.slug} className="h-full">
+            <article className="card flex h-full flex-col overflow-hidden !p-0">
+              {photo ? (
+                <Link href={href} className="block">
+                  <ClinicPhoto
+                    photo={photo}
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="rounded-none"
+                  />
+                </Link>
               ) : null}
-            </dl>
-            {treatmentPromoBadge(t.slug) ? (
-              <p className="mt-4 rounded-lg border border-gold/40 bg-cream-100/80 px-3 py-2 text-xs font-medium uppercase tracking-wide text-gold-ink">
-                {treatmentPromoBadge(t.slug)}
-              </p>
-            ) : catalogShowsPrices ? (
-              <div className="mt-5 text-sm">
-                <span className="price text-ink-900">{t.priceFrom}</span>
+              <div className="flex flex-1 flex-col px-5 py-5 sm:px-6 sm:py-6">
+                <h3 className="heading font-serif text-xl leading-snug text-ink-900">
+                  <Link href={href} className="hover:text-rose-gold">
+                    {t.name}
+                  </Link>
+                </h3>
+                {promo ? (
+                  <p className="mt-3 rounded-lg border border-gold/40 bg-cream-100/80 px-3 py-2 text-xs font-medium uppercase tracking-wide text-gold-ink">
+                    {promo}
+                  </p>
+                ) : null}
+                <div className="mt-auto pt-4">
+                  <dl className="grid grid-cols-2 gap-2 text-xs text-ink-500">
+                    <div>
+                      <dt className="uppercase tracking-wider">Duración</dt>
+                      <dd className="text-ink-900">{t.duration}</dd>
+                    </div>
+                    {t.sessions ? (
+                      <div>
+                        <dt className="uppercase tracking-wider">Sesiones</dt>
+                        <dd className="text-ink-900">{t.sessions}</dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                  {catalogShowsPrices && !promo ? (
+                    <p className="price mt-3 text-sm text-ink-900">{t.priceFrom}</p>
+                  ) : null}
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <Link href={href} className="btn-outline">
+                      Ver detalle
+                    </Link>
+                    <WhatsAppLink
+                      href={catalogCardWhatsAppHref(t.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-rose"
+                      linkLocation="catalog_card"
+                    >
+                      {cta.book.label}
+                    </WhatsAppLink>
+                  </div>
+                </div>
               </div>
-            ) : null}
-            <div className="mt-5 grid grid-cols-2 gap-2">
-              <Link
-                href={`/tratamientos/${categorySlug}/${t.slug}`}
-                className="btn-outline"
-              >
-                Ver detalle
-              </Link>
-              <WhatsAppLink
-                href={catalogCardWhatsAppHref(t.name)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-rose"
-                linkLocation="catalog_card"
-              >
-                {cta.book.label}
-              </WhatsAppLink>
-            </div>
-          </article>
-        </li>
-      ))}
+            </article>
+          </li>
+        );
+      })}
     </ul>
   );
 }

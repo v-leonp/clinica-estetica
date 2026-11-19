@@ -60,47 +60,87 @@ export const clinicPhotos = {
   },
   labiosTratamiento: {
     src: "/fotos/tratamientos/acido-hialuronico-labios.webp",
-    alt: "Aplicación de ácido hialurónico en los labios, con guantes y jeringa, durante una consulta.",
+    alt: "Aplicación de ácido hialurónico en el labio, con guantes y jeringa.",
     ratio: "landscape",
   },
   rinomodelacion: {
     src: "/fotos/tratamientos/rinomodelacion-menton.webp",
-    alt: "Valoración del perfil de nariz y mentón en camilla, con guantes, antes de una rinomodelación.",
+    alt: "Valoración del perfil de nariz y mentón, con guantes, durante una consulta.",
     ratio: "landscape",
   },
   toxinaFacial: {
     src: "/fotos/tratamientos/toxina-botulinica-facial.webp",
-    alt: "Aplicación de toxina botulínica en la frente, con guantes, durante una consulta facial.",
+    alt: "Primer plano de la frente y las líneas de expresión, zona habitual de la toxina botulínica.",
+    ratio: "landscape",
+  },
+  marcajeMandibular: {
+    src: "/fotos/tratamientos/marcaje-mandibular.webp",
+    alt: "Perfil de un rostro en el que se aprecia la línea mandibular.",
+    ratio: "landscape",
+  },
+  hidratacionProfunda: {
+    src: "/fotos/tratamientos/hidratacion-profunda.webp",
+    alt: "Retrato de un rostro luminoso, ilustración de la hidratación profunda de la piel.",
+    ratio: "landscape",
+  },
+  puntosAnclaje: {
+    src: "/fotos/tratamientos/puntos-de-anclaje.webp",
+    alt: "Retrato frontal de un rostro, ilustración de la armonía facial de los puntos de anclaje.",
+    ratio: "landscape",
+  },
+  bioestimulador: {
+    src: "/fotos/tratamientos/bioestimulador-colageno.webp",
+    alt: "Retrato de un rostro con líneas de expresión, ilustración del bioestimulador de colágeno.",
+    ratio: "landscape",
+  },
+  skinbooster: {
+    src: "/fotos/tratamientos/skinbooster.webp",
+    alt: "Rostro con gotas sobre la piel, ilustración de la hidratación del skinbooster.",
     ratio: "landscape",
   },
   limpiezaProfunda: {
     src: "/fotos/tratamientos/limpieza-facial-profunda.webp",
-    alt: "Limpieza facial profunda: se retira un producto de la mejilla con una gasa.",
+    alt: "Persona con cinta en el cabello, preparada para una limpieza facial.",
     ratio: "landscape",
   },
   peelingEnzimatico: {
     src: "/fotos/tratamientos/peeling-enzimatico.webp",
-    alt: "Aplicación de un peeling con brocha sobre el rostro, en consulta.",
+    alt: "Producto en crema aplicado sobre el rostro, ilustración del peeling enzimático.",
+    ratio: "landscape",
+  },
+  despigmentante: {
+    src: "/fotos/tratamientos/despigmentante.webp",
+    alt: "Primer plano de una mejilla con manchas, en el contexto del despigmentante.",
+    ratio: "landscape",
+  },
+  plasmapen: {
+    src: "/fotos/tratamientos/plasmapen.webp",
+    alt: "Dispositivo de plasma junto al cuello y el hombro, en el contexto de PlasmaPen.",
     ratio: "landscape",
   },
   depilacionIpl: {
     src: "/fotos/tratamientos/depilacion-ipl-diodo.webp",
-    alt: "Depilación con luz en la axila. Profesional y paciente usan protección ocular.",
+    alt: "Piernas sobre la camilla, ilustración de una piel suave asociada a la depilación.",
     ratio: "landscape",
   },
   enzimasCorporales: {
     src: "/fotos/tratamientos/enzimas-recombinantes-corporales.webp",
-    alt: "Aplicación de un tratamiento corporal con jeringa en el abdomen, con guantes.",
+    alt: "Valoración de la zona del flanco y el abdomen en una consulta corporal.",
     ratio: "landscape",
   },
   estriasDermapen: {
     src: "/fotos/tratamientos/estrias-dermapen.webp",
-    alt: "Tratamiento de estrías en el abdomen con un dispositivo tipo Dermapen.",
+    alt: "Dispositivo tipo Dermapen junto al abdomen, en un tratamiento de estrías.",
     ratio: "landscape",
   },
   estriasFibroblast: {
     src: "/fotos/tratamientos/estrias-fibroblast.webp",
-    alt: "Tratamiento de estrías en el brazo con un dispositivo de plasma superficial.",
+    alt: "Dispositivo de plasma sobre estrías, en un tratamiento con Fibroblast.",
+    ratio: "landscape",
+  },
+  atenuacionTatuajes: {
+    src: "/fotos/tratamientos/atenuacion-tatuajes-laser.webp",
+    alt: "Láser sobre un tatuaje del antebrazo. Profesional y paciente usan protección ocular.",
     ratio: "landscape",
   },
 } as const satisfies Record<string, ClinicPhoto>;
@@ -114,15 +154,22 @@ const categoryPhoto: Record<string, ClinicPhoto> = {
 
 const treatmentPhoto: Record<string, ClinicPhoto> = {
   "toxina-botulinica-facial": clinicPhotos.toxinaFacial,
-  "acido-hialuronico-labios": clinicPhotos.labiosTratamiento,
   "acido-hialuronico-rinomodelacion-y-menton": clinicPhotos.rinomodelacion,
+  "acido-hialuronico-labios": clinicPhotos.labiosTratamiento,
+  "marcaje-mandibular": clinicPhotos.marcajeMandibular,
+  "hidratacion-profunda-acido-hialuronico": clinicPhotos.hidratacionProfunda,
+  "puntos-de-anclaje": clinicPhotos.puntosAnclaje,
+  "bioestimulador-de-colageno": clinicPhotos.bioestimulador,
+  skinbooster: clinicPhotos.skinbooster,
   "limpieza-facial-profunda": clinicPhotos.limpiezaProfunda,
   "peeling-enzimatico": clinicPhotos.peelingEnzimatico,
+  despigmentante: clinicPhotos.despigmentante,
+  "retiro-de-lesiones": clinicPhotos.plasmapen,
   "enzimas-recombinantes-corporales": clinicPhotos.enzimasCorporales,
-  "depilacion-ipl-o-diodo": clinicPhotos.depilacionIpl,
   "estrias-dermapen": clinicPhotos.estriasDermapen,
   "estrias-fibroblast": clinicPhotos.estriasFibroblast,
-  "atenuacion-de-tatuajes-nd-yag": clinicPhotos.laserTatuaje,
+  "atenuacion-de-tatuajes-nd-yag": clinicPhotos.atenuacionTatuajes,
+  "depilacion-ipl-o-diodo": clinicPhotos.depilacionIpl,
 };
 
 export function photoForCategory(slug: string): ClinicPhoto | undefined {

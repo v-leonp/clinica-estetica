@@ -14,6 +14,8 @@ export type Treatment = {
   duration: string;
   /** Solo si el listado indica un dato de sesiones. No se inventan conteos. */
   sessions?: string;
+  /** Controles que el listado describe después de la aplicación. */
+  followUp?: string[];
   recovery?: string;
   priceFrom: string;
   /** Marcas de producto del listado, sin asteriscos, € ni “(S)”. */
@@ -33,13 +35,23 @@ export type Category = {
 };
 
 export const catalogIntro =
-  "En consulta, la Dra. Melissa Vigo evalúa tus necesidades y te explica qué opciones son adecuadas para ti.";
+  "En la consulta, la doctora revisa tus necesidades, explica el procedimiento recomendado y confirma si es adecuado para ti.";
 
 export const catalogDisclaimer =
   "Información orientativa. La indicación y el procedimiento se confirman en valoración médica.";
 
-const SEPARA =
-  "Separa tu cita con el 10% de tu procedimiento y obtén tu evaluación integral gratuita.";
+const ANTICIPO =
+  "Para garantizar tu atención personalizada, tu cita se confirma con el anticipo del 20%. El monto se descuenta del total de tu procedimiento, que incluye la evaluación especializada y la aplicación por el especialista.";
+
+const DUO =
+  "Promoción 2x1. Experiencia exclusiva para nuestros pacientes: Dúo perfecto (toxina botulínica para ti y tu acompañante).";
+
+const SEGUIMIENTO = [
+  "Control a las 24–48 horas para verificar tu evolución.",
+  "Control a los 7 días para evaluar tu resultado.",
+  "Control a los 15 días para retoque, si es necesario.",
+  "Acompañamiento por WhatsApp para resolver tus dudas.",
+];
 
 const QUIEN =
   "La indicación la confirma la doctora en consulta. Este texto no sustituye una valoración presencial.";
@@ -71,24 +83,25 @@ export const categoriesFull: Category[] = [
         slug: "toxina-botulinica-facial",
         name: "Toxina botulínica facial",
         cardText:
-          "Suaviza la apariencia de las líneas de expresión y ayuda a conseguir un rostro más relajado, fresco y natural.",
+          "Suaviza las líneas de expresión con pequeñas inyecciones en músculos seleccionados, si está indicado. El efecto tarda en promedio 15 días.",
         short:
-          "Evaluación de las líneas de expresión y, si está indicado, inyecciones en músculos seleccionados. El precio ya incluye la promoción 2x1 para los primeros 50 clientes.",
-        long: `La doctora evalúa las líneas de expresión y, si está indicado, aplica pequeñas inyecciones en músculos seleccionados para suavizar su movimiento. El efecto del producto tarda en promedio 15 días. Promoción: los primeros 50 clientes obtienen 2x1. El precio de S/ 1,300 ya incluye esa promoción. ${SEPARA}`,
+          "Evaluación de las líneas de expresión y, si está indicado, inyecciones en músculos seleccionados. Incluye la promoción 2x1, el dúo perfecto para ti y tu acompañante.",
+        long: `La doctora evalúa las líneas de expresión y, si está indicado, aplica pequeñas inyecciones en músculos seleccionados para suavizar su movimiento. El efecto del producto tarda en promedio 15 días. ${DUO}`,
         benefits: [
           "Evaluación de las líneas de expresión",
           "Inyecciones en músculos seleccionados, si está indicado",
           "Efecto del producto en promedio a los 15 días",
+          "Promoción 2x1 para ti y tu acompañante",
         ],
         whoFor: QUIEN,
-        duration: "15–20 min",
+        duration: "15–25 min",
         priceFrom: "S/ 1,300",
         brands: "Reage® · Laboratorio Abbott",
-        offer: `2x1 para los primeros 50 clientes, ya incluido en S/ 1,300. ${SEPARA}`,
+        offer: `${DUO} ${ANTICIPO}`,
         faq: faqs([
           {
-            q: "¿El precio de S/ 1,300 es aparte de la promoción?",
-            a: "No. S/ 1,300 ya incluye la promoción 2x1 para los primeros 50 clientes. Se separa la cita con el 10% del procedimiento y la evaluación integral es gratuita.",
+            q: "¿En qué consiste la promoción 2x1?",
+            a: "Es el dúo perfecto: toxina botulínica para ti y tu acompañante. La cita se confirma con el anticipo del 20%, que se descuenta del total del procedimiento. Ese total incluye la evaluación especializada y la aplicación por el especialista.",
           },
         ]),
       },
@@ -96,94 +109,106 @@ export const categoriesFull: Category[] = [
         slug: "acido-hialuronico-rinomodelacion-y-menton",
         name: "Ácido hialurónico: rinomodelación y mentón",
         cardText:
-          "Armoniza tu perfil facial mediante técnicas de ácido hialurónico, respetando tus proporciones naturales.",
+          "Define con suavidad la nariz y proyecta el mentón para un perfil más equilibrado, con resultado inmediato y aspecto natural.",
         short:
-          "Relleno en puntos seleccionados de nariz o mentón, tras valorar el perfil facial. El efecto del producto es inmediato.",
-        long: `Tras valorar el perfil facial, se puede aplicar relleno en puntos seleccionados de nariz o mentón para mejorar contorno y proporción según el procedimiento. El efecto del producto es inmediato. ${SEPARA}`,
+          "Rinomodelación y mentón sin cirugía: un perfil más equilibrado, con resultado inmediato, aspecto natural y seguimiento postaplicación.",
+        long: "Un toque sutil que realza tu belleza natural, sin cirugía y sin cambiar quién eres. Definimos suavemente tu nariz y proyectamos tu mentón para lograr un perfil más equilibrado y delicado. Es un procedimiento rápido, con resultados inmediatos y un aspecto natural. Porque tu rostro merece verse en armonía, no transformado. Te acompañamos en todo el proceso. Tu experiencia incluye seguimiento personalizado postaplicación. «No solo te aplicamos, te cuidamos».",
         benefits: [
-          "Valoración del perfil facial",
-          "Relleno en puntos seleccionados de nariz o mentón",
-          "Efecto inmediato del producto",
+          "Definición suave de la nariz y proyección del mentón",
+          "Resultado inmediato y aspecto natural",
+          "Sin cirugía",
+          "Seguimiento personalizado postaplicación",
         ],
         whoFor: QUIEN,
-        duration: "35 min",
+        duration: "20–35 min",
+        followUp: SEGUIMIENTO,
         priceFrom: "S/ 1,500",
         brands: "Neauvia®, Croma©",
-        offer: SEPARA,
+        offer: ANTICIPO,
         faq: faqs(),
       },
       {
         slug: "acido-hialuronico-labios",
         name: "Ácido hialurónico: labios",
         cardText:
-          "Define, hidrata y aporta volumen a tus labios de manera equilibrada y personalizada.",
+          "Realza el contorno, la hidratación y la simetría de los labios, con un resultado natural y efecto inmediato.",
         short:
-          "Conversación sobre el resultado deseado, evaluación de proporciones y relleno para definir o aportar volumen.",
-        long: `La doctora conversa sobre el resultado deseado, evalúa proporciones y aplica el relleno para definir o aportar volumen de forma personalizada. ${SEPARA}`,
+          "Labios hidratados y definidos con ácido hialurónico, respetando la anatomía. Efecto inmediato y seguimiento postaplicación.",
+        long: "Labios suaves, hidratados y naturalmente definidos, sin perder tu naturalidad. Realzamos el contorno, la hidratación y la simetría de tus labios con ácido hialurónico de alta calidad, respetando siempre la anatomía y la delicadeza de tu rostro. El resultado es natural, elegante y con efecto inmediato. El procedimiento es ambulatorio y lo realiza el especialista. Porque la belleza está en los detalles más sutiles. Tu cuidado no termina en la aplicación: te acompañamos en todo el proceso, con seguimiento personalizado postaplicación. Tu tranquilidad es parte de tu resultado.",
         benefits: [
-          "Conversación sobre el resultado deseado",
-          "Evaluación de proporciones",
-          "Relleno para definir o aportar volumen",
+          "Contorno, hidratación y simetría de los labios",
+          "Resultado natural, con efecto inmediato",
+          "Procedimiento ambulatorio",
+          "Seguimiento personalizado postaplicación",
         ],
         whoFor: QUIEN,
-        duration: "35 min",
+        duration: "30–45 min",
+        followUp: SEGUIMIENTO,
         priceFrom: "S/ 1,300",
         brands: "Neauvia®, Croma©",
-        offer: SEPARA,
+        offer: ANTICIPO,
         faq: faqs(),
       },
       {
         slug: "marcaje-mandibular",
         name: "Marcaje mandibular con ácido hialurónico",
         cardText:
-          "Realza la definición del contorno mandibular y favorece un perfil facial más armónico.",
+          "Estiliza la línea mandibular y puede proyectar el mentón, con un enfoque distinto para rasgos femeninos o masculinos.",
         short:
-          "Revisión del contorno facial y relleno en zonas seleccionadas de la mandíbula para mejorar su definición.",
-        long: "Se revisa el contorno facial y se aplica relleno en zonas seleccionadas de la mandíbula para mejorar su definición.",
+          "Marcaje mandibular no quirúrgico para definir el óvalo facial, con seguimiento postaplicación y control presencial el día 14.",
+        long: "Este tratamiento no quirúrgico permite corregir la pérdida de volumen óseo asociada al paso del tiempo, suavizar la apariencia de la papada o proyectar la mandíbula para lograr un perfil estructurado y simétrico. En el rostro femenino, se busca estilizar con sutileza la línea mandibular y proyectar el mentón para destacar la elegancia del óvalo facial, manteniendo la suavidad, la delicadeza y la naturalidad de los rasgos. En el masculino, se orienta hacia una estructura más recta, angulada y definida, aportando firmeza a la línea maxilar y reforzando la masculinidad del rostro de manera equilibrada. La evaluación de control del día 14 es una cita presencial para valorar la integración del tejido, verificar la simetría y realizar un retoque de precisión si se considera clínicamente oportuno. Te acompañamos en todo el proceso, con seguimiento personalizado postaplicación.",
         benefits: [
-          "Revisión del contorno facial",
-          "Relleno en zonas seleccionadas de la mandíbula",
+          "Definición de la línea mandibular y del óvalo facial",
+          "Enfoque distinto para rasgos femeninos o masculinos",
+          "Control presencial el día 14",
+          "Seguimiento personalizado postaplicación",
         ],
         whoFor: QUIEN,
-        duration: "35 min",
+        duration: "35–55 min",
+        followUp: [
+          "Evaluación de control el día 14: cita presencial para valorar la integración del tejido, verificar la simetría y realizar un retoque de precisión si se considera clínicamente oportuno.",
+          ...SEGUIMIENTO,
+        ],
         priceFrom: "S/ 2,500",
         brands: "Neauvia®",
+        offer: ANTICIPO,
         faq: faqs(),
       },
       {
         slug: "hidratacion-profunda-acido-hialuronico",
         name: "Hidratación profunda con ácido hialurónico",
         cardText:
-          "Mejora la hidratación de tu piel y recupera una apariencia más fresca, suave y luminosa.",
+          "Restaura vitalidad, elasticidad y firmeza desde las capas más profundas, para un rostro más fresco y terso.",
         short:
-          "Valoración de la piel y pequeñas cantidades de producto en las zonas indicadas para hidratación y aspecto.",
-        long: "Se valora la piel y se aplican pequeñas cantidades de producto en zonas indicadas para mejorar hidratación y aspecto de la piel.",
+          "Hidratación profunda con ácido hialurónico para damas y caballeros: vitalidad, elasticidad y un aspecto más fresco.",
+        long: "Revela la luminosidad natural de tu piel con la hidratación profunda con ácido hialurónico. Está pensado para damas y caballeros que valoran el cuidado de la piel: restaura la vitalidad, la elasticidad y la firmeza desde las capas más profundas. Mediante una infusión de alta pureza se nutren y revitalizan los tejidos, se atenúan las líneas de expresión y el rostro recupera un aspecto fresco, terso y sobrio.",
         benefits: [
-          "Valoración de la piel",
-          "Aplicación en las zonas indicadas",
-          "Objetivo de hidratación y aspecto de la piel",
+          "Hidratación desde las capas más profundas",
+          "Vitalidad, elasticidad y firmeza",
+          "Atenuación de las líneas de expresión",
+          "Indicado para damas y caballeros",
         ],
         whoFor: QUIEN,
-        duration: "35 min",
+        duration: "25–45 min",
         priceFrom: "S/ 1,500",
-        brands: "Neauvia®, Croma©, Sciela",
+        brands: "Neauvia®, Croma©, Ruspharma",
         faq: faqs(),
       },
       {
         slug: "puntos-de-anclaje",
         name: "Puntos de anclaje con ácido hialurónico",
         cardText:
-          "Técnica de soporte facial orientada a mejorar la armonía y definición del rostro.",
+          "Microinyecciones en puntos de soporte para restaurar tono, firmeza y estructura, con un efecto tensor sutil.",
         short:
-          "Evaluación del soporte facial y producto en puntos seleccionados para dar apoyo y armonizar el contorno.",
-        long: "La doctora evalúa el soporte facial y aplica producto en puntos seleccionados para dar apoyo y armonizar el contorno.",
+          "Puntos de anclaje en pómulos, marco mandibular y mentón para devolver soporte al rostro sin restar expresividad.",
+        long: "El tratamiento de puntos de anclaje con ácido hialurónico es un procedimiento de rejuvenecimiento y redefinición facial pensado para restaurar el tono, la firmeza y la estructura natural del rostro, respetando la armonía y la anatomía de cada persona. Mediante microinyecciones en vectores de soporte —como los pómulos, el marco mandibular y el mentón— busca un efecto tensor de sustentación sin restar expresividad ni naturalidad. En el rostro femenino acentúa la delicadeza del contorno y suaviza las líneas de expresión; en el masculino proyecta ángulos definidos, estructura y definición de manera sobria.",
         benefits: [
-          "Evaluación del soporte facial",
-          "Producto en puntos seleccionados",
-          "Apoyo y armonización del contorno",
+          "Soporte en pómulos, marco mandibular y mentón",
+          "Efecto tensor sin restar expresividad",
+          "Enfoque distinto para el rostro femenino o masculino",
         ],
         whoFor: QUIEN,
-        duration: "35 min",
+        duration: "35–55 min",
         priceFrom: "S/ 1,800",
         brands: "Neauvia®, Croma©",
         faq: faqs(),
@@ -192,26 +217,32 @@ export const categoriesFull: Category[] = [
         slug: "bioestimulador-de-colageno",
         name: "Bioestimulador de colágeno",
         cardText:
-          "Estimula progresivamente la producción de colágeno para mejorar la firmeza y calidad de la piel.",
+          "Estimula tu propio colágeno para recuperar densidad y firmeza de forma gradual. Los resultados parten de los 21 días.",
         short:
-          "Tras evaluar la piel y el objetivo, aplicación en las zonas indicadas para una respuesta gradual de colágeno.",
-        long: "Luego de evaluar la piel y el objetivo, se aplica el producto en las zonas indicadas para estimular una respuesta gradual de colágeno.",
+          "Bioestimulación de colágeno en las capas profundas de la piel. Resultados a partir de 21 días, con seguimiento durante el proceso.",
+        long: "El bioestimulador de colágeno está pensado para hombres y mujeres que desean rejuvenecer el rostro sin perder la esencia de sus facciones ni su naturalidad. A diferencia de las soluciones temporales, actúa desde las capas más profundas y estimula la producción propia de colágeno para restaurar de forma gradual la densidad, la elasticidad y la tersura del tejido. Cada aplicación se realiza con precisión. Al revitalizar la estructura interna de la piel, el rostro puede recobrar un aspecto más fresco. Los resultados parten de los 21 días y el paciente tiene seguimiento durante el proceso.",
         benefits: [
-          "Evaluación de la piel y del objetivo",
-          "Aplicación en las zonas indicadas",
-          "Respuesta gradual de colágeno",
+          "Estímulo de la producción propia de colágeno",
+          "Densidad, elasticidad y tersura de forma gradual",
+          "Resultados a partir de 21 días",
+          "Seguimiento durante el proceso",
         ],
         whoFor: QUIEN,
         duration: "20–30 min",
         priceFrom: "S/ 1,900",
         brands: "Neauvia®, Radiesse®",
-        faq: faqs(),
+        faq: faqs([
+          {
+            q: "¿Cuándo pueden notarse los resultados?",
+            a: "El listado indica resultados a partir de 21 días. La respuesta es individual y no está garantizada.",
+          },
+        ]),
       },
       {
         slug: "skinbooster",
         name: "Skinbooster",
         cardText:
-          "Aporta hidratación y mejora la textura y luminosidad de la piel.",
+          "Aplicaciones superficiales para hidratar la piel y mejorar su aspecto. El producto se define en consulta.",
         short:
           "Aplicaciones superficiales y distribuidas para hidratar la piel y mejorar su aspecto. Producto e indicación se definen en consulta.",
         long: "Se realizan aplicaciones superficiales y distribuidas para hidratar la piel y mejorar su aspecto. La indicación y el producto se definen en consulta.",
@@ -233,21 +264,21 @@ export const categoriesFull: Category[] = [
     title: "Cuidado de la piel",
     icon: "sparkles",
     short:
-      "Limpieza facial profunda, peeling enzimático, despigmentante y retiro de lesiones.",
-    long: "Cuidados de piel del listado: limpieza facial profunda, peeling enzimático, despigmentante y retiro de acrocordones, verrugas, lunares o manchas pigmentadas.",
+      "Limpieza facial profunda, peeling enzimático, despigmentante y PlasmaPen.",
+    long: "Cuidados de piel del listado: limpieza facial profunda, peeling enzimático, despigmentante y PlasmaPen para el retiro de acrocordones, verrugas, lunares o manchas pigmentadas.",
     treatments: [
       {
         slug: "limpieza-facial-profunda",
         name: "Limpieza facial profunda",
         cardText:
-          "Elimina impurezas y ayuda a mantener una piel más limpia, fresca y saludable.",
+          "Protocolo de higiene facial que purifica los poros y restaura la vitalidad de la piel, adaptado a cada rostro.",
         short:
-          "Limpieza de la piel, exfoliación y extracción cuando corresponda, con productos calmantes e hidratantes.",
-        long: "Se limpia la piel, se realiza exfoliación y extracción cuando corresponda, y se aplican productos calmantes e hidratantes.",
+          "Higiene facial profunda para piel femenina o masculina: purifica los poros y deja el cutis más fresco y equilibrado.",
+        long: "La higiene facial profunda está pensada tanto para la piel femenina como para la masculina, y adapta cada etapa a las necesidades del rostro. El protocolo purifica los poros, desintoxica el tejido y restaura la vitalidad natural de la piel. El resultado que describe el listado es un cutis visiblemente renovado, fresco y equilibrado.",
         benefits: [
-          "Limpieza de la piel",
-          "Exfoliación y extracción cuando corresponda",
-          "Productos calmantes e hidratantes",
+          "Protocolo adaptado a piel femenina o masculina",
+          "Purificación de los poros",
+          "Piel más fresca y equilibrada",
         ],
         whoFor: QUIEN,
         duration: "60–75 min",
@@ -259,29 +290,36 @@ export const categoriesFull: Category[] = [
         slug: "peeling-enzimatico",
         name: "Peeling enzimático",
         cardText:
-          "Renueva suavemente la superficie de la piel y favorece una textura más uniforme y luminosa.",
+          "Producto enzimático para homogeneizar el rostro y uniformar el color, sin irritar la piel.",
         short:
-          "Limpieza de la piel, producto enzimático por el tiempo indicado, retiro y productos de cuidado.",
-        long: "Se limpia la piel y se aplica un producto enzimático por el tiempo indicado; luego se retira y se colocan productos de cuidado.",
+          "Peeling enzimático para aclarar y uniformar el color del rostro. El listado propone 4 sesiones semanales y luego 1 cada 15 días durante 1 mes.",
+        long: "Se limpia la piel y se aplica un producto enzimático como parte del protocolo, durante el tiempo indicado. Luego se retira y se colocan productos de cuidado, sin irritar la piel, para conseguir homogeneidad en el rostro, aclarando y uniformando el color. El listado propone 4 sesiones semanales y, después, 1 sesión cada 15 días durante 1 mes.",
         benefits: [
-          "Limpieza previa de la piel",
           "Producto enzimático por el tiempo indicado",
-          "Retiro y productos de cuidado",
+          "Homogeneidad del color, sin irritar la piel",
+          "Productos de cuidado al finalizar",
         ],
         whoFor: QUIEN,
-        duration: "30–45 min",
-        priceFrom: "S/ 280",
+        duration: "45–55 min",
+        sessions:
+          "4 sesiones semanales y, luego, 1 sesión cada 15 días durante 1 mes",
+        priceFrom: "S/ 150",
         brands: "Exel",
-        faq: faqs(),
+        faq: faqs([
+          {
+            q: "¿Cuántas sesiones indica el listado?",
+            a: "4 sesiones semanales y, luego, 1 sesión cada 15 días durante 1 mes. La indicación se confirma en valoración.",
+          },
+        ]),
       },
       {
         slug: "despigmentante",
         name: "Despigmentante",
         cardText:
-          "Atención personalizada para mejorar la apariencia de manchas y unificar el tono de la piel.",
+          "Evalúa la mancha y el tipo de piel. El protocolo puede incluir productos tópicos, tecnología o mesoterapia.",
         short:
           "Evaluación de la mancha y del tipo de piel. El protocolo puede incluir productos tópicos o tecnología, según indicación. Incluye mesoterapia.",
-        long: "Se evalúa la mancha y el tipo de piel; el protocolo puede incluir productos tópicos o tecnología, según indicación. Incluye mesoterapia.",
+        long: "Se evalúa la mancha y el tipo de piel. El protocolo puede incluir productos tópicos o tecnología, según indicación, e incluye mesoterapia.",
         benefits: [
           "Evaluación de la mancha y del tipo de piel",
           "Productos tópicos o tecnología, según indicación",
@@ -294,20 +332,21 @@ export const categoriesFull: Category[] = [
       },
       {
         slug: "retiro-de-lesiones",
-        name: "Retiro de acrocordones, verrugas, lunares o manchas pigmentadas",
+        name: "PlasmaPen (retiro de acrocordones, verrugas, lunares o manchas pigmentadas)",
         cardText:
-          "Evaluación médica de lesiones de la piel para determinar el tratamiento más adecuado.",
+          "Primero se examina la lesión. Si puede tratarse en consulta, el método de extracción depende del diagnóstico.",
         short:
-          "Examen de la lesión para ver si puede tratarse en consulta o si requiere evaluación adicional. Láser con anestesia local.",
-        long: "Primero se examina la lesión para determinar si puede tratarse en consulta o requiere evaluación adicional. El método depende del diagnóstico. En el listado figura láser con anestesia local.",
+          "PlasmaPen para acrocordones, verrugas, lunares o manchas pigmentadas. Primero se examina la lesión. El listado indica láser con anestesia local.",
+        long: "Primero se examina la lesión para determinar si puede tratarse en consulta o si requiere evaluación adicional. El método de extracción depende del diagnóstico. En el listado, este procedimiento figura como PlasmaPen y el producto indicado es láser con anestesia local.",
         benefits: [
-          "Examen de la lesión",
+          "Examen de la lesión antes de decidir",
           "Criterio para tratar en consulta o pedir más evaluación",
           "Láser con anestesia local, según diagnóstico",
         ],
         whoFor: QUIEN,
         duration: "5–10 min",
         priceFrom: "S/ 450",
+        brands: "Láser con anestesia local",
         faq: faqs([
           {
             q: "¿Toda lesión se retira en la misma consulta?",
@@ -329,7 +368,7 @@ export const categoriesFull: Category[] = [
         slug: "enzimas-recombinantes-corporales",
         name: "Enzimas recombinantes corporales",
         cardText:
-          "Tratamiento corporal personalizado según las características de la zona y los objetivos de cada paciente.",
+          "Se evalúa la zona y, si es apropiado, se aplica el producto y se explica el seguimiento.",
         short:
           "Evaluación de la zona y del objetivo. Si es apropiado, aplicación del producto y explicación del seguimiento.",
         long: "Se evalúa la zona y el objetivo. Si es apropiado, la doctora aplica el producto en el área indicada y explica el seguimiento.",
@@ -348,7 +387,7 @@ export const categoriesFull: Category[] = [
         slug: "estrias-dermapen",
         name: "Tratamiento de estrías con Dermapen por zonas",
         cardText:
-          "Favorece la renovación cutánea para mejorar progresivamente la apariencia y textura de las estrías.",
+          "Microcanales controlados con Dermapen para estrías hipertróficas e hipotróficas, por zonas.",
         short:
           "Limpieza de la zona, microcanales controlados con Dermapen, productos indicados y cuidados posteriores. Estrías hipertróficas e hipotróficas.",
         long: "Se limpia la zona y se realizan microcanales controlados con Dermapen; después se aplican productos indicados y cuidados posteriores. Aplica a estrías hipertróficas e hipotróficas.",
@@ -372,10 +411,10 @@ export const categoriesFull: Category[] = [
         slug: "estrias-fibroblast",
         name: "Tratamiento de estrías con Fibroblast por zonas",
         cardText:
-          "Procedimiento dirigido a mejorar la apariencia de determinadas estrías, previa evaluación médica.",
+          "Plasma superficial en la zona de las estrías, si la doctora confirma que es adecuado.",
         short:
           "Evaluación de la zona y procedimiento con equipo de plasma superficial si la doctora confirma que es adecuado.",
-        long: "Se evalúa la zona y se realiza el procedimiento con equipo de plasma superficial si la doctora confirma que es adecuado. La técnica indicada es Fibroblast; el equipo y la marca concreta no están especificados en el listado.",
+        long: "Se evalúa la zona y se realiza el procedimiento con equipo de plasma superficial si la doctora confirma que es adecuado. La técnica indicada es Fibroblast; el equipo concreto no está especificado en el listado.",
         benefits: [
           "Evaluación de la zona",
           "Plasma superficial si la doctora lo confirma",
@@ -401,10 +440,10 @@ export const categoriesFull: Category[] = [
         slug: "atenuacion-de-tatuajes-nd-yag",
         name: "Atenuación de tatuajes con láser ND:YAG por zona",
         cardText:
-          "Tecnología láser que ayuda a disminuir progresivamente la visibilidad de tatuajes en sesiones personalizadas.",
+          "Láser sobre el tatuaje, hasta 5 cm. Los cambios pueden notarse desde la primera sesión; las sesiones dependen de la valoración.",
         short:
-          "Protección de la piel y láser sobre la zona del tatuaje. Tamaño máximo de 5 centímetros. Sesiones y respuesta según valoración.",
-        long: "Se protege la piel y se dirige el láser a la zona del tatuaje. El número de sesiones y la respuesta dependen de la valoración. El listado considera un tamaño máximo de 5 centímetros. El equipo y la marca del láser no están especificados.",
+          "Protección de la piel y láser sobre la zona del tatuaje. Tamaño máximo de 5 centímetros. El listado indica que pueden verse cambios notorios desde la primera sesión.",
+        long: "Se protege la piel y se dirige el láser a la zona del tatuaje. El número de sesiones y la respuesta dependen de la valoración. El listado considera un tamaño máximo de 5 centímetros y señala que se podrán visualizar cambios notorios desde la primera sesión. El equipo y la marca del láser no están especificados.",
         benefits: [
           "Protección de la piel",
           "Láser dirigido a la zona del tatuaje",
@@ -416,7 +455,7 @@ export const categoriesFull: Category[] = [
         faq: faqs([
           {
             q: "¿Cuántas sesiones hacen falta?",
-            a: "El listado no fija un número. El número de sesiones y la respuesta dependen de la valoración.",
+            a: "El listado no fija un número. El número de sesiones y la respuesta dependen de la valoración. Sí indica que pueden visualizarse cambios notorios desde la primera sesión.",
           },
         ]),
       },
@@ -424,13 +463,13 @@ export const categoriesFull: Category[] = [
         slug: "depilacion-ipl-o-diodo",
         name: "Depilación IPL o diodo, por zona",
         cardText:
-          "Reduce progresivamente el crecimiento del vello para disfrutar de una piel más suave.",
+          "Luz pulsada para reducir el vello de forma progresiva. Incluye rostro y zona bikini anterior.",
         short:
-          "Limpieza, protección y aplicación de IPL o diodo en la zona acordada. Incluye depilación facial (bozo, patillas y zona mandibular) y zona bikini anterior.",
-        long: "Se limpia y protege el área; se aplica IPL o diodo en la zona acordada para reducir progresivamente el vello. Incluye depilación facial (bozo, patillas y zona mandibular) y depilación de zona bikini (zona anterior).",
+          "Limpieza, protección y luz pulsada (IPL o diodo) en la zona acordada. Incluye depilación facial (bozo, patillas y zona mandibular) y zona bikini anterior.",
+        long: "Se limpia y protege el área; se aplica luz pulsada (IPL o diodo) en la zona acordada para reducir progresivamente el vello. Incluye depilación facial (bozo, patillas y zona mandibular) y depilación de zona bikini (zona anterior).",
         benefits: [
           "Limpieza y protección del área",
-          "IPL o diodo en la zona acordada",
+          "Luz pulsada (IPL o diodo) en la zona acordada",
           "Depilación facial y zona bikini anterior",
         ],
         whoFor: QUIEN,
@@ -439,7 +478,7 @@ export const categoriesFull: Category[] = [
         faq: faqs([
           {
             q: "¿Qué zonas nombra el listado?",
-            a: "Depilación facial (bozo, patillas y zona mandibular) y depilación de zona bikini (zona anterior). El precio publicado es por zona.",
+            a: "Depilación facial (bozo, patillas y zona mandibular) y depilación de zona bikini (zona anterior).",
           },
         ]),
       },

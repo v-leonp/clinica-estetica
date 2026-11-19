@@ -150,7 +150,7 @@ export const categorySeo: Record<string, CategorySeo> = {
       },
       {
         q: "¿El efecto es inmediato?",
-        a: "En la ficha de rinomodelación y mentón se indica que el efecto del producto es inmediato. Ese dato no se generaliza al resto de fichas de ácido hialurónico.",
+        a: "En rinomodelación y mentón, y en labios, el listado indica resultado o efecto inmediato. Ese dato no se generaliza al resto de fichas de ácido hialurónico.",
       },
       {
         q: "¿Es lo mismo que la toxina botulínica?",
@@ -180,7 +180,7 @@ export const categorySeo: Record<string, CategorySeo> = {
   "cuidado-de-la-piel": {
     title: "Cuidado de la piel en San Miguel | Dra. Melissa Vigo",
     description:
-      "Cuidado de la piel en San Miguel: limpieza facial profunda, peeling enzimático, despigmentante y retiro de lesiones. Valoración con la Dra. Melissa Vigo.",
+      "Cuidado de la piel en San Miguel: limpieza facial profunda, peeling enzimático, despigmentante y PlasmaPen. Valoración con la Dra. Melissa Vigo.",
   },
   "laser-y-depilacion": {
     title: "Láser y depilación en San Miguel | Dra. Melissa Vigo",
@@ -242,10 +242,10 @@ export const treatmentSeo: Record<string, TreatmentSeo> = {
   "limpieza-facial-profunda": {
     title: "Limpieza facial profunda en San Miguel | Dra. Melissa Vigo",
     description:
-      "Limpieza facial profunda en San Miguel, con exfoliación y extracción cuando corresponda. Consultorio de la Dra. Melissa Vigo, cerca de Magdalena del Mar.",
+      "Limpieza facial profunda en San Miguel: higiene que purifica los poros y se adapta a cada piel. Consultorio de la Dra. Melissa Vigo, cerca de Magdalena del Mar.",
     h1: "Limpieza facial profunda en San Miguel",
     lead: [
-      "La limpieza facial profunda se realiza en el consultorio de San Miguel e incluye limpieza de la piel, exfoliación y extracción cuando corresponda, con productos calmantes e hidratantes. Quienes viven en Magdalena del Mar pueden llegar en pocos minutos. El tiempo publicado es de 60 a 75 minutos y puede variar según la valoración.",
+      "La limpieza facial profunda se realiza en el consultorio de San Miguel. El protocolo purifica los poros y se adapta a la piel femenina o masculina. Quienes viven en Magdalena del Mar pueden llegar en pocos minutos. El tiempo publicado es de 60 a 75 minutos y puede variar según la valoración.",
     ],
     locationLine: attendNeighbors,
     whatsappCta:
@@ -253,7 +253,7 @@ export const treatmentSeo: Record<string, TreatmentSeo> = {
     faqs: [
       {
         q: "¿En qué consiste la limpieza facial profunda?",
-        a: "Limpieza de la piel, exfoliación y extracción cuando corresponda.",
+        a: "Un protocolo de higiene facial que purifica los poros y se adapta a la piel femenina o masculina.",
       },
       {
         q: "¿Es lo mismo que un peeling enzimático?",
@@ -281,11 +281,11 @@ export const treatmentSeo: Record<string, TreatmentSeo> = {
       "Tratamiento facial para manchas en San Miguel. La Dra. Melissa Vigo evalúa tu tipo de piel y define el protocolo, que puede incluir mesoterapia.",
     h1: "Tratamiento facial para manchas en San Miguel",
     heroSubtitle:
-      "El tratamiento facial para manchas, publicado como despigmentante, comienza con la evaluación de la mancha y del tipo de piel en el consultorio de San Miguel. El protocolo puede incluir productos tópicos o tecnología, según indicación, y contempla mesoterapia. No se adelanta un resultado ni un número de sesiones: eso se define en la valoración. Si la necesidad es retirar una lesión concreta, se valora el procedimiento de retiro de lesiones.",
+      "El tratamiento facial para manchas, publicado como despigmentante, comienza con la evaluación de la mancha y del tipo de piel en el consultorio de San Miguel. El protocolo puede incluir productos tópicos o tecnología, según indicación, y contempla mesoterapia. No se adelanta un resultado ni un número de sesiones: eso se define en la valoración. Si la necesidad es retirar una lesión concreta, se valora PlasmaPen.",
     notes: [
       {
         heading: "Relación con otros tratamientos",
-        text: "El retiro de lunares, verrugas o manchas pigmentadas es otro procedimiento (láser con anestesia local) y no es el mismo servicio que el despigmentante.",
+        text: "El retiro de acrocordones, verrugas, lunares o manchas pigmentadas es otro procedimiento, publicado como PlasmaPen. El listado indica láser con anestesia local y no es el mismo servicio que el despigmentante.",
       },
     ],
     whatsappCta:
@@ -297,7 +297,7 @@ export const treatmentSeo: Record<string, TreatmentSeo> = {
       },
       {
         q: "¿Es lo mismo que retirar una mancha pigmentada con láser?",
-        a: "No. El retiro de lunares, verrugas o manchas pigmentadas es otro procedimiento, con láser y anestesia local.",
+        a: "No. El retiro de acrocordones, verrugas, lunares o manchas pigmentadas es PlasmaPen. El listado indica láser con anestesia local.",
       },
       {
         q: "¿Cuántas sesiones voy a necesitar?",
@@ -312,7 +312,8 @@ export const treatmentSeo: Record<string, TreatmentSeo> = {
       { href: `${piel}/peeling-enzimatico`, label: "Peeling enzimático" },
       {
         href: `${piel}/retiro-de-lesiones`,
-        label: "Retiro de acrocordones, verrugas, lunares o manchas pigmentadas",
+        label:
+          "PlasmaPen (retiro de acrocordones, verrugas, lunares o manchas pigmentadas)",
       },
       { href: piel, label: "Cuidado de la piel en San Miguel" },
       { href: reservar, label: "Reservar cita" },
