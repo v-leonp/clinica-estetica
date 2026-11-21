@@ -3,7 +3,7 @@
 Sitio de la práctica de medicina estética de la **Dra. Melissa Vigo**,
 médico cirujano (CMP 101245), en San Miguel, Lima, Perú. El consultorio
 **está abierto** en Calle Manuel Pérez Oblitas 190. El contacto público es
-WhatsApp `+51 998 398 995` (`wa.me/51998398995`). El sitio no publica correo,
+WhatsApp `+51 922 798 480` (`wa.me/51922798480`). El sitio no publica correo,
 horario de atención ni datos societarios.
 
 Construido con [create-t3-app](https://create.t3.gg/):
@@ -53,7 +53,7 @@ dentro de la imagen Open Graph (`public/og.png`).
 Publicados:
 
 - Dirección: Calle Manuel Pérez Oblitas 190, San Miguel, Lima
-- WhatsApp y teléfono de contacto: `+51 998 398 995`
+- WhatsApp y teléfono de contacto: `+51 922 798 480`
   (`whatsappContact` en `src/data/content.ts`, única copia del número)
 - Redes: Facebook, Instagram y TikTok de `dra.melissavigor` / `@dra.melissavigo`
 

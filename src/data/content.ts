@@ -62,13 +62,13 @@ export const doctorProfile = {
 
 /**
  * Única fuente del WhatsApp y del teléfono de contacto.
- * wa.me/51998398995
+ * wa.me/51922798480
  */
 export const whatsappContact = {
   confirmed: true as const,
-  display: "+51 998 398 995",
+  display: "+51 922 798 480",
   /** Dígitos para wa.me, sin + */
-  number: "51998398995",
+  number: "51922798480",
 } as const;
 
 /** Dirección visible en todo el sitio y base del JSON-LD. */

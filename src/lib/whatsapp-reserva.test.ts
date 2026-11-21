@@ -40,7 +40,7 @@ describe("WhatsApp prellenado de la reserva", () => {
     const url = new URL(href);
 
     expect(url.origin).toBe("https://wa.me");
-    expect(url.pathname).toBe("/51998398995");
+    expect(url.pathname).toBe("/51922798480");
     expect(url.searchParams.get("text")).toBe(
       [
         "Hola, quisiera reservar una cita.",
