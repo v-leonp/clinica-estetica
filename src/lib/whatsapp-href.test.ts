@@ -27,10 +27,11 @@ const PHONE_TOUCH: WhatsAppClientHints = {
 describe("href de WhatsApp", () => {
   it("deja wa.me en el HTML, con el texto codificado", () => {
     const href = buildWaMeHref(PHONE, PHRASE);
-    expect(href).toBe(`https://wa.me/${PHONE}?text=${encodeURIComponent(PHRASE)}`);
-    expect(href).toContain("%C2%A1");
-    expect(href).toContain("%C2%BF");
-    expect(href).toContain("%F0%9F%98%8A");
+    const encoded = encodeURIComponent(PHRASE);
+    expect(href).toBe(`https://wa.me/${PHONE}?text=${encoded}`);
+    expect(href.split("text=")[1]).toBe(encoded);
+    expect(encoded).not.toContain("%25");
+    expect(decodeURIComponent(encoded)).toBe(PHRASE);
     expect(new URL(href).searchParams.get("text")).toBe(PHRASE);
     expect(buildWaMeHref(PHONE)).toBe(`https://wa.me/${PHONE}`);
   });
@@ -47,9 +48,22 @@ describe("href de WhatsApp", () => {
     expect(url.pathname).toBe("/send");
     expect(url.searchParams.get("phone")).toBe(PHONE);
     expect(url.searchParams.get("text")).toBe(PHRASE);
+    expect(href.split("text=")[1]).toBe(encodeURIComponent(PHRASE));
+    expect(href.split("text=")[1]).not.toContain("%25");
     expect(toWebWhatsAppHref(buildWaMeHref(PHONE))).toBe(
       `https://web.whatsapp.com/send?phone=${PHONE}`,
     );
+  });
+
+  it("copia el text ya codificado, también si trae un par sustituto", () => {
+    const withEmoji = `Hola ${String.fromCodePoint(0x1f60a)}`;
+    const wa = buildWaMeHref(PHONE, withEmoji);
+    const web = toWebWhatsAppHref(wa);
+    const encoded = encodeURIComponent(withEmoji);
+    expect(wa.split("text=")[1]).toBe(encoded);
+    expect(web.split("text=")[1]).toBe(encoded);
+    expect(decodeURIComponent(web.split("text=")[1] ?? "")).toBe(withEmoji);
+    expect(web.split("text=")[1]).not.toContain("%25");
   });
 
   it("en móvil, tablet táctil o sin ventana conserva wa.me", () => {

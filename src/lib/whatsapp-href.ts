@@ -51,7 +51,12 @@ export function readWhatsAppClientHints(): WhatsAppClientHints | null {
   };
 }
 
-/** Convierte un wa.me de la clínica a WhatsApp Web. Otros hrefs se devuelven igual. */
+/**
+ * Convierte un wa.me de la clínica a WhatsApp Web.
+ * El `text` ya viene de un solo encodeURIComponent: se copia tal cual,
+ * sin decodificarlo, para no volver a codificar ni partir un par sustituto.
+ * Otros hrefs se devuelven igual.
+ */
 export function toWebWhatsAppHref(href: string): string {
   let url: URL;
   try {
@@ -62,8 +67,22 @@ export function toWebWhatsAppHref(href: string): string {
   if (url.protocol !== "https:" || url.hostname !== "wa.me") return href;
   const phone = url.pathname.replace(/^\/+/, "");
   if (!/^\d{8,15}$/.test(phone)) return href;
-  const text = url.searchParams.get("text");
-  return buildWebWhatsAppHref(phone, text ?? undefined);
+  const params = [`phone=${encodeURIComponent(phone)}`];
+  const text = rawQueryParam(href, "text");
+  if (text) params.push(`text=${text}`);
+  return `https://web.whatsapp.com/send?${params.join("&")}`;
+}
+
+/** Valor ya codificado de un parámetro, sin decodeURIComponent. */
+function rawQueryParam(href: string, name: string): string | undefined {
+  const query = href.split("#")[0]?.split("?")[1];
+  if (!query) return undefined;
+  for (const part of query.split("&")) {
+    const eq = part.indexOf("=");
+    const key = eq === -1 ? part : part.slice(0, eq);
+    if (key === name) return eq === -1 ? "" : part.slice(eq + 1);
+  }
+  return undefined;
 }
 
 /**

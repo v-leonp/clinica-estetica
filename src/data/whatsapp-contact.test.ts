@@ -15,7 +15,7 @@ import {
 } from "./content";
 
 const CONSULTA_WEB =
-  "¡Hola! Vi su página web y me gustaría conocer más sobre sus tratamientos. ¿Me podrían orientar? 😊";
+  "¡Hola! Vi su página web y me gustaría conocer más sobre sus tratamientos. ¿Me podrían orientar?";
 
 const DISPLAY = "+51 922 798 480";
 const DIGITS = "51922798480";
@@ -65,11 +65,16 @@ describe("WhatsApp de contacto de la clínica", () => {
 
     const href = cta.whatsapp.getHref();
     const encoded = encodeURIComponent(CONSULTA_WEB);
+    expect(CONSULTA_WEB.endsWith(" ")).toBe(false);
+    expect([...CONSULTA_WEB].every((char) => (char.codePointAt(0) ?? 0) <= 0xffff)).toBe(
+      true,
+    );
     expect(href).toBe(`https://wa.me/${DIGITS}?text=${encoded}`);
     expect(encoded).toContain("%C2%A1");
     expect(encoded).toContain("%C2%BF");
-    expect(encoded).toContain("%F0%9F%98%8A");
-    expect(new URL(href).searchParams.get("text")).toBe(CONSULTA_WEB);
+    expect(encoded).not.toContain("%25");
+    expect(href.split("text=")[1]).toBe(encoded);
+    expect(decodeURIComponent(href.split("text=")[1] ?? "")).toBe(CONSULTA_WEB);
     expect(href).not.toContain("Bienvenidos");
     expect(decodeURIComponent(href)).not.toContain(whatsappWidget.welcomeMessage);
 
