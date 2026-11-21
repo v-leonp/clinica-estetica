@@ -1,4 +1,5 @@
 import { whatsappContact } from "~/data/content";
+import { buildWaMeHref } from "~/lib/whatsapp-href";
 
 export type ReservaWhatsAppInput = {
   nombre: string;
@@ -25,7 +26,7 @@ export function buildReservaWhatsAppMessage(input: ReservaWhatsAppInput): string
 
 export function buildReservaWhatsAppHref(input: ReservaWhatsAppInput): string {
   const text = buildReservaWhatsAppMessage(input);
-  return `https://wa.me/${whatsappContact.number}?text=${encodeURIComponent(text)}`;
+  return buildWaMeHref(whatsappContact.number, text);
 }
 
 function unaLinea(value: string | undefined): string {

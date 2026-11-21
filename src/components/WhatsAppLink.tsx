@@ -6,11 +6,12 @@ import {
   trackWhatsAppClick,
   type WhatsAppLinkLocation,
 } from "~/lib/analytics";
+import { applyDesktopWhatsAppHref } from "~/lib/whatsapp-href";
 
 /**
- * Client anchor for Server Components. Markup stays a plain `<a>`:
- * same href, target, rel, and className. The click handler does not
- * call preventDefault.
+ * Client anchor for Server Components. The HTML href stays wa.me so
+ * el servidor y la hidratación coinciden. En escritorio el clic lo
+ * reescribe a WhatsApp Web antes de abrir la pestaña.
  */
 export default function WhatsAppLink({
   linkLocation,
@@ -33,8 +34,9 @@ export default function WhatsAppLink({
       className={className}
       target={target}
       rel={rel}
-      onClick={() => {
+      onClick={(event) => {
         trackWhatsAppClick(linkLocation);
+        applyDesktopWhatsAppHref(event.currentTarget);
       }}
     >
       {children}

@@ -14,6 +14,7 @@ import { trackReservaFuente, trackWhatsAppClick } from "~/lib/analytics";
 import { formatDiaHoraPreferida } from "~/lib/dia-hora-preferida";
 import { FUENTES_RESERVA, isFuenteReserva } from "~/lib/fuente-reserva";
 import { buildReservaWhatsAppHref } from "~/lib/whatsapp-reserva";
+import { applyDesktopWhatsAppHref } from "~/lib/whatsapp-href";
 import { api } from "~/trpc/react";
 
 type ReservaGuardada = {
@@ -278,8 +279,9 @@ export default function BookingWizard() {
                 className="underline"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => {
+                onClick={(event) => {
                   trackWhatsAppClick("booking");
+                  applyDesktopWhatsAppHref(event.currentTarget);
                 }}
               >
                 WhatsApp

@@ -22,6 +22,7 @@ import {
 } from "~/data/content";
 import { treatmentSeo } from "~/data/seo-copy";
 import { getSiteUrl } from "~/lib/site-url";
+import { buildWaMeHref } from "~/lib/whatsapp-href";
 import { faqPageJsonLd, medicalProcedureJsonLd } from "~/lib/json-ld";
 
 export const dynamic = "force-static";
@@ -87,10 +88,10 @@ export default async function TreatmentPage({
   const faqs = [...(seo?.faqs ?? []), ...treatment.faq];
   const whatsappLabel = seo?.whatsappCta ?? "Consultar por WhatsApp";
   const bookHref = `/reservar?tratamiento=${treatment.slug}`;
-  const waText = encodeURIComponent(
+  const waHref = buildWaMeHref(
+    site.whatsappNumber,
     `Hola ${site.brand}, me interesa el tratamiento "${treatment.name}". ¿Me podrían dar más información?`,
   );
-  const waHref = `https://wa.me/${site.whatsappNumber}?text=${waText}`;
 
   const jsonLd = medicalProcedureJsonLd({
     name: treatment.name,

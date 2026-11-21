@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import { cta, whatsappWidget } from "~/data/content";
 import { trackWhatsAppClick } from "~/lib/analytics";
+import { applyDesktopWhatsAppHref } from "~/lib/whatsapp-href";
 
 export default function WhatsAppButton() {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -79,8 +80,9 @@ export default function WhatsAppButton() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#128C7E] px-4 py-2.5 text-sm font-medium text-cream-50 transition hover:bg-[#0f7569]"
-              onClick={() => {
+              onClick={(event) => {
                 trackWhatsAppClick("floating");
+                applyDesktopWhatsAppHref(event.currentTarget);
               }}
               onMouseEnter={() => setShowQr(true)}
               onMouseLeave={() => setShowQr(false)}

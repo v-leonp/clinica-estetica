@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import WhatsAppLink from "~/components/WhatsAppLink";
 import { cta, site } from "~/data/content";
+import { buildWaMeHref } from "~/lib/whatsapp-href";
 
 export default function TreatmentLeadCta({
   treatmentName,
@@ -13,7 +14,8 @@ export default function TreatmentLeadCta({
   whatsappLabel?: string;
 }) {
   const reservar = `/reservar?tratamiento=${treatmentSlug}`;
-  const wa = encodeURIComponent(
+  const waHref = buildWaMeHref(
+    site.whatsappNumber,
     `Hola ${site.brand}, me interesa reservar cita para ${treatmentName}.`,
   );
 
@@ -32,7 +34,7 @@ export default function TreatmentLeadCta({
             {cta.book.label}
           </Link>
           <WhatsAppLink
-            href={`https://wa.me/${site.whatsappNumber}?text=${wa}`}
+            href={waHref}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline"

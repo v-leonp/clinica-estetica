@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { site, nav, footer, legalLinks } from "~/data/content";
+import { buildWaMeHref } from "~/lib/whatsapp-href";
 import { attendNeighbors } from "~/data/seo-copy";
 import WhatsAppLink from "~/components/WhatsAppLink";
 
@@ -88,7 +89,7 @@ export default function Footer() {
           <ul className="mt-3 space-y-2 text-sm">
             <li>
               <WhatsAppLink
-                href={`https://wa.me/${site.whatsappNumber}`}
+                href={buildWaMeHref(site.whatsappNumber)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gold"
