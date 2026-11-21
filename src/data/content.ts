@@ -91,7 +91,7 @@ export const whatsappWidget = {
  * (widget «Abrir chat», barra móvil y el CTA de WhatsApp sin texto propio).
  */
 export const whatsappInquiryMessage =
-  "Hola, vi su página web y quisiera conocer sus tratamientos, resolver algunas dudas y, si alguno es adecuado para mí, reservar una cita de evaluación.";
+  "¡Hola! Vi su página web y me gustaría conocer más sobre sus tratamientos. ¿Me podrían orientar? 😊";
 
 export const bookingCallMotives = [
   "Consulta médica",

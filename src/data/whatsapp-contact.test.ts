@@ -15,7 +15,7 @@ import {
 } from "./content";
 
 const CONSULTA_WEB =
-  "Hola, vi su página web y quisiera conocer sus tratamientos, resolver algunas dudas y, si alguno es adecuado para mí, reservar una cita de evaluación.";
+  "¡Hola! Vi su página web y me gustaría conocer más sobre sus tratamientos. ¿Me podrían orientar? 😊";
 
 const DISPLAY = "+51 922 798 480";
 const DIGITS = "51922798480";
@@ -64,9 +64,11 @@ describe("WhatsApp de contacto de la clínica", () => {
     );
 
     const href = cta.whatsapp.getHref();
-    expect(href).toBe(
-      `https://wa.me/${DIGITS}?text=${encodeURIComponent(CONSULTA_WEB)}`,
-    );
+    const encoded = encodeURIComponent(CONSULTA_WEB);
+    expect(href).toBe(`https://wa.me/${DIGITS}?text=${encoded}`);
+    expect(encoded).toContain("%C2%A1");
+    expect(encoded).toContain("%C2%BF");
+    expect(encoded).toContain("%F0%9F%98%8A");
     expect(new URL(href).searchParams.get("text")).toBe(CONSULTA_WEB);
     expect(href).not.toContain("Bienvenidos");
     expect(decodeURIComponent(href)).not.toContain(whatsappWidget.welcomeMessage);
