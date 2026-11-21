@@ -80,11 +80,18 @@ export const clinicAddress = {
   reference: "Ref. cuadra 10 de la Av. La Marina",
 } as const;
 
-/** Mensaje de bienvenida del widget (documento cliente, petición 06). */
+/** Mensaje de bienvenida del widget (documento cliente, petición 06). Solo el globo. */
 export const whatsappWidget = {
   welcomeMessage:
     "Hola! Bienvenidos a Vigo Medical Estetic tú consultorio estético en el distrito de San Miguel. ¿En qué podemos ayudarte?",
 } as const;
+
+/**
+ * Lo que escribe la paciente al abrir un chat general desde la web
+ * (widget «Abrir chat», barra móvil y el CTA de WhatsApp sin texto propio).
+ */
+export const whatsappInquiryMessage =
+  "Hola, vi su página web y quisiera conocer sus tratamientos, resolver algunas dudas y, si alguno es adecuado para mí, reservar una cita de evaluación.";
 
 export const bookingCallMotives = [
   "Consulta médica",
@@ -137,7 +144,7 @@ export const cta = {
     label: "WhatsApp",
     getHref: (text?: string) =>
       `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
-        text ?? `Hola ${site.brand}, me gustaría solicitar información.`,
+        text ?? whatsappInquiryMessage,
       )}`,
   },
   treatments: { label: "Ver tratamientos", href: "/tratamientos" },

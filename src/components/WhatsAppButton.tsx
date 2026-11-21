@@ -2,12 +2,8 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
-import { site, whatsappWidget } from "~/data/content";
+import { cta, whatsappWidget } from "~/data/content";
 import { trackWhatsAppClick } from "~/lib/analytics";
-
-function buildWhatsAppUrl(text: string) {
-  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(text)}`;
-}
 
 export default function WhatsAppButton() {
   const [panelOpen, setPanelOpen] = useState(false);
@@ -16,7 +12,7 @@ export default function WhatsAppButton() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
 
-  const chatUrl = buildWhatsAppUrl(whatsappWidget.welcomeMessage);
+  const chatUrl = cta.whatsapp.getHref();
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=10&data=${encodeURIComponent(chatUrl)}`;
 
   const closePanel = useCallback(() => {
