@@ -10,6 +10,8 @@ import {
   catalogIntro,
 } from "./treatments-catalog";
 import type { Category, Treatment, FAQ } from "./treatments-catalog";
+import { buildWaMeHref } from "~/lib/whatsapp-href";
+
 import { homeSeo } from "./seo-copy";
 
 export type { FAQ, Treatment, Category } from "./treatments-catalog";
@@ -62,13 +64,13 @@ export const doctorProfile = {
 
 /**
  * Única fuente del WhatsApp y del teléfono de contacto.
- * wa.me/51998398995
+ * wa.me/51922798480
  */
 export const whatsappContact = {
   confirmed: true as const,
-  display: "+51 998 398 995",
+  display: "+51 922 798 480",
   /** Dígitos para wa.me, sin + */
-  number: "51998398995",
+  number: "51922798480",
 } as const;
 
 /** Dirección visible en todo el sitio y base del JSON-LD. */
@@ -80,11 +82,18 @@ export const clinicAddress = {
   reference: "Ref. cuadra 10 de la Av. La Marina",
 } as const;
 
-/** Mensaje de bienvenida del widget (documento cliente, petición 06). */
+/** Mensaje de bienvenida del widget (documento cliente, petición 06). Solo el globo. */
 export const whatsappWidget = {
   welcomeMessage:
     "Hola! Bienvenidos a Vigo Medical Estetic tú consultorio estético en el distrito de San Miguel. ¿En qué podemos ayudarte?",
 } as const;
+
+/**
+ * Lo que escribe la paciente al abrir un chat general desde la web
+ * (widget «Abrir chat», barra móvil y el CTA de WhatsApp sin texto propio).
+ */
+export const whatsappInquiryMessage =
+  "¡Hola! Vi su página web y me gustaría conocer más sobre sus tratamientos. ¿Me podrían orientar?";
 
 export const bookingCallMotives = [
   "Consulta médica",
@@ -136,9 +145,7 @@ export const cta = {
   whatsapp: {
     label: "WhatsApp",
     getHref: (text?: string) =>
-      `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
-        text ?? `Hola ${site.brand}, me gustaría solicitar información.`,
-      )}`,
+      buildWaMeHref(site.whatsappNumber, text ?? whatsappInquiryMessage),
   },
   treatments: { label: "Ver tratamientos", href: "/tratamientos" },
 } as const;
@@ -146,14 +153,12 @@ export const cta = {
 /** WhatsApp de la tarjeta del catálogo. El evento no lleva el nombre del tratamiento. */
 export function catalogCardWhatsAppHref(treatmentName: string): string {
   const text = `Hola, quisiera reservar una cita para ${treatmentName}.`;
-  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(text)}`;
+  return buildWaMeHref(site.whatsappNumber, text);
 }
 
 /** Reserva general. El evento no incluye datos de la persona. */
 export function bookingWhatsAppHref(): string {
-  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
-    "Hola, quisiera reservar una cita.",
-  )}`;
+  return buildWaMeHref(site.whatsappNumber, "Hola, quisiera reservar una cita.");
 }
 
 export const hero = {
@@ -427,7 +432,7 @@ export const locations: Array<{
     phone: site.whatsappDisplay,
     phoneHref: site.whatsappNumber ? `tel:+${site.whatsappNumber}` : "",
     whatsapp: site.whatsappDisplay,
-    whatsappHref: `https://wa.me/${site.whatsappNumber}`,
+    whatsappHref: buildWaMeHref(site.whatsappNumber),
     mapHref:
       "https://www.google.com/maps/search/?api=1&query=Calle+Manuel+Pérez+Oblitas+190,+San+Miguel,+Lima",
   },

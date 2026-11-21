@@ -6,6 +6,7 @@ import Breadcrumbs from "~/components/Breadcrumbs";
 import FreeConsult from "~/components/FreeConsult";
 import WhatsAppLink from "~/components/WhatsAppLink";
 import { locations, site } from "~/data/content";
+import { buildWaMeHref } from "~/lib/whatsapp-href";
 import { getSiteUrl } from "~/lib/site-url";
 
 export const dynamic = "force-static";
@@ -47,7 +48,7 @@ export default function SedesPage() {
                 tanto puedes escribir por WhatsApp.
               </p>
               <WhatsAppLink
-                href={`https://wa.me/${site.whatsappNumber}`}
+                href={buildWaMeHref(site.whatsappNumber)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary mt-6"
