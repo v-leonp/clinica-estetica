@@ -11,7 +11,7 @@ import {
   resolveTratamientoFromSlug,
 } from "~/data/content";
 import { trackWhatsAppClick } from "~/lib/analytics";
-import { applyDesktopWhatsAppHref, buildWaMeHref } from "~/lib/whatsapp-href";
+import { buildWaMeHref } from "~/lib/whatsapp-href";
 import { api } from "~/trpc/react";
 
 type FieldName =
@@ -168,9 +168,8 @@ export default function ContactForm() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gold-ink"
-                onClick={(event) => {
+                onClick={() => {
                   trackWhatsAppClick("contact");
-                  applyDesktopWhatsAppHref(event.currentTarget);
                 }}
               >
                 {site.whatsappDisplay}

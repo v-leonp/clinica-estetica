@@ -7,7 +7,6 @@ import SiteShell from "~/components/SiteShell";
 import Breadcrumbs from "~/components/Breadcrumbs";
 import { BOOKING_STORAGE_KEY, bookingWhatsAppHref, cta } from "~/data/content";
 import { trackWhatsAppClick } from "~/lib/analytics";
-import { applyDesktopWhatsAppHref } from "~/lib/whatsapp-href";
 import {
   buildReservaWhatsAppHref,
   buildReservaWhatsAppMessage,
@@ -110,9 +109,8 @@ export default function ReservaConfirmacionPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline"
-              onClick={(event) => {
+              onClick={() => {
                 trackWhatsAppClick("booking");
-                applyDesktopWhatsAppHref(event.currentTarget);
               }}
             >
               {mensajeWhatsApp ? "Abrir WhatsApp" : "WhatsApp"}
