@@ -27,6 +27,9 @@ if (!process.env.DATABASE_URL) {
 console.log("→ prisma migrate deploy");
 execSync("npx prisma migrate deploy", { stdio: "inherit" });
 
+console.log("→ seed del primer administrador (si hay variables)");
+execSync("node scripts/seed-initial-admin.mjs", { stdio: "inherit" });
+
 applyDatabaseUrlEnv({ forMigration: false });
 
 console.log("→ next build");
