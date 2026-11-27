@@ -7,3 +7,13 @@ export function buildWaMeHref(phone: string, text?: string): string {
   if (!text) return base;
   return `${base}?text=${encodeURIComponent(text)}`;
 }
+
+/**
+ * Enlace oficial api.whatsapp.com/send. Úsalo cuando el mensaje lleva emojis:
+ * la redirección de wa.me hacia WhatsApp Web los convierte en «�».
+ */
+export function buildWhatsAppSendHref(phone: string, text?: string): string {
+  const params = new URLSearchParams({ phone });
+  if (text) params.set("text", text);
+  return `https://api.whatsapp.com/send?${params.toString()}`;
+}

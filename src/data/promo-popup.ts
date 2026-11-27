@@ -1,5 +1,5 @@
 import { whatsappContact } from "~/data/content";
-import { buildWaMeHref } from "~/lib/whatsapp-href";
+import { buildWhatsAppSendHref } from "~/lib/whatsapp-href";
 
 /**
  * Promoción que aparece como pop-up en la portada.
@@ -41,5 +41,5 @@ export function isPromoPopupActive(
 export function promoPopupWhatsAppHref(
   config: Pick<PromoPopupConfig, "message"> = promoPopup,
 ): string {
-  return buildWaMeHref(whatsappContact.number, config.message);
+  return buildWhatsAppSendHref(whatsappContact.number, config.message);
 }

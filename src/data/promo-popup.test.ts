@@ -36,9 +36,10 @@ describe("configuración del pop-up de promoción", () => {
     const encoded = encodeURIComponent(promoPopup.message);
 
     expect(whatsappContact.number).toBe("51922798480");
-    expect(href).toBe(
-      `https://wa.me/${whatsappContact.number}?text=${encoded}`,
-    );
+    const url = new URL(href);
+    expect(url.origin + url.pathname).toBe("https://api.whatsapp.com/send");
+    expect(url.searchParams.get("phone")).toBe(whatsappContact.number);
+    expect(href).not.toContain("%25");
     expect(href).not.toContain("web.whatsapp.com");
     expect(encoded).not.toContain("%25");
     expect(new URL(href).searchParams.get("text")).toBe(promoPopup.message);
