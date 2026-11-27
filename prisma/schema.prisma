@@ -37,3 +37,140 @@ model Lead {
     @@index([createdAt])
     @@index([email])
 }
+
+// ---------------------------------------------------------------------------
+// Área privada (Sprint 1). Tablas nuevas. No modificar `Lead`: las previews
+// todavía pueden apuntar a la base de producción.
+// ---------------------------------------------------------------------------
+
+enum AppRole {
+    ADMINISTRADOR
+    MEDICO
+}
+
+/// Persona del equipo. Better Auth usa esta tabla. Nunca se borra desde la app.
+model User {
+    id            String    @id
+    name          String
+    email         String
+    emailVerified Boolean   @default(false)
+    image         String?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    /// Colegiatura. Obligatoria en la aplicación si tiene rol Médico.
+    cmp           String?
+    active        Boolean   @default(true)
+    deactivatedAt DateTime?
+    passwordSetAt DateTime?
+    lastAccessAt  DateTime?
+
+    sessions Session[]
+    accounts Account[]
+    roles    UserRole[]
+
+    @@unique([email])
+    @@index([active])
+    @@map("user")
+}
+
+model Session {
+    id        String   @id
+    expiresAt DateTime
+    token     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    ipAddress String?
+    userAgent String?
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([token])
+    @@index([userId])
+    @@map("session")
+}
+
+model Account {
+    id                    String    @id
+    accountId             String
+    providerId            String
+    userId                String
+    user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    accessToken           String?
+    refreshToken          String?
+    idToken               String?
+    accessTokenExpiresAt  DateTime?
+    refreshTokenExpiresAt DateTime?
+    scope                 String?
+    password              String?
+    createdAt             DateTime  @default(now())
+    updatedAt             DateTime  @updatedAt
+
+    @@unique([providerId, accountId])
+    @@index([userId])
+    @@map("account")
+}
+
+model Verification {
+    id         String   @id
+    identifier String
+    value      String
+    expiresAt  DateTime
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    @@index([identifier])
+    @@map("verification")
+}
+
+model Role {
+    id    String  @id
+    code  AppRole @unique
+    name  String
+    users UserRole[]
+}
+
+model UserRole {
+    userId     String
+    roleId     String
+    assignedAt DateTime @default(now())
+    user       User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+    role       Role     @relation(fields: [roleId], references: [id], onDelete: Restrict)
+
+    @@id([userId, roleId])
+    @@index([roleId])
+}
+
+/// Catálogo interno. Sin precio: la web pública no publica tarifas.
+model Treatment {
+    id                  String    @id
+    name                String
+    category            String
+    estimatedMinutes    Int
+    internalDescription String?
+    active              Boolean   @default(true)
+    createdAt           DateTime  @default(now())
+    updatedAt           DateTime  @updatedAt
+    createdById         String?
+    updatedById         String?
+
+    @@index([active])
+    @@index([category])
+}
+
+model AuditLog {
+    id         String   @id
+    actorId    String?
+    actorName  String?
+    actorEmail String?
+    action     String
+    entityType String
+    entityId   String?
+    summary    String
+    before     Json?
+    after      Json?
+    createdAt  DateTime @default(now())
+
+    @@index([createdAt])
+    @@index([entityType, entityId])
+    @@index([actorId])
+}

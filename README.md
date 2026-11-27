@@ -68,9 +68,10 @@ sin texto propio, y no hay que inventarlos:
 > ARIA críticos en las páginas principales con axe-core. Siempre revisa con
 > tu propia herramienta antes de salir a producción.
 
-> **NextAuth:** fue retirado en la última revisión por no tener UI de login
-> y por advisories críticos en `next-auth@5.0.0-beta.*`. Vuelve a añadirlo
-> cuando exista un portal de pacientes.
+El área interna vive en `/app` (no enlazada desde el sitio público). Better Auth,
+roles Administrador y Médico, catálogo interno sin precios y registro de cambios.
+Guías: [arquitectura](docs/area-privada.md), [variables](docs/variables-entorno.md)
+y [primer administrador](docs/primer-administrador.md).
 
 ---
 
