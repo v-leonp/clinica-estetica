@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 
-import SiteShell from "~/components/SiteShell";
 import FreeConsult from "~/components/FreeConsult";
-import HomeVideoHero from "~/components/home/HomeVideoHero";
+import PromoPopup from "~/components/PromoPopup";
+import SiteShell from "~/components/SiteShell";
 import HomeDoctorIntro from "~/components/home/HomeDoctorIntro";
-import HomeTreatmentsCatalog from "~/components/home/HomeTreatmentsCatalog";
-import HomeWhyUs from "~/components/home/HomeWhyUs";
 import HomeLocation from "~/components/home/HomeLocation";
+import HomeTreatmentsCatalog from "~/components/home/HomeTreatmentsCatalog";
+import HomeVideoHero from "~/components/home/HomeVideoHero";
+import HomeWhyUs from "~/components/home/HomeWhyUs";
 import { homeSeo } from "~/data/seo-copy";
 import { medicalClinicJsonLd } from "~/lib/json-ld";
 
@@ -32,6 +33,7 @@ export default function HomePage() {
 
   return (
     <SiteShell>
+      <PromoPopup />
       <HomeVideoHero />
       <HomeDoctorIntro />
       <HomeTreatmentsCatalog />

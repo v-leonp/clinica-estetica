@@ -16,7 +16,8 @@ export type WhatsAppLinkLocation =
   | "contact"
   | "locations"
   | "sedes"
-  | "promociones";
+  | "promociones"
+  | "promo_popup";
 
 export const CONSENT_STORAGE_KEY = "dmv-cookie-consent";
 export const CONSENT_EVENT = "dmv-cookie-consent-change";
@@ -108,5 +109,32 @@ export function trackReservaFuente(fuente: string): void {
     sendGAEvent("event", "reserva_fuente", payload);
   } catch {
     readGtag()?.("event", "reserva_fuente", payload);
+  }
+}
+
+/** Eventos del pop-up de promoción. Nunca envían mensaje, teléfono ni nombre. */
+export type PromoPopupEventName = "popup_view" | "popup_click" | "popup_close";
+
+/**
+ * GA4 `popup_view`, `popup_click` o `popup_close`.
+ * Solo `popup_id` y `page_path` (pathname, sin query).
+ * No hace nada hasta que se aceptan las cookies. Nunca lanza si falta gtag.
+ */
+export function trackPromoPopup(
+  event: PromoPopupEventName,
+  popupId: string,
+): void {
+  if (typeof window === "undefined") return;
+  if (readConsent() !== "accepted") return;
+
+  const payload = {
+    popup_id: popupId,
+    page_path: window.location.pathname,
+  };
+
+  try {
+    sendGAEvent("event", event, payload);
+  } catch {
+    readGtag()?.("event", event, payload);
   }
 }
