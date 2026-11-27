@@ -17,7 +17,7 @@ export const promoPopup = {
   imageHeight: 1440,
   alt: "Promoción Black Friday de Vigo Medical Estetic: hasta 50% de descuento. Promociones por tiempo limitado, según el tratamiento elegido en consulta. Agenda tu cita.",
   message:
-    "Hola, vi la promoción Black Friday y quiero agendar una cita",
+    "¡Hola! 👋😊 Vi su promoción de Black Friday 🖤🛍️ y me gustaría aprovecharla. ¿Podrían brindarme información sobre los horarios disponibles para agendar una cita? 📅✨\n\n¡Muchas gracias! 💕",
   /** Inclusive: el pop-up se muestra hasta este instante (America/Lima). */
   endsAt: "2026-11-30T23:59:59-05:00",
   /** Espera antes de mostrar el diálogo, en milisegundos (1,5–3 s). */

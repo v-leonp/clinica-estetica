@@ -19,7 +19,7 @@ describe("configuración del pop-up de promoción", () => {
     expect(promoPopup.alt).toMatch(/Black Friday/i);
     expect(promoPopup.alt).toMatch(/50%/);
     expect(promoPopup.message).toBe(
-      "Hola, vi la promoción Black Friday y quiero agendar una cita",
+      "¡Hola! 👋😊 Vi su promoción de Black Friday 🖤🛍️ y me gustaría aprovecharla. ¿Podrían brindarme información sobre los horarios disponibles para agendar una cita? 📅✨\n\n¡Muchas gracias! 💕",
     );
     expect(promoPopup.message).not.toMatch(/\d{6,}/);
     expect(promoPopup.endsAt).toBe("2026-11-30T23:59:59-05:00");
